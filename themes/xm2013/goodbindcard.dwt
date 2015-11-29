@@ -1,0 +1,362 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<title>{$page_title}</title>
+<link rel="shortcut icon" href="favicon.ico"/>
+<link rel="icon" href="animated_favicon.gif" type="image/gif"/>
+<link href="themes/xm2013/style.css" rel="stylesheet" type="text/css"/>
+<link href="themes/xm2013/base.css" rel="stylesheet" type="text/css"/>
+{insert_scripts files='common.js,transport.js,utils.js'}
+{assign var=mycat_tmp value=$categories.$category}
+<script>
+var _mvq = _mvq || [];
+_mvq.push(['$setAccount', 'm-29971-0']);
+_mvq.push(['$setGeneral', 'category', '', '{$ecs_session.user_name|escape:"javascript"}', '{$ecs_session.user_id|escape:"javascript"}']);
+_mvq.push(['$logConversion']);
+_mvq.push(['$addCategory', '{$mycat_tmp.name|escape:"javascript"}', '{$category|escape:"javascript"}']);
+_mvq.push(['$logData']);
+</script>
+
+							
+</head>
+<body><!-- #BeginLibraryItem "/library/page_header.lbi" -->
+
+<script type="text/javascript">
+var process_request = "正在处理您的请求...";
+</script>
+<script type="text/javascript">
+var isWidescreen=screen.width<1200;
+if (isWidescreen){document.getElementsByTagName("body")[0].className="w950";}
+</script>
+<div class="header container">
+  <div class="top">
+    <div class="logo"><a class="icon-common-logo" href="index.php" title=""><img src="themes/xm2013/images/logo.gif" /></a></div>
+    <div class="right clearfix">
+      <div class="menu">
+        <ul class="clearfix">
+          <li>
+            <label id="header_menu_top_login"><font id="ECS_MEMBERZONE">{insert name='member_info'}</font></label>
+          </li>
+          <li><a href="mobile">手机版</a></li>
+        </ul>
+      </div>
+      <div class="search">
+        <form id="user_search" action="search.php" method='get'>
+          <input type="text" id="keyword" name="keywords" class="txt" value="" placeholder="请输入关键词" />
+          <input type="submit"  class="mbtn" value=''/>
+          <label class="hot">{foreach from=$searchkeywords item=val}
+   <a href="search.php?keywords={$val|escape:url}">{$val}</a>
+   {/foreach}</label>
+        </form>
+      </div>
+
+      
+    <div style="margin-top:3px;" class="xshop buy_car_bg clearfix"  onmouseover="this.className='xshop hover_on buy_car_bg ul1_on'" onmouseout=  "this.className='xshop buy_car_bg'">
+	
+	<img src="images/nav_cat.gif" style="float:left; padding-right:5px; padding-left:10px; padding-top:7px;" /> 
+	<div id="ECS_CARTINFO">
+
+   <p><a href="flow.php">{insert name='cart_info'}</a></p>
+     </div> </div>
+      
+      <!--<div style="position: absolute;right: 31px;top: 78px;"><a target="_blank" id="kaifanggm" href="#">下轮开放购买：9月17日中午12点</a></div>-->
+    </div>
+  </div>
+  <div class="nav">
+    <div class="clearfix"><strong id="btnnav" class="side"><a href="catalog.php" class="catenav">全部商品分类<em class="tri"></em></a></strong>
+      <div class="lnks clearfix">
+        <ul class="lnks-li">
+          <li><a class="lnk  {if $navigator_list.config.index eq 1}on{/if}" href="index.php">首页</a></li>
+          
+		  <!-- {foreach name=nav_middle_list from=$navigator_list.middle item=nav} -->
+            <?php
+            $GLOBALS['smarty']->assign('get_child_tree', get_child_tree($GLOBALS['smarty']->_var['nav']['cid']));
+            $GLOBALS['smarty']->assign('menucatid',get_catid_byurl($GLOBALS['smarty']->_var['nav']['url']));
+            ?>
+          <li {if $menucatid && $get_child_tree}class="phonelistarr" onmouseover="this.className='phonelistarr nhover'" onmouseout="this.className='phonelistarr'"{/if}><a class="lnk {if $nav.active eq 1}on{/if}" href="{$nav.url}"> {$nav.name} </a>
+            {if $menucatid && $get_child_tree}
+              <dl>
+                <!--{foreach from=$get_child_tree item=child name=child}-->             
+                <dd {if $smarty.foreach.subcates.last}class="last"{/if}><a href="{$child.url}" title="{$cat.name|escape:html}">{$child.name}</a></dd>
+                <!--{/foreach}-->
+              </dl>
+            {/if}	
+          </li>
+		  <!-- {/foreach} -->
+       <div align="right" height:45px; line-height:45px; overflow:hidden;>{insert name='ads' id=29 num=1}</div>
+        </ul>
+      </div>
+    </div>
+    <div class="showlist snone" id="div_all_cat">
+      <ul class="lists">
+	  <!--{foreach from=get_categories_tree() item=cat}-->
+        <li onmouseover="this.className='navhover'" onmouseout="this.className=''"><a class="tit" href="{$cat.url}">{$cat.name|escape:html}</a><em class="icon-common icon-common-arrowright"></em>
+		{if $cat.cat_id}
+          <label class="tri"><i></i></label>
+          <div class="show clearfix">
+            <div class="lt">
+              <dl class="firstdl">
+			  <!--{foreach from=$cat.cat_id item=child}-->
+                <dd><a  href="{$child.url}">{$child.name|escape:html}</a></dd>
+              <!--{/foreach}-->
+              </dl>
+            </div>
+          </div>
+		  {/if}	
+        </li>
+		<!--{/foreach}--> 
+      </ul>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="themes/xm2013/js/jquery.js"></script>
+<script type="text/javascript" src="themes/xm2013/js/xm.js"></script><!-- #EndLibraryItem --><script type="text/javascript">
+document.getElementById("div_all_cat").className = "showlist";
+</script>
+<div class="container">
+<div class="row mileftnav">
+  <div class="span3">
+    <div class="xm-box">
+      <div class="hd">
+        <h2 class="title">你可能还喜欢</h2>
+      </div>
+      <div class="bd">
+        <ul class="xm-goods-sublist xm-goods-sublist-l">
+		<!--{foreach from=$best_goods item=goods}-->
+          <li>
+            <div class="item-name"><a href="{$goods.url}" title="{$goods.name|escape:html}">{$goods.short_style_name}</a></div>
+            <div class="item-price"><!-- {if $goods.promote_price neq ""} -->{$goods.promote_price}<!-- {else}-->{$goods.shop_price}<!--{/if}--></div>
+            <div class="item-thumb"><a href="{$goods.url}" title="{$goods.name|escape:html}"><img src="{$goods.thumb}" alt="{$goods.name|escape:html}" /></a></div>
+          </li>
+       <!--{/foreach}-->
+        </ul>
+      </div>
+    </div><!-- #BeginLibraryItem "/library/history.lbi" -->
+
+<style>
+#clear_history{ border:0px; width:200px}
+#clear_history a{ float:right}
+</style>
+<div class="xm-box" id='history_div'>
+    <div class="clearfix">
+      <h3><span>你刚刚看过</span></h3>
+      <div class="boxCenterList clearfix" id='history_list' style="padding:3px;border-top:none;">
+	 
+       {insert name='history'}
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+if (document.getElementById('history_list').innerHTML.replace(/\s/g,'').length<1)
+{
+    document.getElementById('history_div').style.display='none';
+}
+else
+{
+    document.getElementById('history_div').style.display='block';
+}
+function clear_history()
+{
+Ajax.call('user.php', 'act=clear_history',clear_history_Response, 'GET', 'TEXT',1,1);
+}
+function clear_history_Response(res)
+{
+document.getElementById('history_list').innerHTML = '您已清空最近浏览过的商品';
+}
+</script><!-- #EndLibraryItem --></div>
+  <div class="span12">
+    <div class="category-bn-box clearfix">
+    
+  <div class="xm-box category-filter-box">
+        <div class="hd">
+          <h2 class="title" style='padding-left: 8px;'>会员俱乐部</h2>
+          <div class="category-filter-meta">共{$num}个商品</div>
+        </div>
+        <div class="bd">
+        	          <dl class="xm-filter-list category-filter-list clearfix" style='padding:16px 10px 8px 0'>
+                  <dt>分类：</dt>
+                  <dd>
+                    <ul>
+                      <li {if $cid==0} class="current" {/if}><a href='goodbindcard.php'>全部</a></li>
+                     {foreach from=$catlist item=c}
+                          <li {if $cid==$c.cat_id} class="current" {/if}><a href="goodbindcard.php?id={$c.cat_id}" >{$c.cat_name}</a></li>
+                    {/foreach}
+
+                    </ul>
+                  </dd>
+                </dl>
+
+
+
+              </div>
+  	      </div>
+    
+    
+ <?php
+    $GLOBALS['smarty']->assign('ad',get_adv('首页-分类ID'.$GLOBALS['smarty']->_var['category'].'-广告1'));
+    ?>
+	{if $ad}
+      <div class="category-bn9"><a href='{$ad.url}' target='_blank'><img src='{$ad.image}' width='691' height='180' /></a></div>
+	{/if}
+    
+    <?php
+    $GLOBALS['smarty']->assign('ad',get_adv('首页-分类ID'.$GLOBALS['smarty']->_var['category'].'-广告2'));
+    ?>
+	{if $ad}
+      <div class="category-bn3"><a href='{$ad.url}' target='_blank'><img src='{$ad.image}' width='231' height='180' /></a></div>
+	{/if}
+    
+    
+    
+       
+    </div>
+
+    <div class="xm-box category-list-box">
+
+      <div class="bd">
+        <div class="xm-goods-list-wrap">
+          <ul class="xm-goods-list clearfix">
+		  
+		  <!--{foreach from=$goods_list item=goods}-->
+    <!-- {if $goods.goods_id} -->
+            <li>
+              <div class="xm-goods-item">
+                <div class="item-thumb"><a href="{$goods.url}" title="{$goods.goods_name}"><img src="{$goods.goods_thumb}" alt="{$goods.goods_name}" /></a></div>
+                <h2 class="item-name"><a href="{$goods.url}" title="{$goods.goods_name}">{$goods.goods_name}</a></h2>
+                <div class="item-price"><!--{if $goods.promote_price neq "" } -->{$goods.promote_price}<!--{else}-->{$goods.shop_price}<!--{/if}--><del>{$goods.market_price}</del></div>
+                <div class="item-action"><a class="action-add-cart xmAddShopCart" href="javascript:addToCart({$goods.goods_id})" ><span class="icon-common icon-common-plus"></span>加入购物车</a></div>
+                <div class="item-flags"><span class="icon-saleoff icon-saleoff-0">会员</span> </div>
+              </div>
+            </li>
+            <!--{/if}-->
+    <!--{/foreach}-->
+			
+          </ul>
+        </div>
+      </div>
+<script type="Text/Javascript" language="JavaScript">
+<!--
+{literal}
+function selectPage(sel)
+{
+  sel.form.submit();
+}
+{/literal}
+//-->
+</script>
+<script type="text/javascript">
+window.onload = function()
+{
+  
+}
+{foreach from=$lang.compare_js item=item key=key}
+{if $key neq 'button_compare'}
+var {$key} = "{$item}";
+{else}
+var button_compare = '';
+{/if}
+{/foreach}
+var compare_no_goods = "{$lang.compare_no_goods}";
+var btn_buy = "{$lang.btn_buy}";
+var is_cancel = "{$lang.is_cancel}";
+var select_spe = "{$lang.select_spe}";
+</script><!-- #EndLibraryItem -->
+ </div>
+  </div>
+</div><!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+<div class="footer container">
+  <div class="footerup">
+    <div class="footercont">
+      <ul class="nums clearfix">
+        <li class="first"><a href="#" target="_blank" ><span>7</span><strong>
+          <label>天</label>
+          退货保障 </strong></a></li>
+        <li class="line">|</li>
+        <li class="second"><a href="#" target="_blank"><span>15</span><strong>
+          <label>天</label>
+          换货承诺 </strong></a></li>
+        <li class="line">|</li>
+        <li class="third"><a href="#" target="_blank"><span>100</span><strong>
+          <label>元起</label>
+          全场免邮费 </strong></a></li>
+        <li class="line"></li>
+        <li class="fourth"><a href="#" target="_blank"><span>420</span><strong>
+          <label>余家</label>
+          售后服务网点 </strong></a></li>
+      </ul>
+      <div class="service clearfix">
+	  <!-- {foreach from=get_shop_help() item=help_cat} -->
+        <dl>
+          <dt>{$help_cat.cat_name}</dt>
+		  <!-- {foreach from=$help_cat.article item=item} -->
+          <dd><a href="{$item.url}" title="{$item.short_title}">{$item.short_title}</a></dd>
+          <!-- {/foreach} -->
+        </dl>
+      <!-- {/foreach} -->
+        <dl>
+          <dt>关注我们</dt>
+          <dd class="sina"><span class="icon-common icon-common-sina"></span><a href="http://e.weibo.com/xiaomishouji" target="_blank"> 新浪微博 </a></dd>
+          <dd class="kongjian"><span class="icon-common icon-common-kongjian"></span><a  href="http://user.qzone.qq.com/2451201053" target="_blank"> QQ空间 </a></dd>
+          <dd id="txweixin" class="facebook"><span class="icon-common icon-common-weixin"></span><a> 官方微信 </a></dd>
+        </dl>
+        <div class="online">
+          <ul>
+            <li class="item1"><span class="icon-common icon-common-tel"></span>400-100-5678 </li>
+            <li class="item2"> 仅收市话费，周一至周日8:00-18:00 </li>
+          
+            
+            
+            <!-- QQ 号码 {foreach from=$qq item=im} -->
+      <!-- {if $im} -->
+        <li class="item3 clearfix">
+      <a class="btn btn-green" href="http://wpa.qq.com/msgrd?V=1&amp;Uin={$im}&amp;Site={$shop_name}&amp;Menu=yes" target="_blank"><span class="icon-common icon-common-face"></span>24小时在线客服</a></li>
+      <!-- {/if} -->
+      <!-- {/foreach} 结束QQ号码 -->
+      
+      
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="linker"><!-- {foreach name=nav_bottom_list from=$navigator_list.bottom item=nav} -->
+  <a href="{$nav.url}" <!-- {if $nav.opennew eq 1} --> target="_blank" <!-- {/if} -->>{$nav.name}</a><!-- {if !$smarty.foreach.nav_bottom_list.last} --> | <!-- {/if} -->
+  <!-- {/foreach} --></div>
+  <div class="footerbtm">
+    <div class="info"> {$copyright} <img src="themes/xm2013/images/footerbg.gif" /></div>
+    <div class="believe"><a target="_blank" href="#"><img src="themes/xm2013/images/f1.gif"></a><a target="_blank" href="#"><img src="themes/xm2013/images/f2.gif"></a><a target="_blank" href="#"><img src="themes/xm2013/images/f3.gif"></a></div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+   if (Object.prototype.toJSONString){
+      var oldToJSONString = Object.toJSONString;
+      Object.prototype.toJSONString = function(){
+        if (arguments.length > 0){
+          return false;
+        }else{
+          return oldToJSONString.apply(this, arguments);
+        }
+		}
+}
+function ResumeError()
+{
+   return true;
+}
+window.onerror = ResumeError; 
+</script><!-- #EndLibraryItem --></body>
+
+</html>

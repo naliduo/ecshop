@@ -1,0 +1,51 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ 
+
+ <div style="float:left">{$str}</div>
+ <ul class="car_ul">
+
+ <!-- {if $goods} -->
+
+ {foreach from=$goods item=goods name=goods}
+ <li>
+ <div class="f_l" style="float:left">
+ <a  href="{$goods.url}"><img src="{$goods.goods_thumb}" style="width:50px; height:50px; border:0px solid #e1e1e1; float:left" alt="{$goods.goods_name}"></a>
+ <a  class="b2"  href="{$goods.url}">{$goods.short_name}</a>
+ </div>
+ <div class="f_r" style="float:right">
+ <b>{$goods.goods_price}×{$goods.goods_number}</b>
+ <a  class="del" href="javascript:if (confirm('您确实要把该商品移出购物车吗？')) location.href='flow.php?step=drop_goods&id={$goods.rec_id}'">删除</a>
+ </div>
+  </li>
+ {/foreach}
+ <li style=" text-align:right; margin-top:3px;">
+  <a href="flow.php?step=consignee"><img  style=" margin-left:10px;"src="images/checkout_top.gif" alt="checkout" /></a>
+  </li>
+  <!-- {else} -->
+ <a href="#" style="color:#999; padding-left:10px;">您的购物车暂无商品 赶快选择心爱的产品吧</a>
+ <!-- {/if} -->
+ <div class="dang">
+ </div>
+ <ul>
+<script type="text/javascript">
+function deleteCartGoods(rec_id)
+{
+Ajax.call('delete_cart_goods.php', 'id='+rec_id, deleteCartGoodsResponse, 'POST', 'JSON');
+}
+
+/**
+ * 接收返回的信息
+ */
+function deleteCartGoodsResponse(res)
+{
+  if (res.error)
+  {
+    alert(res.err_msg);
+  }
+  else
+  {
+      document.getElementById('ECS_CARTINFO').innerHTML = res.content;
+  }
+}
+</script>
+

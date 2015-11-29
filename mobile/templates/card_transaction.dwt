@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<title>会员卡 - {$shop_name}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta content="telephone=no" name="format-detection" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="viewport" content="width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png"/>
+    <link href="css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="css/head.css" rel="stylesheet" type="text/css" />
+    <link href="css/foot.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+	<style>
+/*页面自身样式*/
+	section{font: 14px/1.5 微软雅黑;}
+	.form{margin: 0 10px;padding-top:15px;}
+	.frame{margin-bottom: 15px;}
+	.frame p{margin-bottom: 5px;}
+	.frame input{width: 100%;height: 35px;border: 1px solid #c3c3c3;line-height: 35px;}
+	.area select{width: 80px;height: 30px;line-height: 30px;font-size:14px;float: left;display: inline-block;*display: inline;*zoom: 1;height:22px; line-height:18px; padding:2px 0;
+	}
+	.form .submit .btn{background-color: #F7762E;color: #fff;font: 14px/1.5 微软雅黑;font-weight: bold;border: 0;}
+	</style>
+</head>
+<body>
+<div class="form">
+        <!--#会员卡 -->
+        <!-- {if $action eq "user_card"} -->
+    <form  action="user_card.php" method="post">
+    <h5 align="center"><span>绑定会员卡/修改卡密</span></h5>
+    <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
+    <tr>
+          <td width="28%" align="left" bgcolor="#FFFFFF" colspan="2" >
+&nbsp;&nbsp;&nbsp;&nbsp;您已绑定的卡号：<br />
+          {if $card_list}
+          <table border="0" cellpadding="0" cellspacing="0" width="80%" align="center">
+          <tr>
+    <th  align="center">卡号</th>
+    <th  align="center">等级</th>
+    <th  align="center">发卡方式</th>
+    <th  align="center">绑定时间</th>
+    <th  align="center">状态</th>
+     <th  align="center">备注</th>
+  </tr>
+          {foreach from=$card_list item=card}
+          
+  <tr>
+    <td align="center">{$card.card_no}</td>
+    <td  align="center">{$card.card_level}</td>
+    <td  align="center">{$card.send_type}</td>
+    <td  align="center">{$card.str_bind_time}</td>
+    <td  align="center">{if $card.is_show}可用{else}锁定{/if}</td>
+     <td  align="center">{$card.des}</td>
+  </tr>
+  
+
+
+          
+          {/foreach}
+          
+          </table>
+          {else}
+          &nbsp;&nbsp;&nbsp;&nbsp;暂无
+          {/if}
+          </td>
+      <tr>
+        
+      <tr>
+        <td colspan="2" bgcolor="#FFFFFF" align="left">
+        <span class="f4">&nbsp;&nbsp;&nbsp;&nbsp;温馨提示：</span><br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;亲爱的客户，通过此绑定流程，可以增加您的购物资金和会员等级分。<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;购物资金让您可以利用余额支付方式购物<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;而等级分的增加会使您享受更高的产品折扣<br />
+        </td>
+      </tr>
+        <tr>
+          <td width="5%" align="right" bgcolor="#FFFFFF"><div align="center">卡号：</div></td>
+          <td width="76%" align="left" bgcolor="#FFFFFF"><div align="left">
+            <input name="card_no" type="text" size="55"  class="tipInput" value=""  />
+          </div></td>
+      <tr>
+          <td width="5%" align="right" bgcolor="#FFFFFF"><div align="center">卡密：</div></td>
+          <td width="76%" align="left" bgcolor="#FFFFFF"><div align="left">
+            <input name="card_pass" type="password" size="55"  class="tipInput" value=""  />
+          </div></td>
+          
+      </tr>
+        <tr><td colspan="2" bgcolor="#FFFFFF" align="center">
+        </br>
+        <div class="frame submit">
+        <input name="act" type="hidden" value="user_card" />
+        <input name="bind" type="submit" value="绑定" class="btn" style="border:none;" />
+        </div>
+       </td></tr>
+    </table>    
+</form>
+</div>
+        <!--{/if} -->
+        <!--#会员卡 -->
+        <!-- start 会员卡下一步-->
+            <!-- {if $action eq "usercardnext"} -->
+
+              <h5><span>补充用户信息</span></h5>
+                  <div class="blank"></div>
+                     <form name="formEdit" action="user_card.php" method="post" onSubmit="return userEdit2()">
+                        <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
+
+                  		{foreach from=$extend_info_list item=field name=t}
+                  		<!-- {if $field.id eq 6} -->
+                  		<tr>
+                  		  <td width="28%" align="right" bgcolor="#FFFFFF">{$lang.passwd_question}：</td>
+                  		  <td width="72%" align="left" bgcolor="#FFFFFF">
+                  		  <select name='sel_question'>
+                  		  <option value='0'>{$lang.sel_question}</option>
+                  		  {html_options options=$passwd_questions selected=$profile.passwd_question}
+                  		  </select>
+                  		  </td>
+                  		</tr>
+                  		<tr>
+                  		  <td width="28%" align="right" bgcolor="#FFFFFF" <!-- {if $field.is_need}--> id="passwd_quesetion"<!--{/if}-->>{$lang.passwd_answer}：</td>
+                  		  <td width="72%" align="left" bgcolor="#FFFFFF">
+                  		  <input name="passwd_answer" type="text" size="25" class="inputBg" maxlengt='20' value="{$profile.passwd_answer}"/><!-- {if $field.is_need} --><span style="color:#FF0000"> *</span><!-- {/if} -->
+                  		  </td>
+                  		</tr>
+                  		<!-- {else} -->
+                          {if $smarty.foreach.t.index==1}
+                              <tr>
+                                               <td width="28%" align="right" bgcolor="#FFFFFF">{$lang.sex}： </td>
+                                               <td width="72%" align="left" bgcolor="#FFFFFF"><input type="radio" name="sex" value="0" {if $profile.sex==0}checked="checked"{/if} />
+                                                 {$lang.secrecy}&nbsp;&nbsp;
+                                                 <input type="radio" name="sex" value="1" {if $profile.sex==1}checked="checked"{/if} />
+                                                 {$lang.male}&nbsp;&nbsp;
+                                                 <input type="radio" name="sex" value="2" {if $profile.sex==2}checked="checked"{/if} />
+                                               {$lang.female}&nbsp;&nbsp; </td>
+                                             </tr>
+                          {/if}
+                           {if $smarty.foreach.t.index==4}
+                                 <tr>
+                                 <td width="28%" align="right" bgcolor="#FFFFFF">{$lang.birthday}： </td>
+                                 <td width="72%" align="left" bgcolor="#FFFFFF"> {html_select_date field_order=YMD prefix=birthday start_year=-60 end_year=+1 display_days=true month_format=%m day_value_format=%02d time=$profile.birthday} <span style="color:#FF0000"> *</span></td>
+                                 </tr>
+                           {/if}
+                  		<tr>
+                  			<td width="28%" align="right" bgcolor="#FFFFFF" >{$field.reg_field_name}：</td>
+                  			<td width="72%" align="left" bgcolor="#FFFFFF">
+                                {if $smarty.foreach.t.index==6}
+                                  <input type="radio" name="extend_field{$field.id}" value='1' {if $field.content=='1'} checked {/if}/> 有 &nbsp;无  <input type="radio" name="extend_field{$field.id}" value='2' {if $field.content=='2' || $field.content==''} checked {/if}/>
+                               {elseif $smarty.foreach.t.index==7}
+                                  <input type="radio" name="extend_field{$field.id}" value='1' {if $field.content=='1'} checked {/if}/> 有 &nbsp;无  <input type="radio" name="extend_field{$field.id}" value='2' {if $field.content=='2' || $field.content==''} checked {/if}/>
+                                {else}
+                                    <input name="extend_field{$field.id}" type="text" class="inputBg" value="{$field.content}"/>
+                                    <!-- {if $field.is_need} --><span style="color:#FF0000"> *</span>
+                                    <!-- {/if} -->
+                  			  {/if}
+                  			</td>
+                  		</tr>
+                  		<!-- {/if} -->
+                  		{/foreach}
+                  		 <tr>
+                        <td width="28%" align="right" bgcolor="#FFFFFF" >&nbsp;</td>
+                        <td width="72%" align="left" bgcolor="#FFFFFF">
+                          <input name="agreement" id='agreement' type="checkbox" value="1"  />
+                          我已看过并接受《<a href="article.php?id=23" style="color:blue" target="_blank">会员卡协议</a>》 </td>
+                      </tr>
+                                  <tr>
+                                    <td colspan="2" align="center" bgcolor="#FFFFFF"><input name="act" type="hidden" value="bindusercard" />
+                                      <input name="submit" type="submit" value="下一步" class="bnt_blue_1" style="border:none;" />
+                                    </td>
+                                  </tr>
+                         </table>
+                      </form>
+               <!--{/if} -->
+        <!-- end 会员卡下一步-->
+         <!-- start  订购方式-->
+         <!-- {if $action eq "bindusercard"} -->
+
+                      <h5><span>订购方式</span></h5>
+                          <div class="blank"></div>
+                             <form name="formEdit" action="user_card.php" method="post">
+                                <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
+                                 <tr>
+                                      <td width="10%" align="right" bgcolor="#FFFFFF">
+                                      <input type="radio" name='dinggouway' value='1'/>
+                                      电话订购</td>
+                                      <td  align="left" bgcolor="#FFFFFF">
+                                             致电客服400-821-3860,按客服提供的周菜单选择菜品,从系统后台人工为您生成订单,并从您账户中扣除相应点数.
+                                      </td>
+                                 </tr>
+                          		<tr>
+                          		  <td width="10%" align="right" bgcolor="#FFFFFF"> <input type="radio" name='dinggouway' value='2'/>
+                                        网络订购</td>
+                          		  <td   align="left" bgcolor="#FFFFFF">
+                                     系统登陆进入“全部商品分类”，按您所需在挑选菜品并通过购物车系统选购。系统会自动生成订单，您从您账户中扣除相应点数
+                          		  </td>
+                          		</tr>
+                                 <tr>
+                                      <td width="10%" align="right" bgcolor="#FFFFFF"> <input type="radio" name='dinggouway' value='3'/>
+                                             固定订购</td>
+                                      <td  align="left" bgcolor="#FFFFFF">
+                                          选择每周固定时间为您配送标准份数的产品，菜谱种类由农场为您自动搭配，系统会自动生成订单从您的账户中扣除相应点数。
+                                      </td>
+                                    </tr>
+                                      <tr>
+                                              <td   align="center" bgcolor="#FFFFFF" colspan='2'>
+                                                     <input name="act" type="hidden" value="usercarddg" />
+                                                     <input name="submit" type="submit" value="完成" class="bnt_blue_1" style="border:none;" />
+                                              </td>
+                                            </tr>
+                                 </table>
+                              </form>
+                       <!--{/if} -->
+                      <!-- end 订购方式-->
+</body>
+</html>

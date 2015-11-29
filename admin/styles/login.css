@@ -1,0 +1,26 @@
+/*
+|---------------------------------------------------------------
+|	Login Style
+|---------------------------------------------------------------
+|	File:login.css
+|	Creation Date:2011-02-18
+|	Last Modified:2011-02-18
+|	Author:networker<networker@itwoo.org>
+|	From:DesDev	INC.
+|---------------------------------------------------------------
+*/
+body{background-color:#f7f7f7;}
+#login-box{border:5px solid #eee;background:url(../images/login-top.jpg) #fff top center no-repeat;width:800px; height:500px;margin:150px auto 0 auto; position:relative;}
+.login-top{height:48px;line-height:48px;text-align:right;}
+.login-top a{color:#fff;font-size:14px;text-decoration:none; margin-right:20px;}.login-top a:hover{color:#fff;text-decoration:underline;}
+.safe-tips{border:1px solid #F2DD8C;background:url(../images/safe-tips.gif) 10px #FFFFCC no-repeat;color:#666;height:35px;line-height:35px;margin-top:5px;padding-left:30px;zoom:1;overflow:hidden;}
+.login-main{height:160px;margin-top:10px; position:absolute; left:222px; top:199px;}
+
+
+.login-main  .login-btn{background:url(../images/login-btn.jpg) no-repeat;width:84px;height:28px;line-height:28px;text-align:center;font-size:14px;font-weight:bold;color:#fff;border:none;margin-top:5px;cursor:pointer;}
+.login-power{font:11px Tahoma,Helvetica,Arial,sans-serif;height:25px;line-height:25px;text-align:right;color:#999;margin-top:5px;}
+.login-main input{background-color:transparent;border:1px; width:240px; height:40px; color:#fff; font-size:16px;margin-top:11px; padding-left:40px; font-weight:bold;}
+.login-main dl dd input#vdcode{width:100px;margin-right:5px; margin-top:7px;}
+.login-main a{color:#fff; text-decoration:none; font-size:12px;}
+.login-main a:hover{color:#fff000;}
+#vdimgck{width:69px; height:24px;}

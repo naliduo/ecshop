@@ -1,0 +1,456 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
+<link href="base.css" rel="stylesheet" type="text/css" />
+<link href="flow.css" rel="stylesheet" type="text/css" />
+{* 包含脚本文件 *}
+ <script type="text/javascript">
+ var totaltc = {$taocan.num};
+ </script>
+{insert_scripts files='common.js,shopping_flow.js'}
+</head>
+<body><!-- #BeginLibraryItem "/library/page_header.lbi" -->
+
+<script type="text/javascript">
+var process_request = "正在处理您的请求...";
+</script>
+<script type="text/javascript">
+var isWidescreen=screen.width<1200;
+if (isWidescreen){document.getElementsByTagName("body")[0].className="w950";}
+</script>
+<div class="header container">
+  <div class="top">
+    <div class="logo"><a class="icon-common-logo" href="index.php" title=""><img src="themes/xm2013/images/logo.gif" /></a></div>
+    <div class="right clearfix">
+      <div class="menu">
+        <ul class="clearfix">
+          <li>
+            <script type="text/javascript" src="js/transport.js"></script>
+            <script type="text/javascript" src="js/utils.js"></script>
+            <label id="header_menu_top_login"><font id="ECS_MEMBERZONE">{insert name='member_info'}</font></label>
+          </li>
+          <li><a href="mobile">手机版</a></li>
+        </ul>
+      </div>
+      <div class="search">
+        <form id="user_search" action="search.php" method='get'>
+          <input type="text" id="keyword" name="keywords" class="txt" value="" placeholder="请输入关键词" />
+          <input type="submit"  class="mbtn" value=''/>
+          <label class="hot">{foreach from=$searchkeywords item=val}
+   <a href="search.php?keywords={$val|escape:url}">{$val}</a>
+   {/foreach}</label>
+        </form>
+      </div>
+
+      
+    <div style="margin-top:3px;" class="xshop buy_car_bg clearfix"  onmouseover="this.className='xshop hover_on buy_car_bg ul1_on'" onmouseout=  "this.className='xshop buy_car_bg'">
+	
+	<img src="images/nav_cat.gif" style="float:left; padding-right:5px; padding-left:10px; padding-top:7px;" /> 
+	<div id="ECS_CARTINFO">
+
+   <p><a href="flow.php">{insert name='cart_info'}</a></p>
+     </div> </div>
+      
+      <!--<div style="position: absolute;right: 31px;top: 78px;"><a target="_blank" id="kaifanggm" href="#">下轮开放购买：9月17日中午12点</a></div>-->
+    </div>
+  </div>
+  <div class="nav">
+    <div class="clearfix"><strong id="btnnav" class="side"><a href="catalog.php" class="catenav">全部商品分类<em class="tri"></em></a></strong>
+      <div class="lnks clearfix">
+        <ul class="lnks-li">
+          <li><a class="lnk  {if $navigator_list.config.index eq 1}on{/if}" href="index.php">首页</a></li>
+          
+		  <!-- {foreach name=nav_middle_list from=$navigator_list.middle item=nav} -->
+            <?php
+            $GLOBALS['smarty']->assign('get_child_tree', get_child_tree($GLOBALS['smarty']->_var['nav']['cid']));
+            $GLOBALS['smarty']->assign('menucatid',get_catid_byurl($GLOBALS['smarty']->_var['nav']['url']));
+            ?>
+          <li {if $menucatid && $get_child_tree}class="phonelistarr" onmouseover="this.className='phonelistarr nhover'" onmouseout="this.className='phonelistarr'"{/if}><a class="lnk {if $nav.active eq 1}on{/if}" href="{$nav.url}"> {$nav.name} </a>
+            {if $menucatid && $get_child_tree}
+              <dl>
+                <!--{foreach from=$get_child_tree item=child name=child}-->             
+                <dd {if $smarty.foreach.subcates.last}class="last"{/if}><a href="{$child.url}" title="{$cat.name|escape:html}">{$child.name}</a></dd>
+                <!--{/foreach}-->
+              </dl>
+            {/if}	
+          </li>
+		  <!-- {/foreach} -->
+       <div align="right" height:45px; line-height:45px; overflow:hidden;>{insert name='ads' id=29 num=1}</div>
+        </ul>
+      </div>
+    </div>
+    <div class="showlist snone" id="div_all_cat">
+      <ul class="lists">
+	  <!--{foreach from=get_categories_tree() item=cat}-->
+        <li onmouseover="this.className='navhover'" onmouseout="this.className=''"><a class="tit" href="{$cat.url}">{$cat.name|escape:html}</a><em class="icon-common icon-common-arrowright"></em>
+		{if $cat.cat_id}
+          <label class="tri"><i></i></label>
+          <div class="show clearfix">
+            <div class="lt">
+              <dl class="firstdl">
+			  <!--{foreach from=$cat.cat_id item=child}-->
+                <dd><a  href="{$child.url}">{$child.name|escape:html}</a></dd>
+              <!--{/foreach}-->
+              </dl>
+            </div>
+          </div>
+		  {/if}	
+        </li>
+		<!--{/foreach}--> 
+      </ul>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="themes/xm2013/js/jquery.js"></script>
+<script type="text/javascript" src="themes/xm2013/js/xm.js"></script><!-- #EndLibraryItem --><!--当前位置 start-->
+<div class="block box">
+   <div id="ur_here">
+       <div class="ur_here">当前位置: <a href=".">首页</a> <code>&gt;</code> 购买套餐</div>
+     </div>
+</div>
+<!--当前位置 end-->
+<div class="blank"></div>
+<div class="block">
+        <!-- 开始收货人信息填写界面 -->
+        {insert_scripts files='region.js,utils.js'}
+        <script type="text/javascript">
+          region.isAdmin = false;
+          {foreach from=$lang.flow_js item=item key=key}
+          var {$key} = "{$item}";
+          {/foreach}
+
+          {literal}
+          onload = function() {
+            if (!document.all)
+            {
+              document.forms['theForm'].reset();
+            }
+          }
+          {/literal}
+        </script>
+        <!-- 如果有收货地址，循环显示用户的收获地址 -->
+
+        <form action="taocan.php" method="post" name="theForm" id="theForm" onsubmit="return checkConsignee2(this)">
+<div class="flowBox">
+<h6><span>{$lang.consignee_info}</span></h6>
+{insert_scripts files='utils.js,transport.js'}
+<table width="99%" align="center" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
+{foreach from=$nglist item=n name=nn key=k}
+  <tr height='40px'>
+  <td bgcolor="#ffffff" ><b>套餐商品 {if $smarty.foreach.nn.index==0}
+         A
+   {elseif  $smarty.foreach.nn.index==1}
+           B
+   {elseif  $smarty.foreach.nn.index==2}
+         C
+   {elseif  $smarty.foreach.nn.index==3}
+             D
+   {/if}</b>
+   <input type="hidden" name="sids{$smarty.foreach.nn.index}" value="{$k}"/>
+   </td>
+    <td colspan="3" bgcolor="#ffffff">
+     {foreach from=$n item=g name=gg}
+           {$g.goods_name}({$g.shop_price}),数量:{$g.goods_num}
+           {if !$smarty.foreach.gg.last},{/if}
+            <input type="hidden" name="goodsid{$smarty.foreach.nn.index}[]" value='{$g.goods_id}'/>
+            <input type="hidden" name="goods_num{$smarty.foreach.nn.index}[]" value='{$g.goods_num}'/>
+
+     {/foreach}
+
+    </td>
+  </tr>
+  <tr>
+    <td bgcolor="#ffffff">{$lang.country_province}:</td>
+    <td colspan="3" bgcolor="#ffffff">
+    <select name="country{$smarty.foreach.nn.index}" id="selCountries_{$smarty.foreach.nn.index}" onchange="region.changed(this, 1, 'selProvinces_{$smarty.foreach.nn.index}')" style="border:1px solid #ccc;">
+        <option value="0">{$lang.please_select}{$name_of_region[0]}</option>
+        <!-- {foreach from=$country_list item=country} -->
+        <option value="{$country.region_id}" {if $consignee.country eq $country.region_id}selected{/if}>{$country.region_name}</option>
+        <!-- {/foreach} -->
+      </select>
+      <select name="province{$smarty.foreach.nn.index}" id="selProvinces_{$smarty.foreach.nn.index}" onchange="region.changed(this, 2, 'selCities_{$smarty.foreach.nn.index}')" style="border:1px solid #ccc;">
+        <option value="0">{$lang.please_select}{$name_of_region[1]}</option>
+        <!-- {foreach from=$province_list.$sn item=province} -->
+        <option value="{$province.region_id}" {if $consignee.province eq $province.region_id}selected{/if}>{$province.region_name}</option>
+        <!-- {/foreach} -->
+      </select>
+      <select name="city{$smarty.foreach.nn.index}" id="selCities_{$smarty.foreach.nn.index}" onchange="region.changed(this, 3, 'selDistricts_{$smarty.foreach.nn.index}')" style="border:1px solid #ccc;">
+        <option value="0">{$lang.please_select}{$name_of_region[2]}</option>
+        <!-- {foreach from=$city_list.$sn item=city} -->
+        <option value="{$city.region_id}" {if $consignee.city eq $city.region_id}selected{/if}>{$city.region_name}</option>
+        <!-- {/foreach} -->
+      </select>
+      <select name="district{$smarty.foreach.nn.index}" id="selDistricts_{$smarty.foreach.nn.index}" {if !$district_list.$smarty.foreach.nn.index}style="display:none"{/if} style="border:1px solid #ccc;">
+        <option value="0">{$lang.please_select}{$name_of_region[3]}</option>
+        <!-- {foreach from=$district_list.$sn item=district} -->
+        <option value="{$district.region_id}" {if $consignee.district eq $district.region_id}selected{/if}>{$district.region_name}</option>
+        <!-- {/foreach} -->
+      </select>
+    {$lang.require_field} </td>
+  </tr>
+
+  <tr>
+    <td bgcolor="#ffffff">{$lang.consignee_name}:</td>
+    <td bgcolor="#ffffff"><input name="consignee{$smarty.foreach.nn.index}" type="text" class="inputBg" id="consignee_{$sn}" value="{$consignee.consignee|escape}" />
+    {$lang.require_field} </td>
+    <td bgcolor="#ffffff">{$lang.email_address}:</td>
+    <td bgcolor="#ffffff"><input name="email{$smarty.foreach.nn.index}" type="text" class="inputBg"  id="email_{$sn}" value="{$consignee.email|escape}" />
+    {$lang.require_field}</td>
+  </tr>
+
+  <tr>
+    <td bgcolor="#ffffff">{$lang.detailed_address}:</td>
+    <td bgcolor="#ffffff"><input name="address{$smarty.foreach.nn.index}" type="text" class="inputBg"  id="address_{$sn}" value="{$consignee.address|escape}" />
+    {$lang.require_field}</td>
+    <td bgcolor="#ffffff">{$lang.postalcode}:</td>
+    <td bgcolor="#ffffff"><input name="zipcode{$smarty.foreach.nn.index}" type="text" class="inputBg"  id="zipcode_{$sn}" value="{$consignee.zipcode|escape}" /></td>
+  </tr>
+
+  <tr>
+    <td bgcolor="#ffffff">{$lang.backup_phone}:</td>
+    <td bgcolor="#ffffff"><input name="mobile{$smarty.foreach.nn.index}" type="text" class="inputBg"  id="mobile_{$sn}" value="{$consignee.mobile|escape}" />      {$lang.require_field}</td>
+    <td bgcolor="#ffffff">{$lang.deliver_goods_time}:</td>
+        <td bgcolor="#ffffff">
+       <select name='weekdays{$smarty.foreach.nn.index}'>
+       <!--<option value="">请选择..</option>-->
+               <option value="周二"  >周二</option>
+               <option value="周三"  >周三</option>
+               <option value="周四"  >周四</option>
+               <option value="周五"  >周五</option>
+               <option value="周六"  >周六</option>
+           </select>
+            <select name='halfday{$smarty.foreach.nn.index}'>
+                 <option value="上午10:00-12:00 "  >上午10:00-12:00</option>
+                 <option value="下午12:00-17:00" >下午12:00-17:00</option>
+                  <option value="傍晚17:00-20:00"  >傍晚17:00-20:00</option>
+               </select>
+  </td>
+  </tr>
+{/foreach}
+
+  <tr>
+    <td colspan="4" align="center" bgcolor="#ffffff">
+    <input type="submit" name="Submit" class="bnt_blue_2" value="提交" />
+      <input type="hidden" name="act" value="done" />
+      <input name="id" type="hidden" value="{$taocan.id}" />
+      </td>
+  </tr>
+</table>
+</div> </form>
+
+
+
+
+
+</div>
+
+<!--友情链接 start-->
+<!--{if $img_links  or $txt_links }-->
+<div id="bottomNav" class="box">
+ <div class="box_1">
+  <div class="links clearfix">
+    <!--开始图片类型的友情链接{foreach from=$img_links item=link}-->
+    <a href="{$link.url}" target="_blank" title="{$link.name}"><img src="{$link.logo}" alt="{$link.name}" border="0" /></a>
+    <!--结束图片类型的友情链接{/foreach}-->
+    <!-- {if $txt_links} -->
+    <!--开始文字类型的友情链接{foreach from=$txt_links item=link}-->
+    [<a href="{$link.url}" target="_blank" title="{$link.name}">{$link.name}</a>]
+    <!--结束文字类型的友情链接{/foreach}-->
+    <!-- {/if} -->
+  </div>
+ </div>
+</div>
+<!--{/if}-->
+<!--友情链接 end-->
+<div class="blank"></div><!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+<div class="footer container">
+  <div class="footerup">
+    <div class="footercont">
+      <ul class="nums clearfix">
+        <li class="first"><a href="#" target="_blank" ><span>7</span><strong>
+          <label>天</label>
+          退货保障 </strong></a></li>
+        <li class="line">|</li>
+        <li class="second"><a href="#" target="_blank"><span>15</span><strong>
+          <label>天</label>
+          换货承诺 </strong></a></li>
+        <li class="line">|</li>
+        <li class="third"><a href="#" target="_blank"><span>100</span><strong>
+          <label>元起</label>
+          全场免邮费 </strong></a></li>
+        <li class="line"></li>
+        <li class="fourth"><a href="#" target="_blank"><span>420</span><strong>
+          <label>余家</label>
+          售后服务网点 </strong></a></li>
+      </ul>
+      <div class="service clearfix">
+	  <!-- {foreach from=get_shop_help() item=help_cat} -->
+        <dl>
+          <dt>{$help_cat.cat_name}</dt>
+		  <!-- {foreach from=$help_cat.article item=item} -->
+          <dd><a href="{$item.url}" title="{$item.short_title}">{$item.short_title}</a></dd>
+          <!-- {/foreach} -->
+        </dl>
+      <!-- {/foreach} -->
+        <dl>
+          <dt>关注我们</dt>
+          <dd class="sina"><span class="icon-common icon-common-sina"></span><a href="http://e.weibo.com/xiaomishouji" target="_blank"> 新浪微博 </a></dd>
+          <dd class="kongjian"><span class="icon-common icon-common-kongjian"></span><a  href="http://user.qzone.qq.com/2451201053" target="_blank"> QQ空间 </a></dd>
+          <dd id="txweixin" class="facebook"><span class="icon-common icon-common-weixin"></span><a> 官方微信 </a></dd>
+        </dl>
+        <div class="online">
+          <ul>
+            <li class="item1"><span class="icon-common icon-common-tel"></span>400-100-5678 </li>
+            <li class="item2"> 仅收市话费，周一至周日8:00-18:00 </li>
+          
+            
+            
+            <!-- QQ 号码 {foreach from=$qq item=im} -->
+      <!-- {if $im} -->
+        <li class="item3 clearfix">
+      <a class="btn btn-green" href="http://wpa.qq.com/msgrd?V=1&amp;Uin={$im}&amp;Site={$shop_name}&amp;Menu=yes" target="_blank"><span class="icon-common icon-common-face"></span>24小时在线客服</a></li>
+      <!-- {/if} -->
+      <!-- {/foreach} 结束QQ号码 -->
+      
+      
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="linker"><!-- {foreach name=nav_bottom_list from=$navigator_list.bottom item=nav} -->
+  <a href="{$nav.url}" <!-- {if $nav.opennew eq 1} --> target="_blank" <!-- {/if} -->>{$nav.name}</a><!-- {if !$smarty.foreach.nav_bottom_list.last} --> | <!-- {/if} -->
+  <!-- {/foreach} --></div>
+  <div class="footerbtm">
+    <div class="info"> {$copyright} <img src="themes/xm2013/images/footerbg.gif" /></div>
+    <div class="believe"><a target="_blank" href="#"><img src="themes/xm2013/images/f1.gif"></a><a target="_blank" href="#"><img src="themes/xm2013/images/f2.gif"></a><a target="_blank" href="#"><img src="themes/xm2013/images/f3.gif"></a></div>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- #EndLibraryItem --></body>
+<script type="text/javascript">
+var process_request = "{$lang.process_request}";
+
+{foreach from=$lang.passport_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+var username_exist = "{$lang.username_exist}";
+var compare_no_goods = "{$lang.compare_no_goods}";
+var btn_buy = "{$lang.btn_buy}";
+var is_cancel = "{$lang.is_cancel}";
+var select_spe = "{$lang.select_spe}";
+</script>
+
+<script type="text/javascript">
+var time_hide_all_cat = null;
+if (document.getElementById("div_all_cat").className == 'showlist snone'){
+   document.getElementById("btnnav").onmouseover = show_all_cat;
+   
+   document.getElementById("btnnav").onmouseout = function(e){
+      time_hide_all_cat = setTimeout("hide_all_cat()",100);
+   }
+   
+   document.getElementById("div_all_cat").onmouseover = show_all_cat;
+   
+   document.getElementById("div_all_cat").onmouseout = hide_all_cat;
+}
+
+function hide_all_cat(){
+   document.getElementById("div_all_cat").className = 'showlist snone';
+}
+
+function show_all_cat(){
+   clearTimeout(time_hide_all_cat);
+   document.getElementById("div_all_cat").className = 'showlist';
+}
+
+function checkConsignee2(frm)
+{
+
+    var msg = new Array();
+    var err = false;
+    for(var i=0;i<totaltc ;i++) {
+        if (frm.elements['country'+i] && frm.elements['country'+i].value == 0)
+        {
+            msg.push(country_not_null);
+            err = true;
+        }
+
+        if (frm.elements['province'+i] && frm.elements['province'+i].value == 0 && frm.elements['province'+i].length > 1)
+        {
+            err = true;
+            msg.push(province_not_null);
+        }
+
+        if (frm.elements['city'+i] && frm.elements['city'+i].value == 0 && frm.elements['city'+i].length > 1)
+        {
+            err = true;
+            msg.push(city_not_null);
+        }
+
+        if (frm.elements['district'+i] && frm.elements['district'+i].length > 1)
+        {
+            if (frm.elements['district'+i].value == 0)
+            {
+                err = true;
+                msg.push(district_not_null);
+            }
+        }
+
+        if (Utils.isEmpty(frm.elements['consignee'+i].value))
+        {
+            err = true;
+            msg.push(consignee_not_null);
+        }
+
+        if ( ! Utils.isEmail(frm.elements['email'+i].value))
+        {
+            err = true;
+            msg.push(invalid_email);
+        }
+
+        if (frm.elements['address'+i] && Utils.isEmpty(frm.elements['address'+i].value))
+        {
+            err = true;
+            msg.push(address_not_null);
+        }
+
+        if (frm.elements['zipcode'+i] && frm.elements['zipcode'+i].value.length > 0 && (!Utils.isNumber(frm.elements['zipcode'+i].value)))
+        {
+            err = true;
+            msg.push(zip_not_num);
+        }
+        if (frm.elements['mobile'+i].value.length == 0 ||  (!Utils.isTel(frm.elements['mobile'+i].value)))
+        {
+            err = true;
+            msg.push(mobile_invaild);
+        }
+
+
+   }
+    if (err)
+    {
+        message = msg.join("\n");
+        alert(message);
+    }
+    return ! err;
+}
+</script>
+
+
+</html>

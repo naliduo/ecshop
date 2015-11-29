@@ -1,0 +1,435 @@
+<!-- $Id: bonus_type_info.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,selectzone.js,colorselector.js,../js/region.js"}
+<script type="text/javascript" src="../js/calendar.php?lang={$cfg_lang}"></script>
+<link href="../js/calendar/calendar.css" rel="stylesheet" type="text/css" />
+<div class="main-div">
+    {if $form_act=='info'}
+
+       <div class="tab-div">
+            <div id="tabbar-div">
+                <p>
+                    <span class="tab-front" id="general-tab">基本信息</span>
+                    <span class="tab-back" id="detail-tab">描述</span>
+                </p>
+            </div>
+
+        <div id="tabbody-div">
+
+        <table   border='0' id="general-table">
+            <tr>
+                <td class="label">名称</td>
+                <td>
+                    {$taocan.tname}
+                </td>
+            </tr>
+            <tr>
+                <td class="label" >图片</td>
+                <td  >
+                  <a href="../{$taocan.tpic}" target='_blank'><img src="../{$taocan.tpic}" width='150px' height='150px' /></a>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">价格(元)</td>
+                <td>
+                    {$taocan.tprice}
+
+                </td>
+            </tr>
+            <tr>
+                <td class="label"> <strong>&nbsp;&nbsp;套餐信息</strong></td>
+                <td>
+                    <table  style='border:1px solid #cccccc;width:100%'>
+                         <tr>
+                             <td>名称</td><td>包含商品</td><td>送货地址</td><td>收货信息</td>
+                         </tr>
+                         {foreach from=$glist item=g name=gg}
+                            <tr>
+                                 <td>套餐{$smarty.foreach.gg.iteration}</td>
+                                 <td>
+                                 {foreach from=$g.goods item=s name=ss}
+                                    {$s.goods_name}({$s.shop_price}),数量:{$s.goods_num}
+                                    {if !$smarty.foreach.ss.last}<br>{/if}
+                                 {/foreach}
+                                 </td>
+                                 <td>
+                                    中国  {$g.province1} {$g.city1} {$g.district1} {$g.address}  {$g.zipcode}   {$g.weekdays} {$g.halfday}送
+                                 </td>
+                                 <td>
+                                     {$g.consignee}  {$g.email} {$g.mobile}
+                                 </td>
+                            </tr>
+                         {/foreach}
+
+                    </table>
+                </td>
+
+            </tr>
+            <tr>
+                <td class="label">备注</td>
+                <td>
+                    {$taocan.beizhu}
+
+                </td>
+            </tr>
+            <tr>
+                <td class="label">所属会员</td>
+                <td>
+                    {$taocan.user_name}
+
+                </td>
+            </tr>
+            <tr>
+                <td class="label">状态</td>
+                <td>
+                    {if $taocan.status==1} 已激活 {else} 未激活 {/if}
+                </td>
+            </tr>
+            <tr>
+            <td class="label">最后修改时间</td>
+            <td>
+                {$taocan.last_date}
+            </td>
+            </tr>
+           </table>
+             <table   border='0'id="detail-table" style="display:none">
+                 <tr>
+                     <td>
+
+                          {$taocan.descs}
+                     </td>
+
+                 </tr>
+             </table>
+             </tr>
+         </form>
+         </div>
+      </div>
+    {else}
+    <div class="tab-div">
+        <div id="tabbar-div">
+            <p>
+                <span class="tab-front" id="general-tab">基本信息</span>
+                <span class="tab-back" id="detail-tab">描述</span>
+            </p>
+        </div>
+
+        <div id="tabbody-div">
+            <form enctype="multipart/form-data" action="user_taocan.php" method="post" name="theForm">
+                <table   border='0' id="general-table">
+                    <tr>
+                        <td class="label">名称</td>
+                        <td>
+                            <input type="text" name="tname" style='width:300px' value="{$taocan.tname}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label" >图片</td>
+                        <td  >
+                            <input type="file" name="tpic[]" >
+                            </a>(格式:jpg,gif,png.最大不超过4M.)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">价格(元)</td>
+                        <td>
+                            <input type="text" name="tprice" id="tprice" style='width:300px' value="{$taocan.tprice}"/>
+                        </td>
+                    </tr>
+                    {foreach from=$nglist item=n name=i}
+                       <tr>
+                        <td class="label">
+                            {if $smarty.foreach.i.index==0}
+                                <a href="javascript:;" onclick="addgoodssn(this,'')" id="aahref">[+]</a>
+                            {else}
+                               <a href="javascript:;" onclick="removegoodssne(this,'')" id="aahref">[-]</a>
+                            {/if}
+                            <strong>&nbsp;&nbsp;套餐信息</strong></td>
+                        <td>
+                            <select name="{$smarty.foreach.i.index}cat_id"><option value="0">{$lang.all_category}{$cat_list}</select>
+                            <select name="{$smarty.foreach.i.index}brand_id"><option value="0">{$lang.all_brand}{html_options options=$brand_list}</select>
+                            <input type="text" name="{$smarty.foreach.i.index}keyword" style='width:100px'/>
+                            <input type="hidden"  id="{$smarty.foreach.i.index}tcgid"/>
+                            <input type="button" value="{$lang.button_search}" onclick="searchGoods('{$smarty.foreach.i.index}cat_id', '{$smarty.foreach.i.index}brand_id','{$smarty.foreach.i.index}keyword','{$smarty.foreach.i.index}tcgid')" class="button" />
+                            <div id="{$smarty.foreach.i.index}allgoods">
+                                  {foreach from=$n.goods item=gg name=g}
+                                <input type='hidden' id='{$smarty.foreach.i.index}goodsid{$smarty.foreach.g.index}a' value={$gg.shop_price}>
+                                       <input type='checkbox' id='{$smarty.foreach.i.index}goodsid{$smarty.foreach.g.index}'  checked name=goodsid{$smarty.foreach.i.index}[] value={$gg.goods_id}
+                                        onclick=upateprice('{$smarty.foreach.i.index}goodsid{$smarty.foreach.g.index}','{$smarty.foreach.i.index}goodsid{$smarty.foreach.g.index}b')>{$gg.goods_name}({$gg.shop_price})&nbsp;数量:<input type="text"   id='{$smarty.foreach.i.index}goodsid{$smarty.foreach.g.index}b'
+                                       name='goodsnum{$smarty.foreach.i.index}[]' style='width:50px;height:13px;' value='{$gg.goods_num}' onblur=upateprice2('{$smarty.foreach.i.index}goodsid{$smarty.foreach.g.index}','{$smarty.foreach.i.index}goodsid{$smarty.foreach.g.index}b')> <br>
+                                  {/foreach}
+                            </div>
+                            送货地址<span id="{$smarty.foreach.i.index}sendaddress">
+                            <select name="country{$smarty.foreach.i.index}" id="selCountries" onChange="region.changed(this, 1, 'selProvinces')">
+                                <option value="0" selected="true">{$lang.select_please}</option>
+                                {foreach from=$country_list item=country}
+                                   <option value="{$country.region_id}" {if $n.country eq $country.region_id}selected{/if}>{$country.region_name}</option>
+                                {/foreach}
+                            </select> <select name="province{$smarty.foreach.i.index}" id="selProvinces" onChange="region.changed(this, 2, 'selCities')">
+                            <option value="0">{$lang.select_please}</option>
+                            {foreach from=$n.province_list item=province}
+                            <option value="{$province.region_id}" {if $n.province eq $province.region_id}selected{/if}>{$province.region_name}</option>
+                            {/foreach}
+                        </select> <select name="city{$smarty.foreach.i.index}" id="selCities" onchange="region.changed(this, 3, 'selDistricts')">
+                            <option value="0">{$lang.select_please}</option>
+                               {foreach from=$n.city_list item=city}
+                            <option value="{$city.region_id}" {if $n.city eq $city.region_id}selected{/if}>{$city.region_name}</option>
+                              {/foreach}
+                        </select>
+                            <select name="district{$smarty.foreach.i.index}" id="selDistricts">
+                                <option value="0">{$lang.select_please}</option>
+                                <!-- {foreach from=$n.district_list item=district} -->
+                                <option value="{$district.region_id}" {if $n.district eq $district.region_id}selected{/if}>{$district.region_name}</option>
+                                <!-- {/foreach} -->
+                            </select>
+                           详细地址 <input type="text" name="address{$smarty.foreach.i.index}" size="10" value="{$n.address}"  style='width:250px'/>
+                            邮编  <input type="text" name="zipcode{$smarty.foreach.i.index}" size="5" value="{$n.zipcode}" style='width:50px'/>
+
+                            </span><br>
+                           <span id="{$smarty.foreach.i.index}reciveaddress">
+                             收货人<input type="text" name="consignee{$smarty.foreach.i.index}" size="10" value="{$n.consignee}"/>
+                             email <input type="text" name="email{$smarty.foreach.i.index}" size="10" value="{$n.email}"/>
+                             手机 <input type="text" name="mobile{$smarty.foreach.i.index}" size="10" value="{$n.mobile}" style='width:116px'/>
+                             <select name='weekdays{$smarty.foreach.i.index}'>
+                                 <option value="周一" {if $n.weekdays=='周一'} selected {/if}>周一</option>
+                                 <option value="周二" {if $n.weekdays=='周二'} selected {/if}>周二</option>
+                                 <option value="周三" {if $n.weekdays=='周三'} selected {/if}>周三</option>
+                                 <option value="周四" {if $n.weekdays=='周四'} selected {/if}>周四</option>
+                                 <option value="周五" {if $n.weekdays=='周五'} selected {/if}>周五</option>
+                                 <option value="周六" {if $n.weekdays=='周六'} selected {/if}>周六</option>
+                             </select>
+                           <select name='halfday{$smarty.foreach.i.index}'>
+                               <option value="上午10:00-12:00 " {if $n.halfday=='上午10:00-12:00 '} selected {/if}>上午10:00-12:00</option>
+                               <option value="下午12:00-17:00" {if $n.halfday=='下午12:00-17:00'} selected {/if}>下午12:00-17:00</option>
+                               <option value="傍晚17:00-20:00" {if $n.halfday=='傍晚17:00-20:00'} selected {/if}>傍晚17:00-20:00</option>
+                           </select>
+
+                            </span>
+                        </td>
+
+                       </tr>
+                    {/foreach}
+                    <tr>
+                        <td class="label">备注</td>
+                        <td>
+                           <input type="text" name="beizhu" value="{$taocan.beizhu}" style='width:300px'/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">状态</td>
+                        <td>
+                            <select name='status'>
+                                <option value="1" {if $taocan.status==1} selected {/if}>已激活</option>
+                                <option value="2" {if $taocan.status==2} selected {/if}>未激活</option>
+                            </select>
+                        </td>
+                    </tr>
+
+
+                </table>
+                <table   border='0'id="detail-table" style="display:none">
+                    <tr>
+                        <td>
+
+                            {$FCKeditor}
+                        </td>
+
+                    </tr>
+                </table>
+                <div style='text-align:center'>
+                    <input type="submit" value="{$lang.button_submit}" class="button_new mr_10" onclick="return validate('update')"/>
+
+
+                    <input type="hidden" name="act" value="{$form_act}" />
+                    <input type="hidden" name="id" value="{$taocan.id}" />
+
+
+                </div>
+                </tr>
+            </form>
+        </div>
+    </div>
+    {/if}
+</div>
+{insert_scripts files="validator.js,tab.js"}
+<script language="javascript">
+    <!--
+    document.forms['theForm'].elements['tname'].focus();
+    var elements = document.forms['theForm'].elements;
+    var tid = 0;
+    region.isAdmin = true;
+
+    function seltype(type){
+        if(type=='1'){
+            $getid('times').value = 1;
+            $getid('times').disabled = true;
+        }else{
+            $getid('times').value = '';
+            $getid('times').disabled = false;
+        }
+    }
+
+    /**
+     * 检查表单输入的数据
+     */
+    function validate(type)
+    {
+        validator = new Validator("theForm");
+        validator.required("tname",      '套餐名称不能为空.');
+        validator.required("tprice",     '价格必须为空.');
+        validator.isNumber("tprice",     '价格必须为数字.');
+        var isgids = false;
+        for(var i=0;i<7;i++){
+           var gids = document.getElementsByName("goodsid"+i+"[]");
+            for(var k=0;k<gids.length;k++){
+                  if(gids[k].checked){
+                      isgids = true;
+                      break;
+                  }
+            }
+        }
+      if(!isgids){
+          validator.addErrorMsg("请选择套餐商品.")
+      }
+       return validator.passed();
+    }
+    function searchGoods(catId, brandId, keyword,tcg_id)
+    {
+        var filters = new Object;
+        filters.keyword = Utils.trim(elements[keyword].value);
+        filters.cat_id = elements[catId].value;
+        filters.brand_id = elements[brandId].value;
+        filters.tcg_id = elements[tcg_id].value;
+        tid = parseInt(catId);
+
+        getgoodslist(filters);
+    }
+
+    function getgoodslist(filters){
+        Ajax.call("?act=get_goods_list", filters,getgoodslistcallback , "GET", "JSON");
+    }
+
+    function getgoodslistcallback(result){
+        var checkbox = '';
+
+        for(var i=0;i<result.content.length;i++){
+            var checked = '';
+
+            if(result.content[i]['checked']){
+                checked="checked";
+            }
+            checkbox+=" <input type='hidden' id='"+tid+"goodsid"+parseInt(result.content[i]['id'])+"a' value='"+result.content[i]['shopprice']+"'/> " +
+                    "<input type='checkbox' "+checked+" name=goodsid"+tid+"[] id='"+tid+"goodsid"+parseInt(result.content[i]['id'])+"' " +
+                    "  value="+parseInt(result.content[i]['id'])+" " +
+                    "onclick=upateprice('"+tid+"goodsid"+parseInt(result.content[i]['id'])+"','"+tid+"goodsid"+parseInt(result.content[i]['id'])+"b') >"
+                    +result.content[i]['gname']+"&nbsp;&nbsp;数量:<input type='text'" +
+                    " name='goodsnum"+tid+"[]' id="+tid+"goodsid"+parseInt(result.content[i]['id'])+"b style='width:30px;height:15px;'" +
+                    "  disabled onblur=upateprice2('"+tid+"goodsid"+parseInt(result.content[i]['id'])+"','"+tid+"goodsid"+parseInt(result.content[i]['id'])+"b')><br>";
+
+        }
+        if(result.content.length==0){
+            checkbox = '没有相关记录';
+        }
+        document.getElementById(tid+"allgoods").innerHTML= checkbox;
+    }
+    function upateprice(g,goodsnum){
+        var type = 0;
+        var onum = 0 ;
+        g = document.getElementById(g);
+        if(g.checked){
+            type = 1;
+            document.getElementById(goodsnum).disabled = false;
+            document.getElementById(goodsnum).value = 1;
+            onum = 1;
+        }else{
+            onum = document.getElementById(goodsnum).value;
+            document.getElementById(goodsnum).disabled = true;
+            document.getElementById(goodsnum).value = '' ;
+        }
+        updatep();
+
+    }
+
+
+    function upateprice2(g,goodsnum){
+        var type = 0;
+        var onum = 0 ;
+        g = document.getElementById(g);
+        if(g.checked){
+            type = 1;
+            document.getElementById(goodsnum).disabled = false;
+        }else{
+            onum = document.getElementById(goodsnum).value;
+            document.getElementById(goodsnum).disabled = true;
+        }
+
+        updatep();
+    }
+
+    function updatep(){
+        var price =0;
+        for(var k=0;k<10;k++){
+            var gids = document.getElementsByName("goodsid"+k+"[]");
+            for(var i=0;i<gids.length;i++){
+                if(gids[i].checked){
+                    price+=parseFloat(document.getElementById(gids[i].id+"b").value*document.getElementById(gids[i].id+"a").value);
+                }
+            }
+        }
+        document.getElementById("tprice").value = price;
+    }
+
+    function addgoodssn(obj,goodsn){
+        var src      = obj.parentNode.parentNode;
+        var tbl      = document.getElementById('general-table');
+        var i = tbl.rows.length;
+        var len = 4;
+
+            var row  = tbl.insertRow(tbl.rows.length);
+            var cell = row.insertCell(-1);
+
+        var vhtml = src.innerHTML.replace(/(.*)(addgoodssn)(.*)(\[)(\+)/i, "$1removegoodssne$3$4-");
+        vhtml = vhtml.replace("0cat_id",(i+1-4)+"cat_id");
+        vhtml = vhtml.replace("0cat_id",(i+1-4)+"cat_id");
+        vhtml = vhtml.replace("0brand_id",(i+1-4)+"brand_id");
+        vhtml = vhtml.replace("0brand_id",(i+1-4)+"brand_id");
+        vhtml = vhtml.replace("0keyword",(i+1-4)+"keyword");
+        vhtml = vhtml.replace("0keyword",(i+1-4)+"keyword");
+        vhtml = vhtml.replace("0cat_id",(i+1-4)+"cat_id");
+        vhtml = vhtml.replace("0allgoods",(i+1-4)+"allgoods");
+        vhtml = vhtml.replace("0tcgid",(i+1-4)+"tcgid");
+        vhtml = vhtml.replace("0tcgid",(i+1-4)+"tcgid");
+        vhtml = vhtml.replace("0sendaddress",(i+1-4)+"sendaddress");
+        vhtml = vhtml.replace("0reciveaddress",(i+1-4)+"reciveaddress");
+        vhtml = vhtml.replace("country0","country"+(i+1-4));
+        vhtml = vhtml.replace("province0","province"+(i+1-4));
+        vhtml = vhtml.replace("city0","city"+(i+1-4));
+        vhtml = vhtml.replace("district0","district"+(i+1-4));
+        vhtml = vhtml.replace("address0","address"+(i+1-4));
+        vhtml = vhtml.replace("zipcode0","zipcode"+(i+1-4));
+        vhtml = vhtml.replace("consignee0","consignee"+(i+1-4));
+        vhtml = vhtml.replace("email0","email"+(i+1-4));
+        vhtml = vhtml.replace("mobile0","mobile"+(i+1-4));
+        vhtml = vhtml.replace("weekdays0","weekdays"+(i+1-4));
+        vhtml = vhtml.replace("halfday0","halfday"+(i+1-4));
+
+        row.innerHTML  = vhtml;
+        document.getElementById((i+1-4)+"allgoods").innerHTML = '';
+        document.getElementById((i+1-4)+"tcgid").value = '';
+
+    }
+
+    function removegoodssne(obj){
+
+        var row = rowindex(obj.parentNode.parentNode);
+
+        var tbl = document.getElementById('general-table');
+
+        tbl.deleteRow(row);
+
+
+    }
+    //-->
+</script>
+{/literal}
+{include file="pagefooter.htm"}

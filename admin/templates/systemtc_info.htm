@@ -1,0 +1,344 @@
+<!-- $Id: bonus_type_info.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,selectzone.js,colorselector.js"}
+<script type="text/javascript" src="../js/calendar.php?lang={$cfg_lang}"></script>
+<link href="../js/calendar/calendar.css" rel="stylesheet" type="text/css" />
+<div class="main-div">
+    {if $form_act=='insert'}
+
+       <div class="tab-div">
+            <div id="tabbar-div">
+                <p>
+                    <span class="tab-front" id="general-tab">基本信息</span>
+                    <span class="tab-back" id="detail-tab">描述</span>
+                </p>
+            </div>
+
+        <div id="tabbody-div">
+         <form enctype="multipart/form-data" action="system_taocan.php" method="post" name="theForm">
+        <table   border='0' id="general-table">
+            <tr>
+                <td class="label">名称</td>
+                <td>
+                   <input type="text" name="tname" style='width:300px'/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" >图片</td>
+                <td  >
+                    <input type="file" name="tpic[]" >
+                    </a>(格式:jpg,gif,png.最大不超过4M.)
+                </td>
+            </tr>
+            <tr>
+                <td class="label">价格(元)</td>
+                <td>
+                    <input type="text" name="tprice" id="tprice" style='width:300px' />
+                </td>
+            </tr>
+            <tr>
+                <td class="label"> <a href="javascript:;" onclick="addgoodssn(this,'')" id="aahref">[+]</a><strong>&nbsp;&nbsp;套餐信息</strong></td>
+                <td>
+                    <select name="0cat_id"><option value="0">{$lang.all_category}{$cat_list}</select>
+                    <select name="0brand_id"><option value="0">{$lang.all_brand}{html_options options=$brand_list}</select>
+                    <input type="text" name="0keyword" style='width:100px'/>
+                    <input type="hidden"  id="0tcgid"/>
+                    <input type="button" value="{$lang.button_search}" onclick="searchGoods('0cat_id', '0brand_id','0keyword','0tcgid')" class="button" />
+                    <div id="0allgoods">
+                    </div>
+                </td>
+
+            </tr>
+
+
+           </table>
+             <table   border='0'id="detail-table" style="display:none">
+                 <tr>
+                     <td>
+
+                          {$FCKeditor}
+                     </td>
+
+                 </tr>
+             </table>
+              <div style='text-align:center'>
+                 <input type="submit" value="{$lang.button_submit}" class="button_new mr_10" onclick="return validate('insert')"/>
+                 <input type="reset" value="{$lang.button_reset}" class="button_new mr_10" />
+
+                 <input type="hidden" name="act" value="{$form_act}" />
+              </div>
+             </tr>
+         </form>
+         </div>
+      </div>
+    {else}
+    <div class="tab-div">
+        <div id="tabbar-div">
+            <p>
+                <span class="tab-front" id="general-tab">基本信息</span>
+                <span class="tab-back" id="detail-tab">描述</span>
+            </p>
+        </div>
+
+        <div id="tabbody-div">
+            <form enctype="multipart/form-data" action="system_taocan.php" method="post" name="theForm">
+                <table   border='0' id="general-table">
+                    <tr>
+                        <td class="label">名称</td>
+                        <td>
+                            <input type="text" name="tname" style='width:300px' value="{$taocan.tname}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label" >图片</td>
+                        <td  >
+                            <input type="file" name="tpic[]" >
+                            </a>(格式:jpg,gif,png.最大不超过4M.)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">价格(元)</td>
+                        <td>
+                            <input type="text" name="tprice" id="tprice" style='width:300px' value="{$taocan.tprice}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label"> <a href="javascript:;" onclick="addgoodssn(this,'')" id="aahref">[+]</a><strong>&nbsp;&nbsp;套餐信息</strong></td>
+                        <td>
+                            <select name="0cat_id"><option value="0">{$lang.all_category}{$cat_list}</select>
+                            <select name="0brand_id"><option value="0">{$lang.all_brand}{html_options options=$brand_list}</select>
+                            <input type="text" name="0keyword" style='width:100px'/>
+                            <input type="hidden"  id="0tcgid"/>
+                            <input type="button" value="{$lang.button_search}" onclick="searchGoods('0cat_id', '0brand_id','0keyword','0tcgid')" class="button" />
+                            <div id="0allgoods">
+                            </div>
+                        </td>
+
+                    </tr>
+
+
+                </table>
+                <table   border='0'id="detail-table" style="display:none">
+                    <tr>
+                        <td>
+
+                            {$FCKeditor}
+                        </td>
+
+                    </tr>
+                </table>
+                <div style='text-align:center'>
+                    <input type="submit" value="{$lang.button_submit}" class="button_new mr_10" onclick="return validate('update')"/>
+
+
+                    <input type="hidden" name="act" value="{$form_act}" />
+                    <input type="hidden" name="id" value="{$taocan.id}" />
+
+
+                </div>
+                </tr>
+            </form>
+        </div>
+    </div>
+    {/if}
+</div>
+{insert_scripts files="validator.js,tab.js"}
+<script language="javascript">
+    <!--
+    document.forms['theForm'].elements['tname'].focus();
+    var elements = document.forms['theForm'].elements;
+    var tid = 0;
+    {if $form_act=='update'}
+       {foreach from=$nglist item=g name=n key=k}
+              var checkbox = '';
+              {foreach from=$g item=gg name=w}
+                  checkbox+="<input type='hidden' id='{$smarty.foreach.n.index}goodsid{$smarty.foreach.w.index}a' " +
+                          "value={$gg.shop_price}><input type='checkbox'  id='{$smarty.foreach.n.index}goodsid{$smarty.foreach.w.index}' " +
+                          "checked name=goodsid{$smarty.foreach.n.index}[] value={$gg.goods_id} onclick=upateprice('{$smarty.foreach.n.index}goodsid{$smarty.foreach.w.index}'," +
+                          "'{$smarty.foreach.n.index}goodsid{$smarty.foreach.w.index}b')>" +
+                          "{$gg.goods_name}({$gg.shop_price})"+"&nbsp;&nbsp;" +
+                          "数量:<input type='text' name='goodsnum{$smarty.foreach.n.index}[]' style='width:50px;height:13px;'   value='{$gg.goods_num}'" +
+                          "  id='{$smarty.foreach.n.index}goodsid{$smarty.foreach.w.index}b'" +
+                          " onblur=upateprice2('{$smarty.foreach.n.index}goodsid{$smarty.foreach.w.index}'," +
+                          "'{$smarty.foreach.n.index}goodsid{$smarty.foreach.w.index}b')><br>";
+              {/foreach}
+             {if $smarty.foreach.n.index>0}
+                  addgoodssn(document.getElementById("aahref"),'')
+             {/if}
+            document.getElementById({$smarty.foreach.n.index}+"allgoods").innerHTML= checkbox;
+            document.getElementById({$smarty.foreach.n.index}+"tcgid").value = {$k};
+       {/foreach}
+    {/if}
+    function seltype(type){
+        if(type=='1'){
+            $getid('times').value = 1;
+            $getid('times').disabled = true;
+        }else{
+            $getid('times').value = '';
+            $getid('times').disabled = false;
+        }
+    }
+    function validate2()
+    {
+        validator = new Validator("theForm");
+       // validator.required("num",      '发放数量不能为空.');
+       // validator.isInt("num",     '发放数量必须为整数.');
+        return  validator.passed();
+    }
+    /**
+     * 检查表单输入的数据
+     */
+    function validate(type)
+    {
+        validator = new Validator("theForm");
+        validator.required("tname",      '套餐名称不能为空.');
+        if(type=='insert'){
+            validator.required("tpic[]",     '上传图片不能为空.');
+         }
+        validator.required("tprice",     '价格必须为空.');
+        validator.isNumber("tprice",     '价格必须为数字.');
+        var isgids = false;
+        for(var i=0;i<7;i++){
+ 
+           var gids = document.getElementsByName("goodsid"+i+"[]");
+
+            for(var k=0;k<gids.length;k++){
+                  if(gids[k].checked){
+                      isgids = true;
+                      break;
+                  }
+            }
+        }
+      if(!isgids){
+          validator.addErrorMsg("请选择套餐商品.")
+      }
+       return validator.passed();
+    }
+    function searchGoods(catId, brandId, keyword,tcg_id)
+    {
+        var filters = new Object;
+        filters.keyword = Utils.trim(elements[keyword].value);
+        filters.cat_id = elements[catId].value;
+        filters.brand_id = elements[brandId].value;
+        filters.tcg_id = elements[tcg_id].value;
+        tid = parseInt(catId);
+
+        getgoodslist(filters);
+    }
+
+    function getgoodslist(filters){
+        Ajax.call("?act=get_goods_list", 'JSON=' + obj2str(filters),getgoodslistcallback , "GET", "JSON");
+    }
+
+    function getgoodslistcallback(result){
+        var checkbox = '';
+
+        for(var i=0;i<result.content.length;i++){
+            var checked = '';
+
+            if(result.content[i]['checked']){
+                checked="checked";
+            }
+          checkbox+=" <input type='hidden' id='"+tid+"goodsid"+parseInt(result.content[i]['id'])+"a' value='"+result.content[i]['shopprice']+"'/> " +
+                  "<input type='checkbox' "+checked+" name=goodsid"+tid+"[] id='"+tid+"goodsid"+parseInt(result.content[i]['id'])+"' " +
+                  "  value="+parseInt(result.content[i]['id'])+" " +
+                  "onclick=upateprice('"+tid+"goodsid"+parseInt(result.content[i]['id'])+"','"+tid+"goodsid"+parseInt(result.content[i]['id'])+"b') >"
+                    +result.content[i]['gname']+"&nbsp;&nbsp;数量:<input type='text'" +
+                  " name='goodsnum"+tid+"[]' id="+tid+"goodsid"+parseInt(result.content[i]['id'])+"b style='width:30px;height:15px;'" +
+                  "  disabled onblur=upateprice2('"+tid+"goodsid"+parseInt(result.content[i]['id'])+"','"+tid+"goodsid"+parseInt(result.content[i]['id'])+"b')><br>";
+
+        }
+        if(result.content.length==0){
+            checkbox = '没有相关记录';
+        }
+        document.getElementById(tid+"allgoods").innerHTML= checkbox;
+    }
+    function upateprice(g,goodsnum){
+        var type = 0;
+        var onum = 0 ;
+        g = document.getElementById(g);
+        if(g.checked){
+            type = 1;
+            document.getElementById(goodsnum).disabled = false;
+            document.getElementById(goodsnum).value = 1;
+            onum = 1;
+        }else{
+            onum = document.getElementById(goodsnum).value;
+            document.getElementById(goodsnum).disabled = true;
+            document.getElementById(goodsnum).value = '' ;
+        }
+        updatep();
+
+    }
+
+
+        function upateprice2(g,goodsnum){
+            var type = 0;
+            var onum = 0 ;
+            g = document.getElementById(g);
+            if(g.checked){
+                type = 1;
+                document.getElementById(goodsnum).disabled = false;
+            }else{
+                onum = document.getElementById(goodsnum).value;
+                document.getElementById(goodsnum).disabled = true;
+            }
+
+            updatep();
+        }
+
+        function updatep(){
+            var price =0;
+            for(var k=0;k<10;k++){
+                var gids = document.getElementsByName("goodsid"+k+"[]");
+                for(var i=0;i<gids.length;i++){
+                    if(gids[i].checked){
+                        price+=parseFloat(document.getElementById(gids[i].id+"b").value*document.getElementById(gids[i].id+"a").value);
+                    }
+                }
+           }
+            document.getElementById("tprice").value = price;
+        }
+
+    function addgoodssn(obj,goodsn){
+        var src      = obj.parentNode.parentNode;
+        var tbl      = document.getElementById('general-table');
+        var i = tbl.rows.length;
+        var len = 4;
+
+            var row  = tbl.insertRow(tbl.rows.length);
+            var cell = row.insertCell(-1);
+
+        var vhtml = src.innerHTML.replace(/(.*)(addgoodssn)(.*)(\[)(\+)/i, "$1removegoodssne$3$4-");
+        vhtml = vhtml.replace("0cat_id",(i+1-4)+"cat_id");
+        vhtml = vhtml.replace("0cat_id",(i+1-4)+"cat_id");
+        vhtml = vhtml.replace("0brand_id",(i+1-4)+"brand_id");
+        vhtml = vhtml.replace("0brand_id",(i+1-4)+"brand_id");
+        vhtml = vhtml.replace("0keyword",(i+1-4)+"keyword");
+        vhtml = vhtml.replace("0keyword",(i+1-4)+"keyword");
+        vhtml = vhtml.replace("0cat_id",(i+1-4)+"cat_id");
+        vhtml = vhtml.replace("0allgoods",(i+1-4)+"allgoods");
+        vhtml = vhtml.replace("0tcgid",(i+1-4)+"tcgid");
+        vhtml = vhtml.replace("0tcgid",(i+1-4)+"tcgid");
+
+        row.innerHTML  = vhtml;
+        document.getElementById((i+1-4)+"allgoods").innerHTML = '';
+        document.getElementById((i+1-4)+"tcgid").value = '';
+
+
+    }
+
+    function removegoodssne(obj){
+
+        var row = rowindex(obj.parentNode.parentNode);
+
+        var tbl = document.getElementById('general-table');
+
+        tbl.deleteRow(row);
+
+
+    }
+    //-->
+</script>
+{/literal}
+{include file="pagefooter.htm"}

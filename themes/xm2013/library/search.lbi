@@ -1,0 +1,6 @@
+{if $searchkeywords}
+{$lang.hot_search} ：
+{foreach from=$searchkeywords item=val}
+<a href="search.php?keywords={$val|escape:url}">{$val}</a>
+{/foreach}
+{/if}

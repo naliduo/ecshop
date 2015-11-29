@@ -1,0 +1,136 @@
+﻿<!-- $Id: user_rank.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+<div class="form-div">
+  <form action="javascript:searchUserCard()" name="searchForm" >
+    <img src="images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" />
+    卡号<input type="text" name="card_no" id="card_no"  size="10" />会员名<input type="text" name="user_name" id="user_name" size="10" /><input type="hidden" name="ct_id" value="{$ct_info.ct_id}" />
+    <input type="submit" value="{$lang.button_search}" class="button" />
+  </form>
+</div>
+<form method="post" action="user_card.php?act=batch_remove" name="listForm" onsubmit="return confirm_bath()">
+<!-- start ads list -->
+<div class="list-div" id="listDiv">
+{/if}
+
+<table cellspacing='1' id="list-table">
+  <tr>
+    <th><input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox"></th>
+    <th><a href="javascript:listTable.sort('card_no'); ">{$lang.card_no}</a></th>
+    <th>{$lang.card_pass}</th>
+    <th>{$lang.card_level}</th>
+    <th><a href="javascript:listTable.sort('user_money'); ">{$lang.user_money}</a></th>
+    <th><a href="javascript:listTable.sort('pay_points'); ">{$lang.pay_points}</a></th>
+    <th><a href="javascript:listTable.sort('rank_points'); ">{$lang.rank_points}</a></th>
+    
+    <th>{$lang.card_status}</th>
+    <th>{$lang.send_type}</th>
+    <th>{$lang.add_time}</th>
+    <th>{$lang.is_show}</th>
+    <th>{$lang.handler}</th>
+  </tr>
+  {foreach from=$card_list item=card}
+  <tr>
+  <td><input name="checkboxes[]" type="checkbox" value="{$card.id}" /></td>
+    <td class="first-cell" ><span onclick="listTable.edit(this,'edit_card_no', {$card.id})">{$card.card_no}</span></td>
+    <td align="center">{$card.card_pass}</td>
+    <td ><span onclick="listTable.edit(this, 'edit_card_level', {$card.id})">{$card.card_level}</span></td>
+     <td align="center"><span  onclick="listTable.edit(this, 'edit_user_money', {$card.id})">{$card.user_money}</span></td>
+    <td align="center"><span  onclick="listTable.edit(this, 'edit_pay_points', {$card.id})">{$card.pay_points}</span></td>
+    <td align="center"><span  onclick="listTable.edit(this, 'edit_rank_points', {$card.id})">{$card.rank_points}</span></td>
+    
+    <td align="center"><img src="images/{if $card.card_status}yes{else}no{/if}.gif" />
+    {if $card.card_status}{$card.user_name}<br />
+{$card.bind_date}{/if}</td>
+    <td align="center"><span onclick="listTable.edit(this, 'edit_send_type', {$card.id})">{$card.send_type}</span></td>
+    <td align="center"><span>{$card.date}</span></td>
+    
+    <td align="center"><img src="images/{if $card.is_show}yes{else}no{/if}.gif" onclick="listTable.toggle(this, 'toggle_is_show', {$card.id})" /></td>
+    <td align="center"><a href="user_card.php?act=edit&id={$card.id}" title="{$lang.edit}"><img src="images/icon_edit.gif" border="0" height="16" width="16" /></a>&nbsp;
+    <a href="javascript:;" onclick="listTable.remove({$card.id}, '{$lang.drop_confirm}')" title="{$lang.remove}"><img src="images/icon_drop.gif" border="0" height="16" width="16"></a>
+    {if $card.card_status}<a href="javascript:;" onclick="listTable.remove({$card.id}, '{$lang.unbind_confirm}','unbind')" title="{$lang.card_unbind}">{$lang.card_unbind}</a>{/if}</td>
+  </tr>
+  {foreachelse}
+    <tr><td class="no-records" colspan="11">{$lang.no_user_card}</td></tr>
+  {/foreach}
+  <tr>
+      <td colspan="3">
+      <input type="hidden" name="act" value="batch_remove" />
+      <input type="hidden" name="ct_id" value="{$ct_info.ct_id}" />
+      <input type="submit" id="btnSubmit" value="{$lang.button_remove}" disabled="true" class="button" /></td>
+      <td align="right" nowrap="true" colspan="8">
+      {include file="page.htm"}
+      </td>
+  </tr>
+  </table>
+  
+
+{if $full_page}
+
+</div>
+<!-- end user ranks list -->
+</form>
+<div style="display:hidden;">
+  <form method="post" action="user_card.php?act=export" name="export_form" id="export_form">
+  <input name="id" id="export_ids"  type="hidden"/>
+  <input type="hidden" name="ct_id" value="{$ct_info.ct_id}" />
+  </form>
+  </div>
+<script type="text/javascript" language="JavaScript">
+  listTable.recordCount = {$record_count};
+  listTable.pageCount = {$page_count};
+
+  {foreach from=$filter item=item key=key}
+  listTable.filter.{$key} = '{$item}';
+  {/foreach}
+{literal}
+onload = function()
+{
+    // 开始检查订单
+    startCheckOrder();
+}
+ /* 搜索文章 */
+ function searchUserCard()
+ {
+    listTable.filter.card_no = Utils.trim(document.forms['searchForm'].elements['card_no'].value);
+    listTable.filter.user_name = Utils.trim(document.forms['searchForm'].elements['user_name'].value);
+    listTable.filter.page = 1;
+    listTable.loadList();
+ }
+function confirm_bath()
+{
+  userItems = document.getElementsByName('checkboxes[]');
+
+  cfm = '您确定要删除选定的会员卡吗？';
+
+  return confirm(cfm);
+}
+ function daochu()
+  {
+	  var snArray = new Array();
+	  var eles = document.forms['listForm'].elements;
+	  for (var i=0; i<eles.length; i++)
+	  {
+		if (eles[i].tagName == 'INPUT' && eles[i].type == 'checkbox' && eles[i].checked && eles[i].value != 'on')
+		{
+		  snArray.push(eles[i].value);
+		}
+	  }
+	  if (snArray.length == 0)
+	  {
+		document.forms['export_form'].submit();
+	  }
+	  else
+	  {
+		document.getElementById("export_ids").value = snArray.toString();
+		document.forms['export_form'].submit();
+	  }
+
+
+  }
+{/literal}
+//-->
+</script>
+{include file="pagefooter.htm"}
+{/if}

@@ -1,0 +1,409 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+{if $auto_redirect}
+<meta http-equiv="refresh" content="3;URL={$message.href}" />
+{/if}
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="themes/xm2013/style.css" rel="stylesheet" type="text/css" />
+<link href="themes/xm2013/base.css" rel="stylesheet" type="text/css"/>
+{insert_scripts files='common.js,transport.js'}
+</head>
+<body><!-- #BeginLibraryItem "/library/page_header.lbi" -->
+
+<script type="text/javascript">
+var process_request = "正在处理您的请求...";
+</script>
+<script type="text/javascript">
+var isWidescreen=screen.width<1200;
+if (isWidescreen){document.getElementsByTagName("body")[0].className="w950";}
+</script>
+<div class="header container">
+  <div class="top">
+    <div class="logo"><a class="icon-common-logo" href="index.php" title=""><img src="themes/xm2013/images/logo.gif" /></a></div>
+    <div class="right clearfix">
+      <div class="menu">
+        <ul class="clearfix">
+          <li>
+            <script type="text/javascript" src="js/transport.js"></script>
+            <script type="text/javascript" src="js/utils.js"></script>
+            <label id="header_menu_top_login"><font id="ECS_MEMBERZONE">{insert name='member_info'}</font></label>
+          </li>
+          <li><a href="mobile">手机版</a></li>
+        </ul>
+      </div>
+      <div class="search">
+        <form id="user_search" action="search.php" method='get'>
+          <input type="text" id="keyword" name="keywords" class="txt" value="" placeholder="请输入关键词" />
+          <input type="submit"  class="mbtn" value=''/>
+          <label class="hot">{foreach from=$searchkeywords item=val}
+   <a href="search.php?keywords={$val|escape:url}">{$val}</a>
+   {/foreach}</label>
+        </form>
+      </div>
+
+      
+    <div style="margin-top:3px;" class="xshop buy_car_bg clearfix"  onmouseover="this.className='xshop hover_on buy_car_bg ul1_on'" onmouseout=  "this.className='xshop buy_car_bg'">
+	
+	<img src="images/nav_cat.gif" style="float:left; padding-right:5px; padding-left:10px; padding-top:7px;" /> 
+	<div id="ECS_CARTINFO">
+
+   <p><a href="flow.php">{insert name='cart_info'}</a></p>
+     </div> </div>
+      
+      <!--<div style="position: absolute;right: 31px;top: 78px;"><a target="_blank" id="kaifanggm" href="#">下轮开放购买：9月17日中午12点</a></div>-->
+    </div>
+  </div>
+  <div class="nav">
+    <div class="clearfix"><strong id="btnnav" class="side"><a href="catalog.php" class="catenav">全部商品分类<em class="tri"></em></a></strong>
+      <div class="lnks clearfix">
+        <ul class="lnks-li">
+          <li><a class="lnk  {if $navigator_list.config.index eq 1}on{/if}" href="index.php">首页</a></li>
+          
+		  <!-- {foreach name=nav_middle_list from=$navigator_list.middle item=nav} -->
+            <?php
+            $GLOBALS['smarty']->assign('get_child_tree', get_child_tree($GLOBALS['smarty']->_var['nav']['cid']));
+            $GLOBALS['smarty']->assign('menucatid',get_catid_byurl($GLOBALS['smarty']->_var['nav']['url']));
+            ?>
+          <li {if $menucatid && $get_child_tree}class="phonelistarr" onmouseover="this.className='phonelistarr nhover'" onmouseout="this.className='phonelistarr'"{/if}><a class="lnk {if $nav.active eq 1}on{/if}" href="{$nav.url}"> {$nav.name} </a>
+            {if $menucatid && $get_child_tree}
+              <dl>
+                <!--{foreach from=$get_child_tree item=child name=child}-->             
+                <dd {if $smarty.foreach.subcates.last}class="last"{/if}><a href="{$child.url}" title="{$cat.name|escape:html}">{$child.name}</a></dd>
+                <!--{/foreach}-->
+              </dl>
+            {/if}	
+          </li>
+		  <!-- {/foreach} -->
+       <div align="right" height:45px; line-height:45px; overflow:hidden;>{insert name='ads' id=29 num=1}</div>
+        </ul>
+      </div>
+    </div>
+    <div class="showlist snone" id="div_all_cat">
+      <ul class="lists">
+	  <!--{foreach from=get_categories_tree() item=cat}-->
+        <li onmouseover="this.className='navhover'" onmouseout="this.className=''"><a class="tit" href="{$cat.url}">{$cat.name|escape:html}</a><em class="icon-common icon-common-arrowright"></em>
+		{if $cat.cat_id}
+          <label class="tri"><i></i></label>
+          <div class="show clearfix">
+            <div class="lt">
+              <dl class="firstdl">
+			  <!--{foreach from=$cat.cat_id item=child}-->
+                <dd><a  href="{$child.url}">{$child.name|escape:html}</a></dd>
+              <!--{/foreach}-->
+              </dl>
+            </div>
+          </div>
+		  {/if}	
+        </li>
+		<!--{/foreach}--> 
+      </ul>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="themes/xm2013/js/jquery.js"></script>
+<script type="text/javascript" src="themes/xm2013/js/xm.js"></script><!-- #EndLibraryItem --><div class="clear"></div>
+<div class="block box">
+  <div id="ur_here">
+    <div class="ur_here"><!-- #BeginLibraryItem "/library/ur_here.lbi" -->
+{$lang.ur_here} {$ur_here}<!-- #EndLibraryItem --></div>
+  </div>
+</div>
+<div class="blank"></div>
+<div class="block clearfix">
+  <div class="AreaL"><!-- #BeginLibraryItem "/library/history.lbi" -->
+<div class="blank5"></div>
+<style>
+#clear_history{ border:0px; width:200px}
+#clear_history a{ float:right}
+</style>
+<div class="xm-box" id='history_div'>
+    <div class="clearfix">
+      <h3><span>您刚刚看过</span></h3>
+      <div class="boxCenterList clearfix" id='history_list' style="padding:3px;border-top:none;">
+	 
+       {insert name='history'}
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+if (document.getElementById('history_list').innerHTML.replace(/\s/g,'').length<1)
+{
+    document.getElementById('history_div').style.display='none';
+}
+else
+{
+    document.getElementById('history_div').style.display='block';
+}
+function clear_history()
+{
+Ajax.call('user.php', 'act=clear_history',clear_history_Response, 'GET', 'TEXT',1,1);
+}
+function clear_history_Response(res)
+{
+document.getElementById('history_list').innerHTML = '您已清空最近浏览过的商品';
+}
+</script><!-- #EndLibraryItem --></div>
+  <div class="AreaR">
+    <div class="box">
+	<h3><span>{$lang.message_board}</span></h3>
+      <div class="comments">
+	  
+	   <!--{foreach name=message_lists from=$msg_lists key=key item=msg}-->
+        <div class="bg1">
+          <p class="name"> [<b>{$msg.msg_type}</b>]&nbsp;{$msg.user_name}<!-- {if $msg.user_name eq ''} -->{$lang.anonymous}<!-- {/if} -->：<!-- {if $msg.id_value gt 0} -->评论了<b><font class="blue"><a class="f3" href="{$msg.goods_url}" target="_blank" title="{$msg.goods_name}">{$msg.goods_name}</a></font></b><!-- {/if} --><font class="f4">{$msg.msg_title}</font> ({$msg.msg_time}) <!-- {if $msg.comment_rank gt 0} --><img style="position:absolute; right:10px;" src="themes/xm2013/images/stars{$msg.comment_rank}.gif" alt="5"/><!-- {/if} --></p>
+          <p>{$msg.msg_content}</p>
+        </div>
+		<!-- {if $msg.re_content} -->
+        <div class="bg2">
+          <p class="name"><img src="themes/xm2013/images/pl2.gif" align="absmiddle"><font class="uname">管理员回复</font>说： {$msg.re_content}</p>
+        </div>
+		<!-- {/if} -->
+        <!--{/foreach}--> 
+		
+      </div>
+    </div>
+    <div class="blank5"></div><!-- #BeginLibraryItem "/library/pages2.lbi" -->
+<form name="selectPageForm" action="{$smarty.server.PHP_SELF}" method="get">
+        <div class="xm-box category-list-box">
+          <div class="xm-pagenavi">
+		  <!-- {if $pager.page_prev} -->
+		  <a class="numbers first" href="{$pager.page_prev}">上一页</a>
+		  <!-- {else} -->
+		  <span class="numbers first">上一页</span>
+		  <!-- {/if} -->
+		  
+		  <!--{foreach from=$pager.page_number key=key item=item}-->
+		  <!-- {if $pager.page eq $key} -->
+		  <span class="numbers current"><a href="{$item}">{$key}</a></span>
+		  <!-- {else} -->
+		  <a class="numbers" href="{$item}">{$key}</a>
+		  <!-- {/if} -->
+		  <!--{/foreach}-->
+		  <!-- {if $pager.page_next} -->
+		  <a class="numbers last" href="{$pager.page_next}">下一页</a>
+		  <!-- {else} -->
+		  <span class="numbers last">下一页</span>
+		  <!-- {/if} -->
+		  </div>
+        </div>
+      </form><!-- #EndLibraryItem --><div class="blank5"></div>
+    <div class="box">
+     <div class="box_1">
+      <h3><span>{$lang.post_message}</span></h3>
+      <div class="boxCenterList">
+          <form action="message.php" method="post" name="formMsg" onSubmit="return submitMsgBoard(this)">
+            <table width="100%" border="0" cellpadding="3">
+              <tr>
+                <td align="right">{$lang.username}</td>
+                <td>
+                <!--{if $smarty.session.user_name}-->
+                <font class="f4_b">{$username}</font><label for="anonymous" style="margin-left:8px;"><input type="checkbox" name="anonymous" value="1" id="anonymous" />{$lang.message_anonymous}</label>
+                <!--{else}-->
+               {$lang.anonymous}
+                <!--{/if}-->
+                </td>
+              </tr>
+              <tr>
+                <td align="right">{$lang.email}</td>
+                <td><input name="user_email" type="text" class="inputBg" size="20" value="{$smarty.session.email|escape}" /></td>
+              </tr>
+              <tr>
+                <td align="right">{$lang.message_board_type}</td>
+                <td><input name="msg_type" type="radio" value="0" checked="checked" />
+                  {$lang.message_type[0]}
+                  <input type="radio" name="msg_type" value="1" />
+                  {$lang.message_type[1]}
+                  <input type="radio" name="msg_type" value="2" />
+                  {$lang.message_type[2]}
+                  <input type="radio" name="msg_type" value="3" />
+                  {$lang.message_type[3]}
+                  <input type="radio" name="msg_type" value="4" />
+                  {$lang.message_type[4]} </td>
+              </tr>
+              <tr>
+                <td align="right">{$lang.message_title}</td>
+                <td><input name="msg_title" type="text" class="inputBg" size="30" /></td>
+              </tr>
+            <!-- 判断是否启用验证码{if $enabled_mes_captcha} -->
+              <tr>
+                <td align="right">{$lang.comment_captcha}</td>
+                <td><input type="text" size="8" name="captcha"  class="inputBg" />
+                <img src="captcha.php?{$rand}" alt="captcha" style="vertical-align: middle;cursor: pointer;" onClick="this.src='captcha.php?'+Math.random()" /> </td>
+              </tr>
+            <!--{/if}-->
+              <tr>
+                <td align="right" valign="top">{$lang.message_content}</td>
+                <td><textarea name="msg_content" cols="50" rows="4" wrap="virtual" style="border:1px solid #ccc;"></textarea></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td><input type="hidden" name="act" value="act_add_message" />
+                  <input type="submit" value="{$lang.post_message}" class="bnt_blue_1" />
+                </td>
+              </tr>
+            </table>
+          </form>
+        <script type="text/javascript">
+        {foreach from=$lang.message_board_js item=item key=key}
+        var {$key} = "{$item}";
+        {/foreach}
+        {literal}
+        /**
+         * 提交留言信息
+        */
+        function submitMsgBoard(frm)
+        {
+            var msg = new Object;
+
+             msg.user_email  = frm.elements['user_email'].value;
+             msg.msg_title   = frm.elements['msg_title'].value;
+             msg.msg_content = frm.elements['msg_content'].value;
+             msg.captcha     = frm.elements['captcha'] ? frm.elements['captcha'].value : '';
+
+            var msg_err = '';
+
+            if (msg.user_email.length > 0)
+            {
+               if (!(Utils.isEmail(msg.user_email)))
+               {
+                  msg_err += msg_error_email + '\n';
+                }
+             }
+             else
+             {
+                  msg_err += msg_empty_email + '\n';
+             }
+            if (msg.msg_title.length == 0)
+            {
+                msg_err += msg_title_empty + '\n';
+            }
+            if (frm.elements['captcha'] && msg.captcha.length==0)
+            {
+                msg_err += msg_captcha_empty + '\n'
+            }
+            if (msg.msg_content.length == 0)
+            {
+                msg_err += msg_content_empty + '\n'
+            }
+            if (msg.msg_title.length > 200)
+            {
+                msg_err += msg_title_limit + '\n';
+            }
+
+            if (msg_err.length > 0)
+            {
+                alert(msg_err);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        {/literal}
+        </script>
+      </div>
+     </div>
+    </div>
+  </div>
+</div><!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+<div class="footer container">
+  <div class="footerup">
+    <div class="footercont">
+      <ul class="nums clearfix">
+        <li class="first"><a href="#" target="_blank" ><span>7</span><strong>
+          <label>天</label>
+          退货保障 </strong></a></li>
+        <li class="line">|</li>
+        <li class="second"><a href="#" target="_blank"><span>15</span><strong>
+          <label>天</label>
+          换货承诺 </strong></a></li>
+        <li class="line">|</li>
+        <li class="third"><a href="#" target="_blank"><span>100</span><strong>
+          <label>元起</label>
+          全场免邮费 </strong></a></li>
+        <li class="line"></li>
+        <li class="fourth"><a href="#" target="_blank"><span>420</span><strong>
+          <label>余家</label>
+          售后服务网点 </strong></a></li>
+      </ul>
+      <div class="service clearfix">
+        <dl>
+          <dt>购物指南</dt>
+          <dd><a href="article.php@id=9" title="购物常见问题">购物常见问题</a></dd>
+          <dd><a href="article.php@id=10" title="订单状态">订单状态</a></dd>
+          <dd><a href="article.php@id=11" title="购物流程">购物流程</a></dd>
+        </dl>
+        <dl>
+          <dt>支付方式</dt>
+          <dd><a href="article.php@id=15" title="货到付款">货到付款</a></dd>
+          <dd><a href="article.php@id=16" title="配送支付智能查询">配送支付智能查询</a></dd>
+          <dd><a href="article.php@id=17" title="在线支付">在线支付</a></dd>
+        </dl>
+        <dl>
+          <dt>配送方式</dt>
+          <dd><a href="article.php@id=21" title="配送范围与费用">配送范围与费用</a></dd>
+          <dd><a href="article.php@id=22" title="签收须知">签收须知</a></dd>
+          <dd><a href="article.php@id=23" title="快递送货">快递送货</a></dd>
+        </dl>
+        <dl>
+          <dt>售后服务</dt>
+          <dd><a href="article.php@id=24" title="退换货流程">退换货流程</a></dd>
+          <dd><a href="article.php@id=25" title="退换货政策">退换货政策</a></dd>
+          <dd><a href="article.php@id=26" title="服务政策">服务政策</a></dd>
+        </dl>
+        <dl>
+          <dt>关注我们</dt>
+          <dd class="sina"><span class="icon-common icon-common-sina"></span><a href="../../e.weibo.com/xiaomishouji" target="_blank"> 新浪微博 </a></dd>
+          <dd class="kongjian"><span class="icon-common icon-common-kongjian"></span><a  href="../../user.qzone.qq.com/2451201053" target="_blank"> QQ空间 </a></dd>
+          <dd id="txweixin" class="facebook"><span class="icon-common icon-common-weixin"></span><a> 官方微信 </a></dd>
+        </dl>
+        <div class="online">
+          <ul>
+            <li class="item1"><span class="icon-common icon-common-tel"></span>400-100-5678 </li>
+            <li class="item2"> 仅收市话费，周一至周日8:00-18:00 </li>
+            <li class="item3 clearfix"><a class="btn btn-green" href="#" target="_blank"><span class="icon-common icon-common-face"></span>24小时在线客服</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="linker"><a href="article.php@id=1" >免责条款</a> | <a href="article.php@id=2" >隐私保护</a> | <a href="article.php@id=3" >咨询热点</a> | <a href="article.php@id=4" >联系我们</a> | <a href="article.php@id=5" >公司简介</a> | <a href="wholesale.php" >批发方案</a> | <a href="myship.php" >配送方式</a></div>
+  <div class="footerbtm">
+    <div class="info"> &copy; 2005-2013 ecshop模板 版权所有，并保留所有权利。 <img src="themes/xm2013/images/footerbg.gif" /></div>
+    <div class="believe"><a target="_blank" href="#"><img src="themes/xm2013/images/f1.gif"></a><a target="_blank" href="#"><img src="themes/xm2013/images/f2.gif"></a><a target="_blank" href="#"><img src="themes/xm2013/images/f3.gif"></a></div>
+  </div>
+</div><!-- #EndLibraryItem -->
+</body>
+
+<script type="text/javascript">
+var time_hide_all_cat = null;
+if (document.getElementById("div_all_cat").className == 'showlist snone'){
+   document.getElementById("btnnav").onmouseover = show_all_cat;
+   
+   document.getElementById("btnnav").onmouseout = function(e){
+      time_hide_all_cat = setTimeout("hide_all_cat()",100);
+   }
+   
+   document.getElementById("div_all_cat").onmouseover = show_all_cat;
+   
+   document.getElementById("div_all_cat").onmouseout = hide_all_cat;
+}
+
+function hide_all_cat(){
+   document.getElementById("div_all_cat").className = 'showlist snone';
+}
+
+function show_all_cat(){
+   clearTimeout(time_hide_all_cat);
+   document.getElementById("div_all_cat").className = 'showlist';
+}
+
+</script>
+
+</html>

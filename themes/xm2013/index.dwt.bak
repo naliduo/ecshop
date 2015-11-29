@@ -1,0 +1,529 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<title>{$page_title}</title>
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+
+<link href="base.css" rel="stylesheet" type="text/css" />
+<link href="index.css" rel="stylesheet" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="RSS|{$page_title}" href="{$feed_url}" />
+{insert_scripts files='common.js,index.js'}
+<script>
+var _mvq = _mvq || [];
+_mvq.push(['$setAccount', 'm-29971-0']);
+{if $action == 'collection_list'}
+_mvq.push(['$setGeneral', 'memberfavorite', '', '{$ecs_session.user_name|escape:"javascript"}', '{$ecs_session.user_id|escape:"javascript"}']);
+_mvq.push(['$logConversion']);
+<!-- {foreach name="goods_list" from=$goods_list item=goods} -->
+_mvq.push(['$addGoodsFavorite', '{$goods.goods_id|escape:"javascript"}','{$goods.goods_name|escape:"javascript"}']);
+<!-- {/foreach} -->
+_mvq.push(['$logData']);
+{/if}
+{if $action == 'default'}
+_mvq.push(['$setGeneral', 'memberindex', '', '{$ecs_session.user_name|escape:"javascript"}', '{$ecs_session.user_id|escape:"javascript"}']);
+_mvq.push(['$logConversion']);
+{/if}
+{if $action == 'comment_list' || $action == 'message_list'}
+_mvq.push(['$setGeneral', 'comment', '', '{$ecs_session.user_name|escape:"javascript"}', '{$ecs_session.user_id|escape:"javascript"}']);
+_mvq.push(['$logConversion']);
+{/if}
+</script>
+							
+</head>
+<body><!-- #BeginLibraryItem "/library/page_header.lbi" -->
+
+<script type="text/javascript">
+var process_request = "正在处理您的请求...";
+</script>
+<script type="text/javascript">
+var isWidescreen=screen.width<1200;
+if (isWidescreen){document.getElementsByTagName("body")[0].className="w950";}
+</script>
+<div class="header container">
+  <div class="top">
+    <div class="logo"><a class="icon-common-logo" href="index.php" title=""><img src="themes/xm2013/images/logo.gif" /></a></div>
+    <div class="right clearfix">
+      <div class="menu">
+        <ul class="clearfix">
+          <li>
+            <script type="text/javascript" src="js/transport.js"></script>
+            <script type="text/javascript" src="js/utils.js"></script>
+            <label id="header_menu_top_login"><font id="ECS_MEMBERZONE">{insert name='member_info'}</font></label>
+          </li>
+          <li><a href="mobile">手机版</a></li>
+        </ul>
+      </div>
+      <div class="search">
+        <form id="user_search" action="search.php" method='get'>
+          <input type="text" id="keyword" name="keywords" class="txt" value="" placeholder="请输入关键词" />
+          <input type="submit"  class="mbtn" value=''/>
+          <label class="hot">{foreach from=$searchkeywords item=val}
+   <a href="search.php?keywords={$val|escape:url}">{$val}</a>
+   {/foreach}</label>
+        </form>
+      </div>
+
+      
+    <div style="margin-top:3px;" class="xshop buy_car_bg clearfix"  onmouseover="this.className='xshop hover_on buy_car_bg ul1_on'" onmouseout=  "this.className='xshop buy_car_bg'">
+	
+	<img src="images/nav_cat.gif" style="float:left; padding-right:5px; padding-left:10px; padding-top:7px;" /> 
+	<div id="ECS_CARTINFO">
+
+   <p><a href="flow.php">{insert name='cart_info'}</a></p>
+     </div> </div>
+      
+      <!--<div style="position: absolute;right: 31px;top: 78px;"><a target="_blank" id="kaifanggm" href="#">下轮开放购买：9月17日中午12点</a></div>-->
+    </div>
+  </div>
+  <div class="nav">
+    <div class="clearfix"><strong id="btnnav" class="side"><a href="catalog.php" class="catenav">全部商品分类<em class="tri"></em></a></strong>
+      <div class="lnks clearfix">
+        <ul class="lnks-li">
+          <li><a class="lnk  {if $navigator_list.config.index eq 1}on{/if}" href="index.php">首页</a></li>
+          
+		  <!-- {foreach name=nav_middle_list from=$navigator_list.middle item=nav} -->
+            <?php
+            $GLOBALS['smarty']->assign('get_child_tree', get_child_tree($GLOBALS['smarty']->_var['nav']['cid']));
+            $GLOBALS['smarty']->assign('menucatid',get_catid_byurl($GLOBALS['smarty']->_var['nav']['url']));
+            ?>
+          <li {if $menucatid && $get_child_tree}class="phonelistarr" onmouseover="this.className='phonelistarr nhover'" onmouseout="this.className='phonelistarr'"{/if}><a class="lnk {if $nav.active eq 1}on{/if}" href="{$nav.url}"> {$nav.name} </a>
+            {if $menucatid && $get_child_tree}
+              <dl>
+                <!--{foreach from=$get_child_tree item=child name=child}-->             
+                <dd {if $smarty.foreach.subcates.last}class="last"{/if}><a href="{$child.url}" title="{$cat.name|escape:html}">{$child.name}</a></dd>
+                <!--{/foreach}-->
+              </dl>
+            {/if}	
+          </li>
+		  <!-- {/foreach} -->
+       <div align="right" height:45px; line-height:45px; overflow:hidden;>{insert name='ads' id=29 num=1}</div>
+        </ul>
+      </div>
+    </div>
+    <div class="showlist snone" id="div_all_cat">
+      <ul class="lists">
+	  <!--{foreach from=get_categories_tree() item=cat}-->
+        <li onmouseover="this.className='navhover'" onmouseout="this.className=''"><a class="tit" href="{$cat.url}">{$cat.name|escape:html}</a><em class="icon-common icon-common-arrowright"></em>
+		{if $cat.cat_id}
+          <label class="tri"><i></i></label>
+          <div class="show clearfix">
+            <div class="lt">
+              <dl class="firstdl">
+			  <!--{foreach from=$cat.cat_id item=child}-->
+                <dd><a  href="{$child.url}">{$child.name|escape:html}</a></dd>
+              <!--{/foreach}-->
+              </dl>
+            </div>
+          </div>
+		  {/if}	
+        </li>
+		<!--{/foreach}--> 
+      </ul>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="themes/xm2013/js/jquery.js"></script>
+<script type="text/javascript" src="themes/xm2013/js/xm.js"></script><!-- #EndLibraryItem -->
+
+
+<script type="text/javascript">
+document.getElementById("div_all_cat").className = "showlist";
+</script>
+
+<div class="container">
+  <div class="fpics row clearfix">
+    <div class="span3 fpics-left"></div>
+    <div class="span12">
+      <div id="yc-mod-slider">
+        <div id="xmFocus" class="xmFocus">
+		<!--{foreach from=get_flash_xml() item=playerdb name=get_flash_xml}-->
+          <div style="background: url({$playerdb.src}) no-repeat scroll center 50% rgb(255, 255, 255); display: block;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px" index="{$smarty.foreach.get_flash_xml.iteration}"><a href="{$playerdb.url}" target="_blank"></a></div>
+		<!--{/foreach}-->   
+          <ul style="width: 80px; right: 50%; margin-right: -465px;">
+		  <!--{foreach from=get_flash_xml() item=playerdb name=get_flash_xml}-->
+            <li class="{if $smarty.foreach.get_flash_xml.iteration eq 1}on{/if}" index="{$smarty.foreach.get_flash_xml.iteration}"></li>
+		  <!--{/foreach}-->	
+          </ul>
+        </div>
+        <script type="text/javascript">$(function(){Xmeb.App.xmFocus.init($("#xmFocus"),{mwidth:"auto",autoWidth:true});Xmeb.App.lazyload({defObj:".home_main",defHeight:50});});</script>
+      </div>
+      <div class="hdshow row">
+        <div class="span3">
+          <!-- TemplateBeginEditable name="广告-首页轮播底部广告1" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+        </div>
+        <div class="span3 ">
+          <!-- TemplateBeginEditable name="广告-首页轮播底部广告2" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+        </div>
+        <div class="span3 ">
+          <!-- TemplateBeginEditable name="广告-首页轮播底部广告3" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+        </div>
+        <div class="span3 last">
+          <!-- TemplateBeginEditable name="广告-首页轮播底部广告4" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="lazyLoad-box">
+    <div class="newgoods row clearfix">
+      <div class="span12">
+        <div class="xm-box">
+          <div class="hd">
+            <h3 class="title"><b>新品上架</b></h3>
+          </div>
+          <div class="bd clearfix">
+            <ul class="home-goods-list home-goods-listlt clearfix">
+              <li class="big">
+                <!-- TemplateBeginEditable name="广告-首页新品上架广告1" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+              </li>
+              <li class="last">
+                <!-- TemplateBeginEditable name="广告-首页新品上架广告2" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+              </li>
+              <li>
+                <!-- TemplateBeginEditable name="广告-首页新品上架广告3" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+              </li>
+              <li >
+                <!-- TemplateBeginEditable name="广告-首页新品上架广告4" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+              </li>
+              <li class="last">
+                <!-- TemplateBeginEditable name="广告-首页新品上架广告5" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+              </li>
+            </ul>
+            <ul class="home-goods-list home-goods-listrt clearfix">
+              <li class="small">
+                <!-- TemplateBeginEditable name="广告-首页新品上架广告6" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+              </li>
+              <li class="small">
+                <!-- TemplateBeginEditable name="广告-首页新品上架广告7" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+              </li>
+              <li class="small smallsublast">
+                <!-- TemplateBeginEditable name="广告-首页新品上架广告8" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+              </li>
+              <li class="small smalllast last">
+                <!-- TemplateBeginEditable name="广告-首页新品上架广告9" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="span3">
+        <div class="xm-box">
+          <div class="bd">
+            <div class="spike">
+              <div class="tit"><strong>推荐商品</strong></div>
+			  <!--{foreach from=$best_goods item=goods name=best_good}-->
+              <div class="goodsItems">
+                <p><a href="{$goods.url}" title="{$goods.name|escape:html}">{$goods.short_style_name}</a></p>
+                <p class="f1"> 特价：<font class="f1"><!-- {if $goods.promote_price neq ""} -->{$goods.promote_price}<!-- {else}-->{$goods.shop_price}<!--{/if}--></font></p>
+                <p><a href="{$goods.url}"><img src="{$goods.thumb}" alt="{$goods.name|escape:html}" class="goodsimg" /></a></p>
+              </div>
+              <!--{/foreach}-->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="hotgoods">
+      <div class="xm-box">
+        <div class="hd">
+          <h3 class="title"><b>热销产品</b></h3>
+        </div>
+        <div class="bd clearfix">
+          <ul class="goods clearfix">
+            <li class="big">
+              <!-- TemplateBeginEditable name="广告-首页热卖商品广告1" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+            </li>
+            <li>
+              <!-- TemplateBeginEditable name="广告-首页热卖商品广告2" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+            </li>
+            <li class="last">
+              <!-- TemplateBeginEditable name="广告-首页热卖商品广告3" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+            </li>
+            <li class="small">
+              <!-- TemplateBeginEditable name="广告-首页热卖商品广告4" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+              <!-- TemplateBeginEditable name="广告-首页热卖商品广告5" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+            </li>
+            <li>
+              <!-- TemplateBeginEditable name="广告-首页热卖商品广告6" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+            </li>
+            <li class="big last">
+              <!-- TemplateBeginEditable name="广告-首页热卖商品广告7" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+            </li>
+          </ul>
+          <div class="xm-box home-goods-sublist">
+            <div class="bd">
+              <ul>
+                <li class="small">
+                  <!-- TemplateBeginEditable name="广告-首页热卖商品广告8" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+                  <!-- TemplateBeginEditable name="广告-首页热卖商品广告9" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+                </li>
+                <li>
+<!-- TemplateBeginEditable name="广告-首页热卖商品广告10" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="xm-box home-today-goods">
+      <div class="hd">
+        <h3 class="title"><b>健康礼品系列</b></h3>
+      </div>
+      <div class="bd clearfix">
+        <div class="home-featured-goods">
+          <!-- TemplateBeginEditable name="广告-首页特卖商品广告" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+        </div>
+        <div class="xm-goods-list-wrap">
+          <ul class="xm-goods-list clearfix">
+
+<li>
+<!-- TemplateBeginEditable name="广告-首页会员卡商品广告1" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+</li>
+<li>
+<!-- TemplateBeginEditable name="广告-首页会员卡商品广告2" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+</li>
+<li>
+<!-- TemplateBeginEditable name="广告-首页会员卡商品广告3" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+</li>       
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+<div class="footer container">
+  <div class="footerup">
+    <div class="footercont">
+      <ul class="nums clearfix">
+        <li class="first"><a href="#" target="_blank" ><span>7</span><strong>
+          <label>天</label>
+          退货保障 </strong></a></li>
+        <li class="line">|</li>
+        <li class="second"><a href="#" target="_blank"><span>15</span><strong>
+          <label>天</label>
+          换货承诺 </strong></a></li>
+        <li class="line">|</li>
+        <li class="third"><a href="#" target="_blank"><span>100</span><strong>
+          <label>元起</label>
+          全场免邮费 </strong></a></li>
+        <li class="line"></li>
+        <li class="fourth"><a href="#" target="_blank"><span>420</span><strong>
+          <label>余家</label>
+          售后服务网点 </strong></a></li>
+      </ul>
+      <div class="service clearfix">
+	  <!-- {foreach from=get_shop_help() item=help_cat} -->
+        <dl>
+          <dt>{$help_cat.cat_name}</dt>
+		  <!-- {foreach from=$help_cat.article item=item} -->
+          <dd><a href="{$item.url}" title="{$item.short_title}">{$item.short_title}</a></dd>
+          <!-- {/foreach} -->
+        </dl>
+      <!-- {/foreach} -->
+        <dl>
+          <dt>关注我们</dt>
+          <dd class="sina"><span class="icon-common icon-common-sina"></span><a href="http://e.weibo.com/xiaomishouji" target="_blank"> 新浪微博 </a></dd>
+          <dd class="kongjian"><span class="icon-common icon-common-kongjian"></span><a  href="http://user.qzone.qq.com/2451201053" target="_blank"> QQ空间 </a></dd>
+          <dd id="txweixin" class="facebook"><span class="icon-common icon-common-weixin"></span><a> 官方微信 </a></dd>
+        </dl>
+        <div class="online">
+          <ul>
+            <li class="item1"><span class="icon-common icon-common-tel"></span>400-100-5678 </li>
+            <li class="item2"> 仅收市话费，周一至周日8:00-18:00 </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="linker"><!-- {foreach name=nav_bottom_list from=$navigator_list.bottom item=nav} -->
+  <a href="{$nav.url}" <!-- {if $nav.opennew eq 1} --> target="_blank" <!-- {/if} -->>{$nav.name}</a><!-- {if !$smarty.foreach.nav_bottom_list.last} --> | <!-- {/if} -->
+  <!-- {/foreach} --></div>
+  <div class="footerbtm">
+    <div class="info"> {$copyright} <img src="themes/xm2013/images/footerbg.gif" /></div>
+    <div class="believe"><a target="_blank" href="#"><img src="themes/xm2013/images/f1.gif"></a><a target="_blank" href="#"><img src="themes/xm2013/images/f2.gif"></a><a target="_blank" href="#"><img src="themes/xm2013/images/f3.gif"></a><SCRIPT LANGUAGE="JavaScript" >
+			document.writeln("<a href='https://www.sgs.gov.cn/lz/licenseLink.do?method=licenceView&entyId=dov73ne26zbqq0ili51qzup34d4fmuekgo'><img src='/images/icon.gif' border=0></a>")
+	</SCRIPT></div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+   if (Object.prototype.toJSONString){
+      var oldToJSONString = Object.toJSONString;
+      Object.prototype.toJSONString = function(){
+        if (arguments.length > 0){
+          return false;
+        }else{
+          return oldToJSONString.apply(this, arguments);
+        }
+		}
+}
+function ResumeError()
+{
+   return true;
+}
+window.onerror = ResumeError; 
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- #EndLibraryItem --></body>
+</html>

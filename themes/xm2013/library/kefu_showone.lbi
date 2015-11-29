@@ -1,0 +1,135 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--通用内容部分从此开始,直接复制使用即可-->
+    	<h1>{$kefu.typeone}</h1>
+        <ul>
+            <!-- 是否显示简约版 {foreach from=$kefu.qqone key=key item=kfqq} -->
+    <!-- {if $kefu.qqcss eq 0} -->
+
+    <li><span>{$kfqq.name}</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$kfqq.qq}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{$kfqq.qq}:45" title="{$kfqq.name}"></a></li>
+     <!-- {/if} -->
+      <!-- {if $kefu.qqcss eq 1} -->
+      <li><span></span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$kfqq.qq}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{$kfqq.qq}:41" title="{$kfqq.name}"></a></li>
+      <!-- {/if} -->
+      <!-- {if $kefu.qqcss eq 2} -->
+     <li><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$kfqq.qq}&site=qq&menu=yes"><img border="0" src="../OKQQ/images/common/qq.png" title="{$kfqq.name}"></a></li>
+      <!-- {/if} -->
+      
+
+      
+    <!-- {/foreach} 结束 --> 
+    
+    
+     <!-- 是否显示简约版 {foreach from=$kefu.imone key=key item=kfqq} -->
+    <!-- {if $kefu.wwcss==0} -->    
+    <li><span>{$kfqq.name}</span><a target="_blank" href="http://www.taobao.com/webww/ww.php?ver=3&touid={$kfqq.im}&siteid=cntaobao&status=2&charset=utf-8"><img border="0" src="http://amos.alicdn.com/online.aw?v=2&uid={$kfqq.im}&site=cntaobao&s=2&charset=utf-8" alt="{$kfqq.name}" /></a></li>
+     <!-- {/if} -->
+      <!-- {if $kefu.wwcss==1} -->
+      <li><span></span><a target="_blank" href="http://www.taobao.com/webww/ww.php?ver=3&touid={$kfqq.im}&siteid=cntaobao&status=1&charset=utf-8"><img border="0" src="http://amos.alicdn.com/online.aw?v=2&uid={$kfqq.im}&site=cntaobao&s=1&charset=utf-8" alt="{$kfqq.name}" /></a></li>
+      <!-- {/if} -->
+      <!-- {if $kefu.wwcss==2} -->
+     <li><a target="_blank" href="http://www.taobao.com/webww/ww.php?ver=3&touid={$kfqq.im}&siteid=cntaobao&status=1&charset=utf-8"><img border="0" src="../OKQQ/images/common/ww.png" alt="{$kfqq.name}" /></a></li>
+      <!-- {/if} --> 
+    <!-- {/foreach} 结束 -->     	    
+        </ul>
+  
+  	<h1>{$kefu.typetwo}</h1>
+        <ul>
+            <!-- 是否显示简约版 {foreach from=$kefu.qqtwo key=key item=kfqq} -->
+    <!-- {if $kefu.qqcss==0} -->
+    <li><span>{$kfqq.name}</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$kfqq.qq}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{$kfqq.qq}:45" title="{$kfqq.name}"></a></li>
+     <!-- {/if} -->
+      <!-- {if $kefu.qqcss==1} -->
+      <li><span></span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$kfqq.qq}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{$kfqq.qq}:41" title="{$kfqq.name}"></a></li>
+      <!-- {/if} -->
+      <!-- {if $kefu.qqcss==2} -->
+     <li><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$kfqq.qq}&site=qq&menu=yes"><img border="0" src="../OKQQ/images/common/qq.png" title="{$kfqq.name}"></a></li>
+      <!-- {/if} --> 
+    <!-- {/foreach} 结束 --> 
+    
+    
+     <!-- 是否显示简约版 {foreach from=$kefu.imqqtwo key=key item=kfqq} -->
+     <!-- {if $kefu.wwcss==0} -->    
+    <li><span>{$kfqq.name}</span><a target="_blank" href="http://www.taobao.com/webww/ww.php?ver=3&touid={$kfqq.im}&siteid=cntaobao&status=2&charset=utf-8"><img border="0" src="http://amos.alicdn.com/online.aw?v=2&uid={$kfqq.im}&site=cntaobao&s=2&charset=utf-8" alt="{$kfqq.name}" /></a></li>
+     <!-- {/if} -->
+      <!-- {if $kefu.wwcss==1} -->
+      <li><span></span><a target="_blank" href="http://www.taobao.com/webww/ww.php?ver=3&touid={$kfqq.im}&siteid=cntaobao&status=1&charset=utf-8"><img border="0" src="http://amos.alicdn.com/online.aw?v=2&uid={$kfqq.im}&site=cntaobao&s=1&charset=utf-8" alt="{$kfqq.name}" /></a></li>
+      <!-- {/if} -->
+      <!-- {if $kefu.wwcss==2} -->
+     <li><a target="_blank" href="http://www.taobao.com/webww/ww.php?ver=3&touid={$kfqq.im}&siteid=cntaobao&status=1&charset=utf-8"><img border="0" src="../OKQQ/images/common/ww.png" alt="{$kfqq.name}" /></a></li>
+      <!-- {/if} -->
+ <!-- {/foreach} 结束 -->   	    
+        </ul>
+        
+  <!-- {if $kefu.kf53 neq ''} -->       
+        <h1>53客服图标</h1>
+         <!-- 是否显示简约版 {foreach from=$kefu.kf53 key=key item=kf53} -->
+        <ul>
+        	<li><script type="text/javascript">
+hz6d_fixed_conf["1"] = {};
+hz6d_fixed_conf["1"].img = "../OKQQ/images/common/53kf.png";
+hz6d_fixed_conf["1"].width = "44";
+hz6d_fixed_conf["1"].height = "40";
+hz6d_fixed_conf["1"].style = "1";
+hz6d_fixed_conf["1"].kf = "{$kf53}";
+hz6d_FixedKF("img","1");
+</script></li>
+ <!-- {/foreach} 结束 -->  
+        </ul>
+    <!-- {/if} -->     
+        
+   <!-- {if $kefu.qqqun neq ''  || $kefu.wwqun neq ''} -->       
+        <h1>官方服务群</h1>
+        <ul>
+        <!-- {if $kefu.qqqun neq ''} -->  
+        <!-- 是否显示简约版 {foreach from=$kefu.qqqun key=key item=qqqun} -->
+        	<li><a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/{$qqqun}"><img src="../OKQQ/images/common/gp.JPG" alt="点击加入群" /></a></li>
+            <!-- 是否显示简约版 {/foreach} -->
+         <!-- {/if} -->  
+         <!-- {if $kefu.wwqun neq ''} -->  
+         <!-- 是否显示简约版 {foreach from=$kefu.wwqun key=key item=wwqun} -->
+            <li><a href="http://www.taobao.com/go/act/other/wwgroup.php?uid=&tribeid={$wwqun}" target="_blank"><img src="../OKQQ/images/common/wangwang.gif" alt="点击参观该群"></a></li>
+            <!-- 是否显示简约版 {/foreach} -->
+             <!-- {/if} --> 
+        </ul>
+    <!-- {/if} -->      
+
+   <!-- {if $kefu.fenxiang neq ''} -->
+        
+         <h1>分享到</h1>
+         <ul>
+         <li class="sp">
+            
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+     <!-- 是否显示简约版 {foreach from=$kefu.fenxiang key=key item=fx} -->
+        <a class="{$fx}"></a>
+       <!-- {/foreach} 结束 -->     
+        <span class="bds_more"></span>
+    </div>
+
+          </li>
+        </ul>
+     <!-- {/if} --> 
+        <!--分享-->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=13844" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    var bds_config = {'review':'off'};
+	var bds_config = {'bdText':'酷站代码 - 网页特效、jQuery幻灯、flash幻灯等源码大全，是您建站好帮手！www.5icool.org'};
+	var bds_config = {'bdDesc':'精选网页特效源码，提供jQuery特效、js特效、js幻灯片、Flash幻灯、图片特效、在线客服代码、建站素材、网页模板等'};
+	var bds_config = {'bdComment':'很不错的js特效网站，有许多炫酷的幻灯源码和教程！'};
+	document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+</script>
+<!--分享-->
+
+    
+   <!-- {if $kefu.kftel neq ''} --> 
+        <h1>客服热线</h1>
+        <div class="qqtel">{$kefu.kftel}</div>
+    <!-- {/if} -->
+       <!-- {if $kefu.shijian neq ''} -->       
+        
+        <h1>营业时间</h1>
+        <div class="time">{$kefu.shijian}</div>
+        <!--通用内容部分到此结束-->
+      <!-- {/if} -->

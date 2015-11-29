@@ -1,0 +1,135 @@
+<?php
+define('IN_ECS', true);
+
+
+
+require(dirname(__FILE__) . '/includes/init.php');
+
+// 获得所有有效会员清单
+$sql_memeber = "select u.user_id, u.email, u.user_name,u.user_money,u.rank_points, u.msn, u.to_date from " .$ecs->table("users"). " u  where u.member_novalid ='0' and (u.to_date is not null or u.to_date <> '') and  (u.msn is not null or u.msn <> '') ";
+$member_list = $db->getAll($sql_memeber);
+
+
+
+if($member_list) {
+	
+	require_once dirname(__FILE__) . '/admin/Classes/PHPExcel.php';
+	require_once dirname(__FILE__) . '/admin/Classes/PHPExcel/IOFactory.php';
+	$PHPExcel = new PHPExcel();
+	
+	//设置excel属性基本信息
+	$PHPExcel->getProperties()->setCreator("Jack")
+	->setLastModifiedBy("Jack")
+	->setTitle("上海君禾园有限公司")
+	->setSubject("会员列表")
+	->setDescription("")
+	->setKeywords("会员列表")
+	->setCategory("");
+	$PHPExcel->setActiveSheetIndex(0);
+	$PHPExcel->getActiveSheet()->setTitle("会员列表");
+	//填入表头主标题
+	$PHPExcel->getActiveSheet()->setCellValue('A1', $_CFG['shop_name'].'会员列表');
+	//填入表头副标题
+	$PHPExcel->getActiveSheet()->setCellValue('A2', '操作者：'.$_SESSION['admin_name'].' 导出日期：'.date('Y-m-d',time()).' 地址：'.$_CFG['shop_address'].' 电话：'.$_CFG['service_phone']);
+	//合并表头单元格
+	$PHPExcel->getActiveSheet()->mergeCells('A1:G1');
+	$PHPExcel->getActiveSheet()->mergeCells('A2:G2');
+	
+	//设置表头行高
+	$PHPExcel->getActiveSheet()->getRowDimension(1)->setRowHeight(40);
+	$PHPExcel->getActiveSheet()->getRowDimension(2)->setRowHeight(20);
+	$PHPExcel->getActiveSheet()->getRowDimension(3)->setRowHeight(30);
+	
+	//设置表头字体
+	$PHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setName('黑体');
+	$PHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
+	$PHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
+	$PHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setName('宋体');
+	$PHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setSize(14);
+	$PHPExcel->getActiveSheet()->getStyle('A3:G3')->getFont()->setBold(true);
+	
+	//设置单元格边框
+	$styleArray = array(
+			'borders' => array(
+					'allborders' => array(
+							//'style' => PHPExcel_Style_Border::BORDER_THICK,//边框是粗的
+							'style' => PHPExcel_Style_Border::BORDER_THIN,//细边框
+							//'color' => array('argb' => 'FFFF0000'),
+					),
+			),
+	);
+	
+	//表格宽度
+	$PHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(18);//用户ID
+	$PHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(20);//姓名
+	$PHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(20);//用户名
+	$PHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(20);//邮件
+	$PHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(18);//帐户余额
+	$PHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(20);//等级积分
+	
+	
+	//表格标题
+	$PHPExcel->getActiveSheet()->setCellValue('A3', '用户ID');
+	$PHPExcel->getActiveSheet()->setCellValue('B3', '姓名');
+	$PHPExcel->getActiveSheet()->setCellValue('C3', '用户名');
+	$PHPExcel->getActiveSheet()->setCellValue('D3', '邮件');
+	$PHPExcel->getActiveSheet()->setCellValue('E3', '帐户余额');
+	$PHPExcel->getActiveSheet()->setCellValue('F3', '等级积分');
+	
+	
+	$hang = 4;
+	
+	
+	foreach ($member_list as $user){
+		if(!(empty($user['to_date'])) and $user['to_date']<gmtime()){ //判断合同期限
+			//if ($GLOBALS['_CFG']['send_service_email'] == '1' && $GLOBALS['_CFG']['kf'] != '')
+			if ($GLOBALS['_CFG']['send_service_email'] == '0' )
+			{ 
+				$tpl = get_mail_template('member_novalid');
+				$smarty->assign('user', $user);
+				$smarty->assign('shop_name', $GLOBALS['_CFG']['shop_name']);
+				$smarty->assign('send_date', date($GLOBALS['_CFG']['time_format']));
+				$content = $smarty->fetch('str:' . $tpl['template_content']);
+				send_mail($_CFG['shop_name'],"baixue@dream-gardens.com.cn" , $tpl['template_subject'], $content, $tpl['is_html']);
+				 			 
+			}
+			
+			$PHPExcel->getActiveSheet()->setCellValue('A' . ($hang), $user['user_id']." ");//加个空格，防止时间戳被转换
+			$PHPExcel->getActiveSheet()->setCellValue('B' . ($hang), $user['msn']);
+			$PHPExcel->getActiveSheet()->setCellValue('C' . ($hang), $user['user_name']);
+			$PHPExcel->getActiveSheet()->setCellValue('D' . ($hang), $user['email']);
+			$PHPExcel->getActiveSheet()->setCellValue('E' . ($hang), $user['user_money']." ");
+			$PHPExcel->getActiveSheet()->setCellValue('F' . ($hang), $user['rank_points']);
+			
+			$hang++;
+			
+			
+			$db->query("update ".$ecs->table("users")." set member_novalid='1' and rank_points='0' where user_id=".$user['user_id']);
+			log_account_change($user['user_id'], 0, 0, -$user['rank_points'], 0, '会员过期自动清理', ACT_OTHER);
+			
+			
+		}
+	}
+	
+	//设置单元格边框
+	$PHPExcel->getActiveSheet()->getStyle('A1:G'.$hang)->applyFromArray($styleArray);
+	//设置自动换行
+	$PHPExcel->getActiveSheet()->getStyle('A4:G'.$hang)->getAlignment()->setWrapText(true);
+	//设置字体大小
+	$PHPExcel->getActiveSheet()->getStyle('A4:G'.$hang)->getFont()->setSize(12);
+	//垂直居中
+	$PHPExcel->getActiveSheet()->getStyle('A1:G'.$hang)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+	//水平居中
+	$PHPExcel->getActiveSheet()->getStyle('A1:G'.$hang)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+	
+	$Writer = PHPExcel_IOFactory::createWriter($PHPExcel, 'Excel5');
+	$Writer->save(str_replace('.php', '.xls', __FILE__));
+	$url = "member_check.xls";
+	//ecs_header("Location: $url\n");
+	exit;
+}
+
+ 
+
+?>
+ 

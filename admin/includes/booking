@@ -1,0 +1,1 @@
+$modules['04_order']['06_undispose_booking']        = 'goods_booking.php?act=list_all';

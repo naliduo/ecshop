@@ -1,0 +1,126 @@
+<!-- $Id: goods_list.htm 17126 2010-04-23 10:30:26Z liuhui $ -->
+
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+
+
+<!-- 商品列表 -->
+<form method="post" action="" name="listForm" onsubmit="return confirmSubmit(this)">
+  <!-- start goods list -->
+  <div class="list-div" id="listDiv">
+{/if}
+<table cellpadding="3" cellspacing="1">
+  <tr align="center">
+    <th>编号</th>
+    <th width='350px'>套餐名称</th>
+    <th>套餐价格</th>
+    <th>频次</th>
+    <th>最后更新时间</th>
+    <th>操作</th>
+  </tr>
+  {foreach from=$systemtc_list item=card}
+  <tr  align="center">
+    <td>{$card.id}</td>
+    <td>
+       <a href="../{$card.tpic}" target='_blank'><img src="../{$card.tpic}" width='120px' height='120px' /></a><br>
+        {$card.tname}</td>
+    <td>{$card.tprice}</td>
+    <td>{$card.pingci}</td>
+    <td>{$card.last_date}</td>
+    <td>
+
+
+        <a href="?act=edit&id={$card.id}" title="编辑">
+            <img src="images/icon_edit.gif" width="16" height="16" border="0"></a>
+
+        <a href="javascript:;" onclick="listTable.remove({$card.id}, '您确实要删除该套餐吗？')"
+           title="删除"><img src="images/icon_trash.gif" width="16" height="16" border="0"></a>
+
+    </td>
+  </tr>
+  {foreachelse}
+  <tr><td class="no-records" colspan="8">{$lang.no_records}</td></tr>
+  {/foreach}
+</table>
+<!-- end goods list -->
+
+<!-- 分页 -->
+<table id="page-table" cellspacing="0">
+  <tr>
+    <td align="right" nowrap="true">
+    {include file="page.htm"}
+    </td>
+  </tr>
+</table>
+
+{if $full_page}
+</div>
+
+
+</form>
+
+<script type="text/javascript">
+  listTable.recordCount = {$record_count};
+  listTable.pageCount = {$page_count};
+
+  {foreach from=$filter item=item key=key}
+  listTable.filter.{$key} = '{$item}';
+  {/foreach}
+
+  {literal}
+  onload = function()
+  {
+    startCheckOrder(); // 开始检查订单
+    document.forms['listForm'].reset();
+  }
+
+  /**
+   * @param: bool ext 其他条件：用于转移分类
+   */
+  function confirmSubmit(frm, ext)
+  {
+      if (frm.elements['type'].value == 'trash')
+      {
+          return confirm(batch_trash_confirm);
+      }
+      else if (frm.elements['type'].value == 'not_on_sale')
+      {
+          return confirm(batch_no_on_sale);
+      }
+      else if (frm.elements['type'].value == 'move_to')
+      {
+          ext = (ext == undefined) ? true : ext;
+          return ext && frm.elements['target_cat'].value != 0;
+      }
+      else if (frm.elements['type'].value == '')
+      {
+          return false;
+      }
+      else
+      {
+          return true;
+      }
+  }
+
+  function changeAction()
+  {
+      var frm = document.forms['listForm'];
+
+      // 切换分类列表的显示
+      frm.elements['target_cat'].style.display = frm.elements['type'].value == 'move_to' ? '' : 'none';
+			
+			{if $suppliers_list > 0}
+      frm.elements['suppliers_id'].style.display = frm.elements['type'].value == 'suppliers_move_to' ? '' : 'none';
+			{/if}
+
+      if (!document.getElementById('btnSubmit').disabled &&
+          confirmSubmit(frm, false))
+      {
+          frm.submit();
+      }
+  }
+{/literal}
+</script>
+{include file="pagefooter.htm"}
+{/if}

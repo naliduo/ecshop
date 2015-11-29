@@ -1,0 +1,170 @@
+﻿<!-- $Id: goods_batch_add.htm 16544 2009-08-13 07:55:57Z liuhui $ -->
+{include file="pageheader.htm"}
+<div class="main-div">
+<h1>方式一：从电子表格批量导入</h1>
+<form action="user_card.php?act=send" method="post" enctype="multipart/form-data" name="theForm" onsubmit="return formValidate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">
+      <a href="javascript:showNotice('noticeFile');" title="{$lang.form_notice}"><img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>
+      {$lang.csv_file}</td>
+    <td><input name="file" type="file" size="40">
+    <br />
+      <span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="noticeFile">{$lang.notice_file}</span></td>
+  </tr>
+  
+  <tr>
+    <td>&nbsp;</td>
+    <td><a href="user_card_excel.csv" target="_blank">下载批量格式CSV文件</a></td>
+  </tr>
+  <tr align="center">
+    <td colspan="2"><input name="ct_id" type="hidden" value="{$ct_id}" /><input name="excel" type="submit" id="submit" value="{$lang.button_submit}" class="button" /></td>
+  </tr>
+</table>
+</form>
+
+<h1>方式二：批量生成</h1>
+<form action="user_card.php?act=send" method="post"  name="theForm1" onsubmit="return formValidate1()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">{$lang.card_type_ct_name}</td>
+    <td>{$ct_info.ct_name}</td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.card_pc}:</td>
+    <td><input name="pc" type="text" /></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.card_bs}:</td>
+    <td><input name="bs" type="text" /></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.card_rand_len}:</td>
+    <td><input name="len" type="text" />{$lang.require_field}</td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.card_start_num}:</td>
+    <td><input name="start" type="text" /></td>
+  </tr>  
+  <tr>
+    <td class="label">{$lang.card_num}:</td>
+    <td><input name="num" type="text" value="100" />{$lang.require_field}</td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.card_pass_len}: </td>
+    <td><input name="pass_len" type="text" value="8" />{$lang.require_field}</td>
+  </tr>
+   <tr>
+    <td class="label" colspan="2"><hr /></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.user_money}: </td>
+    <td><input name="user_money" type="text" /></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.pay_points}: </td>
+    <td><input name="pay_points" type="text" /></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.rank_points}: </td>
+    <td><input name="rank_points" type="text" /></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.card_true_name}:</td>
+    <td><input name="true_name" type="text" size="40" maxlength="60"/></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.card_address}:</td>
+    <td><input name="address" type="text" size="60" maxlength="255"/></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.card_mobile}:</td>
+    <td><input name="mobile" type="text" size="40" maxlength="60"/></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.card_email}:</td>
+    <td><input name="email" type="text" size="40" maxlength="60"/></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.send_type}:</td>
+    <td><input name="send_type" type="text" /></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.card_level}:</td>
+    <td><input name="card_level" type="text" /></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.card_des}:</td>
+    <td><input name="des" type="text" /></td>
+  </tr>
+  <tr align="center">
+    <td colspan="2"><input name="ct_id" type="hidden" value="{$ct_id}" /><input name="batch" type="submit" id="submit" value="{$lang.begin_create_card}" class="button" /></td>
+  </tr>
+</table>
+</form>
+<table width="100%">
+  <tr>
+    <td>&nbsp;</td>
+    <td width="80%">{$lang.use_help}</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</div>
+{insert_scripts files="../js/utils.js,validator.js"}
+{literal}
+<script language="JavaScript">
+    var elements;
+    onload = function()
+    {
+        // 文档元素对象
+        elements = document.forms['theForm'].elements;
+		elements1 = document.forms['theForm1'].elements;
+
+        // 开始检查订单
+        startCheckOrder();
+    }
+
+    /**
+     * 检查是否底级分类
+     */
+    function checkIsLeaf(selObj)
+    {
+        if (selObj.options[selObj.options.selectedIndex].className != 'leafCat')
+        {
+            alert(goods_cat_not_leaf);
+            selObj.options.selectedIndex = 0;
+        }
+    }
+
+    /**
+     * 检查输入是否完整
+     */
+    function formValidate()
+    {
+        if (elements['file'].value == '')
+        {
+            alert(please_upload_file);
+            return false;
+        }
+        return true;
+    }
+	    /**
+     * 检查输入是否完整
+     */
+    function formValidate1()
+    {
+        if (elements1['len'].value <=0)
+        {
+            alert('随机数位数不能为空');
+            return false;
+        }
+		if (elements1['num'].value <=0)
+        {
+            alert('卡数量不能为空');
+            return false;
+        }
+        return true;
+    }
+</script>
+{/literal}
+{include file="pagefooter.htm"}

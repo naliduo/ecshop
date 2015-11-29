@@ -1,0 +1,106 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="footer container">
+  <div class="footerup">
+    <div class="footercont">
+      <div class="service clearfix">
+	  <!-- {foreach from=get_shop_help() item=help_cat} -->
+        <dl>
+          <dt>{$help_cat.cat_name}</dt>
+		  <!-- {foreach from=$help_cat.article item=item} -->
+          <dd><a href="{$item.url}" title="{$item.short_title}">{$item.short_title}</a></dd>
+          <!-- {/foreach} -->
+        </dl>
+      <!-- {/foreach} -->
+      <dl>
+                            <dt>关注我们</dt>
+                            <dd class="sina">
+                                <span class="icon-common icon-common-sina"></span>
+                                <a href="http://weibo.com/dreamgardens" target="_blank">
+                                    新浪微博
+                                </a>
+                            </dd>
+                            <dd id="txweixin" class="facebook">
+                                <span class="icon-common icon-common-weixin"></span>
+                                <a onclick="weixin()">
+                                    官方微信
+                                </a>
+                            </dd>
+                        </dl>
+        <div class="online">
+          <ul>
+            <li class="item1"><span class="icon-common icon-common-tel"></span>400 821 3860</li>
+            <li class="item2">企业客户致电021-50306602订购</li>
+          
+            
+            
+            <!-- QQ 号码 {foreach from=$qq item=im} -->
+      <!-- {if $im} -->
+        <li class="item3 clearfix">
+      <a class="btn btn-green" href="/"><span class="icon-common icon-common-face"></span>欢迎来电咨询</a></li>
+      <!-- {/if} -->
+      <!-- {/foreach} 结束QQ号码 -->
+      
+      
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footerbtm">
+    <div class="info"> {$copyright} <img src="themes/xm2013/images/footerbg.gif" /></div>
+    <div class="believe"><a target="_blank" href="#"><img src="themes/xm2013/images/f1.gif"></a><a target="_blank" href="#"><img src="themes/xm2013/images/f2.gif"></a><a target="_blank" href="#"><img src="themes/xm2013/images/f3.gif"></a></div>
+  </div>
+</div>
+<script type="text/javascript" src="themes/xm2013/js/kefu.js"></script>
+<div id="Fixed">
+<a id="goCart" class="btn fl" title="购物车" href="flow.php">购物车</a>
+<a id='feedback' class='fl btn' title="求反馈" href="message.php">求反馈</a>
+<a id="goTop" class="fl" title="去顶部" href="#top">去顶部</a>
+</div>
+<div id="boxweixin" class="modal hide xmweixin" data-width="520" data-height="400" style="width: 520px; height: 400px; display: none;" aria-hidden="true">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+                <h3>官方微信二维码</h3>
+            </div>
+            <div class="modal-body">
+                <p>打开微信，点选“发现”，选择“扫一扫”功能，<br>对准下方二维码即可。</p>
+                <p>现在关注“君禾园”,即可查看24节气精选养生话题</p>
+                <img alt="" src="themes/xm2013/images/weixin.jpg">
+            </div>
+        </div>
+
+
+           <div id="black_bg"></div>
+             <div class="comment-top" id="comment_box" style="display: none" >
+                  <ul>
+                    <li>• 您还未加入会员，建议购买会员卡，享受更多的会员专供产品及服务。点<a href="category.php?id=9&act=clear" target='_blank'>这里</a>购买会员卡。</li>
+                    <li>• 若您已购买会员卡，别忘了进入用户中心的《会员卡》栏目进行绑定，如此，您才可享受会员特供服务，点<a href="user.php?act=user_card&t=clear"  target='_blank'>这里</a>去绑定。</li>
+                    <li>• 若您暂不购买会员卡，我们也欢迎直接转向零售支付，<a href="javascript:checkout2()">去结算</a>。</li>
+                  </ul>
+             </div>
+              <div class="comment-top" id="comment_box33" style="display: none" >
+                       <ul>
+                         <li>• {$msg}</li>
+
+                       </ul>
+                  </div>
+             <div class="comment-top" id="comment_box2" style="display: none" >
+                  <ul>
+                    <li>如您已选择网上支付和余额支付等直接付款方式，完成支付后，请去用户中心，查看购买此会员卡的订单详情，您会获得会员卡卡号及密码，并请在会员卡栏目中进行绑定操作，随后就可开始用您的账户余额进行购物了，祝使用愉快，请选择<a href="javascript:checkout2()" >继续结算</a>。</li>
+
+                  </ul>
+             </div>
+
+             <div class="comment-top" id="comment_box1" style="display: none" >
+                  <ul>
+                    <li>如您已选银行汇款方式付款，待您汇款后，我们会将会员卡号及密码通知您，您即可进行后续的会员卡绑定及购物等操作了，如有任何问题请联系我们。请点<a href="javascript:checkout2()" >这里</a>确认订单</li>
+                  </ul>
+             </div>
+
+                <div class="comment-top" id="comment_box11"  style="display: none">
+                               <ul>
+                                 <li>抱歉，该产品为会员专享，欢迎您成为君禾园会员！
+                                  <a href="article.php?id=23" >了解如何加入会员</a></li>
+                               </ul>
+                      </div>

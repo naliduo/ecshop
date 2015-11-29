@@ -1,0 +1,58 @@
+﻿
+.services {
+	float: left;
+}
+.services .con {
+	background: url(../images/service.gif) no-repeat 0 0;
+	width: 127px;
+	height: 368px;
+	position: relative;
+}
+.services .shares {
+	position: absolute;
+	left: 10px;
+	top: 275px;
+	white-space: nowrap;
+	color: #666;
+}
+.services .shares img {
+	margin-right: 5px;
+}
+.services li {
+	text-align: center;
+}
+.services .qq {
+	padding-top: 105px;
+}
+.services .name {
+	padding-top: 8px;
+	float: left;
+	display: block;
+	width: 60px;
+	text-align: right;
+}
+#compai .s-btn {
+	background-position: 0 -89px;
+	width: 38px;
+	height: 198px;
+	margin-top: 104px;
+	float: left;
+}
+#compai .Obtn {
+	background: url(../images/service.gif) no-repeat -331px -53px;
+	float: left;
+	width: 39px;
+	height: 197px;
+	margin-top: 30px;
+	margin-left: -1px;
+}
+#compai a.wx {
+	position: absolute;
+	top: 166px;
+	left: 15px;
+	overflow: hidden;
+	text-indent: -999em;
+	display: block;
+	width: 95px;
+	height: 95px;
+}

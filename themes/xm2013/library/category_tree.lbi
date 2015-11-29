@@ -1,0 +1,15 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="box">
+      <div class="box_1">
+        <h3><span>商品分类</span></h3>
+        <div id="category_tree" style=" padding-bottom:5px">
+		<!--{foreach from=get_categories_tree() item=cat}-->
+          <dl>
+            <dt><a href="{$cat.url}">{$cat.name|escape:html}</a></dt>
+          </dl>
+         <!--{/foreach}-->   
+		  
+        </div>
+      </div>
+    </div>
+    <div class="blank5"></div>

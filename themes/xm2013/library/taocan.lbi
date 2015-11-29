@@ -1,0 +1,58 @@
+<!--组合套餐推荐 START-->
+<!-- {if $package_goods_list} -->
+<div class="box" >
+<div class="box_1">
+<h3 style="padding:0 5px;">
+<div id="cn_b" class="history clearfix">
+<!-- {foreach from=$package_goods_list key=key item=package_goods} -->
+<!-- {if $key eq 0} -->
+<h2 class=>{$lang.remark_package}{$taocan.$key}</h2>               
+<!--{else}-->
+<h2 class="h2bg">{$lang.remark_package}{$taocan.$key}</h2>        
+<!-- {/if} -->
+<!-- {/foreach} -->
+</div>
+</h3>
+<div id="cn_v" class="boxCenterList"></div>
+<div id="cn_h">
+<!-- {foreach from=$package_goods_list item=package_goods} -->
+<blockquote>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#dddddd">
+<tr bgcolor="#FFFFFF">
+<td align="center" width="15%">
+<a href="goods.php?id={$goods.goods_id}" target="_blank" style="background:transparent" title="{$goods.goods_name|escape:html}"><img src="{$goods.goods_thumb}" width="100" /><br />{$goods.goods_name|truncate:28}</a>
+</td>
+<td align="center" width="5px" height ="7px"><img src="images/plus_4.gif" /></td>
+<!-- {foreach from=$package_goods.goods_list item=goods_list} -->
+<!-- {if $goods_list.goods_thumb neq $goods.goods_thumb} -->
+<td align="center" width="15%">
+<a href="goods.php?id={$goods_list.goods_id}" target="_blank" style="background:transparent" title="{$goods_list.goods_name|escape:html}"><img src="{$goods_list.goods_thumb}" width="100" /><br />{$goods_list.goods_name|truncate:28}</a>×&nbsp;{$goods_list.goods_number}
+</td>
+<!-- {/if} -->
+<!-- {/foreach} -->
+<td align="right">
+<strong><font>{$package_goods.act_name}</font></strong><br />
+{$lang.old_price}<font class="market">{$package_goods.subtotal}</font><br />
+{$lang.package_price}<font class="fpink">{$package_goods.package_price}</font><br />
+{$lang.then_old_price}<font class="shop">{$package_goods.saving}</font><br />
+<!-- {if $inv_content_list} 能否开发票 -->
+<!-- {if $inv_type_list} -->
+<!--                                
+<select name="inv_type" id="ECS_INVTYPE_TAOCAN" {if $order.need_inv neq 0}disabled="true"{/if} style="border:1px solid #ccc;">
+{html_options options=$inv_type_list selected=$order.inv_type}</select>
+-->
+<!-- {/if} -->         
+<!-- {/if} -->
+<a href="javascript:addPackageToCart({$package_goods.act_id})" style="background:transparent"><img src="images/taocan_bnt.gif" alt="{$lang.add_to_cart}" /></a>
+</td>
+</tr>
+</table>
+</blockquote>
+<script type="text/javascript">reg("cn");</script>
+<!-- {/foreach} -->
+</div>
+</div>
+</div>        
+<div class="blank"></div>
+<!-- {/if} -->
+<!--组合套餐推荐 END-->

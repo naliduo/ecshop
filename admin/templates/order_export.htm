@@ -1,0 +1,43 @@
+
+<!-- $Id: sale_order.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+<div class="form-div">
+  <form name="TimeInterval"  action="javascript:getParam()" style="margin:0px">
+   开始时间&nbsp;{html_select_date field_order="YMD" prefix="start_date" time=$start_date start_year="-10" end_year="+1" display_days=true month_format="%m"}-结束时间&nbsp;{html_select_date field_order="YMD" prefix="end_date" time=$end_date start_year="-10" end_year="+1" display_days=true month_format="%m"}
+    <input type="submit" name="submit" value="查询" class="button_new" />
+    <input id="start_date" name="start_date"  type="hidden" value="" />
+    <input id="end_date" name="end_date"  type="hidden" value="" />
+  </form>
+</div>
+
+
+
+
+<script type="Text/Javascript" language="JavaScript">
+
+function getParam()
+{
+    var frm =  document.forms['TimeInterval'];
+    $start_date= frm.elements['start_dateYear'].value + '-' + frm.elements['start_dateMonth'].value + '-' + frm.elements['start_dateDay'].value;
+    $end_date = frm.elements['end_dateYear'].value + '-' + frm.elements['end_dateMonth'].value + '-' + frm.elements['end_dateDay'].value;
+   
+    var aTags = document.getElementsByTagName('A');
+    for (var i = 0; i < aTags.length; i++)
+    { 
+      if (aTags[i].href.indexOf('download') >= 0)
+      {
+          aTags[i].href = "order_export.php?start_date=" + $start_date + "&end_date=" + $end_date;
+      }
+    }
+    alert("请点击导出订单!");
+    
+    // document.getElementByTagName("start_date").value = $start_date;
+    // document.getElementByTagName("end_date").value =$end_date;
+}
+
+
+
+</script>
+
+{include file="pagefooter.htm"}

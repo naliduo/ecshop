@@ -1,0 +1,159 @@
+<!-- $Id: goods_list.htm 17126 2010-04-23 10:30:26Z liuhui $ -->
+
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+<div class="form-div">
+    <form action="javascript:searchOrder()" name="searchForm">
+        <img src="images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" />
+        用户名 <input name="username" type="text" id="username" size="15" style="width:100px;">
+        套餐名称 <input name="tcname" type="text" id="tcname" size="15" >
+        状态
+        <select name="status" id="status">
+            <option value="">请选择...</option>
+            <option value="1">已激活</option>
+            <option value="2">未激活</option>
+        </select>
+        <input type="submit" value="{$lang.button_search}" class="button_new" />
+    </form>
+</div>
+
+<!-- 商品列表 -->
+<form method="post" action="" name="listForm" onsubmit="return confirmSubmit(this)">
+  <!-- start goods list -->
+  <div class="list-div" id="listDiv">
+{/if}
+<table cellpadding="3" cellspacing="1">
+  <tr align="center">
+    <th>编号</th>
+      <th>会员名</th>
+    <th width='250px'>套餐名称</th>
+    <th>套餐价格</th>
+    <th>频次</th>
+    <th width='240px'>送货信息</th>
+    <th width='190px'>备注</th>
+      <th>状态</th>
+    <th>最后更新时间</th>
+    <th width='100px'>操作</th>
+  </tr>
+  {foreach from=$usertc_list item=card}
+  <tr  align="center">
+    <td>{$card.id}</td>
+      <td>{$card.user_name}</td>
+    <td>
+        {$card.tname}</td>
+    <td>{$card.tprice}</td>
+    <td>{$card.pingci}</td>
+      <td>
+          {foreach from=$card.tcinfolist item=g name=i}
+            套餐信息{$smarty.foreach.i.iteration}:{$g.weekdays}{$g.halfday}送</br>
+          {/foreach}
+      </td>
+    <td>{$card.beizhu}</td>
+      <td>{if $card.status==1} 已激活 {else} 未激活 {/if}</td>
+    <td>{$card.last_date}</td>
+    <td>
+       <a href="?act=info&id={$card.id}" target="_blank" title="查看">
+            <img src="images/icon_view.gif" width="16" height="16" border="0"></a>
+
+        <a href="?act=edit&id={$card.id}" title="编辑">
+            <img src="images/icon_edit.gif" width="16" height="16" border="0"></a>
+        {if $card.status==2}
+         <a href="javascript:;" onclick="listTable.remove({$card.id}, '您确实要删除该套餐吗？')"
+            title="删除"><img src="images/icon_trash.gif" width="16" height="16" border="0"></a>
+        {/if}
+
+    </td>
+  </tr>
+  {foreachelse}
+  <tr><td class="no-records" colspan="10">{$lang.no_records}</td></tr>
+  {/foreach}
+</table>
+<!-- end goods list -->
+
+<!-- 分页 -->
+<table id="page-table" cellspacing="0">
+  <tr>
+    <td align="right" nowrap="true">
+    {include file="page.htm"}
+    </td>
+  </tr>
+</table>
+
+{if $full_page}
+</div>
+
+
+</form>
+
+<script type="text/javascript">
+  listTable.recordCount = {$record_count};
+  listTable.pageCount = {$page_count};
+
+  {foreach from=$filter item=item key=key}
+  listTable.filter.{$key} = '{$item}';
+  {/foreach}
+
+  {literal}
+  onload = function()
+  {
+    startCheckOrder(); // 开始检查订单
+    document.forms['listForm'].reset();
+  }
+      function searchOrder()
+      {
+          listTable.filter['username'] = Utils.trim(document.forms['searchForm'].elements['username'].value);
+          listTable.filter['tcname'] = Utils.trim(document.forms['searchForm'].elements['tcname'].value);
+          listTable.filter['status'] = document.forms['searchForm'].elements['status'].value;
+          listTable.filter['page'] = 1;
+          listTable.loadList();
+      }
+  /**
+   * @param: bool ext 其他条件：用于转移分类
+   */
+  function confirmSubmit(frm, ext)
+  {
+      if (frm.elements['type'].value == 'trash')
+      {
+          return confirm(batch_trash_confirm);
+      }
+      else if (frm.elements['type'].value == 'not_on_sale')
+      {
+          return confirm(batch_no_on_sale);
+      }
+      else if (frm.elements['type'].value == 'move_to')
+      {
+          ext = (ext == undefined) ? true : ext;
+          return ext && frm.elements['target_cat'].value != 0;
+      }
+      else if (frm.elements['type'].value == '')
+      {
+          return false;
+      }
+      else
+      {
+          return true;
+      }
+  }
+
+  function changeAction()
+  {
+      var frm = document.forms['listForm'];
+
+      // 切换分类列表的显示
+      frm.elements['target_cat'].style.display = frm.elements['type'].value == 'move_to' ? '' : 'none';
+			
+			{if $suppliers_list > 0}
+      frm.elements['suppliers_id'].style.display = frm.elements['type'].value == 'suppliers_move_to' ? '' : 'none';
+			{/if}
+
+      if (!document.getElementById('btnSubmit').disabled &&
+          confirmSubmit(frm, false))
+      {
+          frm.submit();
+      }
+  }
+{/literal}
+</script>
+{include file="pagefooter.htm"}
+{/if}

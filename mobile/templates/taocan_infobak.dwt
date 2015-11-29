@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta content="telephone=no" name="format-detection" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="viewport" content="width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png"/>
+	<title>{$taocan.tname} - {$shop_name}</title>
+	<link rel='stylesheet' type='text/css' href='css/product-intro.css' />
+    <link href="css/reset.css" rel="stylesheet" type="text/css" />
+	<link href="css/head.css" rel="stylesheet" type="text/css" />
+	<link href="css/foot.css" rel="stylesheet" type="text/css" />
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+	<script src="js/jquery-1.6.2.min.js" type="text/javascript"></script>
+	<script src="js/jquery.json.js" type="text/javascript"></script>
+	{insert_scripts files='common.js,transport.js,utils.js'}
+	<script>
+          var util = (function(){
+              var u = navigator.userAgent.toLowerCase();
+              return {
+                  isIphone : function(){return (RegExp("iphone").test(u) || RegExp("ipod touch").test(u))},
+                  isIpad : function(){return RegExp("ipad").test(u)},
+                  isAndroid : function(){return (RegExp("android").test(u) || RegExp("android 2").test(u))},
+                  isMB : function(){return (util.isIphone() || util.isIpad() || util.isAndroid())}
+              };
+          })();
+          window.util = util;
+          (function(){
+              if( !util.isMB() ){
+                  window.location.href = '../index.php';
+              }
+          })();
+    </script>
+	<script type="text/javascript">
+	var _hmt=_hmt||[];(function(){var e=document.createElement("script");
+	var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})();
+	document.write('<div id="global_loading" style="width: 100%;height: 100%;position: fixed;top: 0;left: 0;background-color: #eee;z-index:999"><div style="width: 100px;height: 75px;margin:auto;top:50%;position:relative"><span style="display:block;float:left;width:32px;height:32px;background:url(images/spacer.gif);margin-top:-5px;"></span>&nbsp;&nbsp;加载中...</div></div>');
+	</script>
+
+</head>
+<body> 
+	<div class="header">
+		<a class="back" href="javascript:history.back();"></a>
+		<span class="headline">{$taocan.tname}</span>
+		<a class="search" href="search.php"></a>
+	</div>
+	<section class="sp">
+<div class="product-intro">
+	
+	<div id="cont_show">
+<script type="text/javascript">
+$(function() {
+	$("#btn_continue").click(function(){
+		$("#buy_lay").hide();
+		$("#buy_lay_frm").hide();
+	});
+	$("#btn_check").click(function(){
+		window.location='cart.php';
+	});	 
+	$(document).bind("click",function(){
+		$("#buy_lay").hide();
+		$("#buy_lay_frm").hide();
+	});
+});
+</script>
+<script type="text/javascript">
+var $$ = function (obj) {
+    if (obj != null && obj != undefined && obj.toString().length > 0) {
+        if (obj[0] == '#') {
+            return document.getElementById(obj.substr(1, obj.length - 1));
+        }
+    }
+}
+function chgNum(a) {
+    var number = $$("#number");
+    var p = parseInt(number.value);
+    if (a == 1) {
+        if (p < 1038) number.value = ++p;
+    }
+    else {
+        if (p > 1) number.value = --p;
+    }
+}
+</script>
+<div class="show">
+
+	<!-- 切换Start -->
+	<script type="text/javascript" src="js/TouchSlide.1.1.js"></script>
+	<link href="css/TouchSlide.1.1.css" rel="stylesheet" type="text/css" />
+	<div id="focus" class="focus">
+		<div class="hd">
+		<ul></ul>
+		</div>
+		<div class="bd">
+		<ul>
+		  <li><img src="{$site}/{$taocan.tpic}"
+          alt="{$taocan.tname|escape:html}" id="goodsimg" style="cursor:pointer;"   /></li>
+		</ul>
+		</div>
+	</div>
+	<script type="text/javascript">
+	TouchSlide({ 
+		slideCell:"#focus",
+		titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+		mainCell:".bd ul",
+		delayTime:600,
+		interTime:4000,
+		effect:"leftLoop", 
+		autoPlay:true,//自动播放
+		autoPage:true, //自动分页
+		switchLoad:"_src" //切换加载，真实图片路径为"_src" 
+	});
+	</script>
+	<!-- 切换End -->
+</div>
+
+<div class="pro-info">
+<p class="pro-name"><strong>{$taocan.tname}</strong></br>
+
+</p>
+
+
+<div class="price clearfix">
+    <ul>
+         {foreach from=$nglist item=n name=nn key=sn}
+                     {foreach from=$n item=g name=gg}
+                         {if $smarty.foreach.gg.index==0}
+                          <li class="clearfix" style='line-height:16px;padding-top:12px;' ><strong>套餐商品
+                          {if $smarty.foreach.nn.index==0}
+                                A：
+                          {elseif  $smarty.foreach.nn.index==1}
+                                  B：
+                          {elseif  $smarty.foreach.nn.index==2}
+                                C：
+                          {elseif  $smarty.foreach.nn.index==3}
+                                    D：
+                          {/if}
+                          </strong>{$g.goods_name}({$g.shop_price}),数量:{$g.goods_num}</li>
+                         {else}
+                              <li class="clearfix" style='padding:0 0 0 74px;line-height:16px'>{$g.goods_name}({$g.shop_price}),数量:{$g.goods_num}</li>
+                          {/if}
+                     {/foreach}
+              {/foreach}
+   </ul>
+</div>
+<br/>
+<div class="price clearfix">
+<p class="jx-price">本店价&nbsp;&nbsp;&nbsp;<strong> {$taocan.tprice}</strong></p>
+</div>
+<!-- {foreach from=$rank_prices item=rank_price key=key} 会员等级对应的价格-->
+       <!-- {if $key eq $smarty.session.user_rank} -->
+        <div class="price clearfix">
+        <p class="jx-price">{$rank_price.rank_name}&nbsp;&nbsp;&nbsp;<strong> <!--{if $goods.is_promote and $goods.gmt_end_time } 促销-->{$goods.promote_price}<!--{else}-->{$rank_price.price}<!--{/if}--></strong></p>
+        </div>
+       <!-- {/if} -->
+<!--{/foreach}-->
+
+<div class="brand clearfix">
+	<p class="name">频&nbsp;&nbsp;&nbsp;次</p><p class="detial">1周{$taocan.num}次</p>
+</div>
+
+ <form action="javascript:addToCart({$goods.goods_id})" method="post" name="ECS_FORMBUY" id="ECS_FORMBUY" >
+
+
+</form>
+
+
+<div class="div_but1 clearfix" id="btn1">
+	<div class="buybut" onclick="location.href='./taocan.php?id={$taocan.id}&act=buy'">
+		<a class='ljgm' name="goods_buy" href="javascript:void()">
+			<i></i>
+			选定套餐
+		</a>
+	</div>
+</div>
+
+
+
+
+</div>
+
+
+<div class="active">
+<p class="tip"></p>
+</div>
+
+<div class="pro-detial">
+	<div class="judge clearfix">
+		<span>套餐描述</span>
+		<span class="arrow"></span>
+	</div>
+    <div class="pro-intro clearfix">
+        <blockquote>
+        {$taocan.descs}
+        <div class="blank"></div>
+        
+      </blockquote>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript" src="js/iscroll.js"></script>
+<script type="text/javascript">
+	var myScroll;
+	$(document).ready(function(){
+		var w = $('.item-list ul li').length*100+'px';
+		$('.item-list').width(w);
+ 		 myScroll = new iScroll('item-container', { 
+ 			snap: true,
+ 			hScrollbar: false,
+ 			vScrollbar: false,
+ 			momentum:false			 
+ 		});
+	});
+</script>
+	</div>
+</div>
+</section>
+
+	
+<script type="text/javascript">
+		var global_loading=document.getElementById("global_loading");
+		global_loading.parentNode.removeChild(global_loading);
+</script>
+{include file='foot.dwt'}
+</body>
+</html>

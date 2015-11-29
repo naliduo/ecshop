@@ -1,0 +1,277 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="OKQQ/images/common.css" rel="stylesheet" type="text/css"/>
+
+{insert_scripts files='FixedKF.js'}
+
+<!-- {if $kefu.kefushow eq 1} -->
+
+
+
+<style>
+
+#BottomNav {
+/*background: #9F6;*/
+margin:0 auto;
+z-index: 999;
+position: fixed;
+<!-- {if $kefu.show eq 0} -->
+top: {$kefu.showlefttop}px;
+left: {$kefu.showleft}px;
+<!-- {else} -->
+top: {$kefu.showrighttop}px;
+right: {$kefu.showright}px;
+<!-- {/if} -->
+
+width:120px;
+_position: absolute;
+_top: expression(documentElement.scrollTop-10 + documentElement.clientHeight-this.offsetHeight);
+overflow: visible;}
+
+</style>
+
+<script language="javascript">
+	function xianshi()
+	{
+		var showone = document.getElementById('show_one');
+		var showtwo = document.getElementById('show_two');
+		showone.style.display = "none"; 
+		showtwo.style.display = "block"; 	
+	}
+	
+	function guanbi()
+	{
+		var showone = document.getElementById('show_one');
+		var showtwo = document.getElementById('show_two');
+		showone.style.display = "block"; 
+		showtwo.style.display = "none"; 	
+	}
+	
+</script>
+
+
+<!--主题开始-->
+<div id="BottomNav">
+<!--{if $kefu.skin eq 1}-->
+
+
+<div class="shrink_s1" id="show_one" {if $kefu.fs_show eq 1}style="display:block;"{else}style="display:none;"{/if}><a href="javascript:xianshi();"><img src="../OKQQ/images/s1/shrink.png"/></a></div>
+<div class="expansion_s1" {if $kefu.fs_show eq 0}style="display:block;"{else}style="display:none;"{/if} id="show_two">
+	<div><a href="javascript:guanbi();"title="点击关闭"><img src="../OKQQ/images/s1/close.jpg" /></a></div>
+    <div><img src="../OKQQ/images/s1/kfbg.jpg" /></div>
+    <div class="common common_s1">{include file="/library/kefu_showone.lbi"}</div>
+     <div><a href="javascript:void(0);"onclick='window.scrollTo(0,0);' title="返回顶部"><img src="../OKQQ/images/s1/gotop.jpg" /></a></div>
+    <div><img src="../OKQQ/images/s1/endbg.jpg" /></div>
+</div>
+<!--{/if}-->
+
+<!--{if $kefu.skin eq 2}-->
+<!--主题开始-->
+<div class="shrink_s2" id="show_one" {if $kefu.fs_show eq 1}style="display:block;"{else}style="display:none;"{/if}>
+<a href="javascript:xianshi();"><img src="../OKQQ/images/s2/shrink.jpg" /></a></div>
+
+<div class="expansion_s2" {if $kefu.fs_show eq 0}style="display:block;"{else}style="display:none;"{/if} id="show_two">
+	<div><a href="javascript:guanbi();"title="点击关闭"><img src="../OKQQ/images/s2/close.jpg" /></a></div>
+    <div><img src="../OKQQ/images/s2/kfbg.jpg" /></div>
+    <div class="common common_s2">
+    {include file="/library/kefu_showone.lbi"}
+    </div>
+    <div><a href="javascript:void(0);"onclick='window.scrollTo(0,0);' title="返回顶部"><img src="../OKQQ/images/s2/gotop.jpg" /></a></div>
+</div>
+<!--{/if}-->
+
+<!--{if $kefu.skin eq 3}-->
+<!--主题开始-->
+
+<!--主题开始-->
+<div class="shrink_s3" id="show_one" {if $kefu.fs_show eq 1}style="display:block;"{else}style="display:none;"{/if}>
+<a href="javascript:xianshi();"><img src="../OKQQ/images/s3/shrink.jpg" /></a></div>
+
+<div class="expansion_s3" {if $kefu.fs_show eq 0}style="display:block;"{else}style="display:none;"{/if} id="show_two">
+	<div><a href="javascript:guanbi();"title="点击关闭"><img src="../OKQQ/images/s3/close.png" /></a></div>
+    <div><img src="../OKQQ/images/s3/kfbg.jpg" /></div>
+    <div class="common common_s3">{include file="/library/kefu_showone.lbi"}</div>
+    <div><a href="javascript:void(0);"onclick='window.scrollTo(0,0);' title="返回顶部"><img src="../OKQQ/images/s3/endbg.png" /></a></div>
+</div>
+<!--{/if}-->
+
+<!--{if $kefu.skin eq 4}-->
+<!--主题开始-->
+<div class="shrink_s4" id="show_one" {if $kefu.fs_show eq 1}style="display:block;"{else}style="display:none;"{/if}>
+<a href="javascript:xianshi();"><img src="../OKQQ/images/s4/shrink.jpg" /></a></div>
+
+<div class="expansion_s4" {if $kefu.fs_show eq 0}style="display:block;"{else}style="display:none;"{/if} id="show_two">
+	<div><a href="javascript:guanbi();"title="点击关闭"><img src="../OKQQ/images/s4/close.png" /></a></div>
+    <div><img src="../OKQQ/images/s4/kfbg.png" /></div>
+    <div class="common common_s4">{include file="/library/kefu_showone.lbi"}</div>
+    <div><a href="javascript:void(0);"onclick='window.scrollTo(0,0);' title="返回顶部"><img src="../OKQQ/images/s4/endbg.png" /></a></div>
+</div>
+<!--{/if}-->
+
+<!--{if $kefu.skin eq 5}-->
+<!--主题开始-->
+<div class="shrink_s5" id="show_one" {if $kefu.fs_show eq 1}style="display:block;"{else}style="display:none;"{/if}><a href="javascript:xianshi();"><img src="../OKQQ/images/s5/shrink.jpg" /></a></div>
+
+<div class="expansion_s5" {if $kefu.fs_show eq 0}style="display:block;"{else}style="display:none;"{/if} id="show_two">
+	<div><a href="javascript:guanbi();"title="点击关闭"><img src="../OKQQ/images/s5/close.jpg" /></a></div>
+    <div><img src="../OKQQ/images/s5/kfbg.jpg" /></div>
+    <div class="common common_s5">{include file="/library/kefu_showone.lbi"}</div>
+    <div><a href="javascript:void(0);"onclick='window.scrollTo(0,0);' title="返回顶部"><img src="../OKQQ/images/s5/endbg.png" /></a></div>
+</div>
+<!--{/if}-->
+
+<!--{if $kefu.skin eq 6}-->
+<!--主题开始-->
+<div class="shrink_s6" id="show_one" {if $kefu.fs_show eq 1}style="display:block;"{else}style="display:none;"{/if}><a href="javascript:xianshi();"><img src="../OKQQ/images/s6/shrink.png" /></a></div>
+
+<div class="expansion_s6" {if $kefu.fs_show eq 0}style="display:block;"{else}style="display:none;"{/if} id="show_two">
+	<div><a href="javascript:guanbi();"title="点击关闭"><img src="../OKQQ/images/s6/close.jpg" /></a></div>
+    <div class="common common_s6">{include file="/library/kefu_showone.lbi"}</div>
+    <div><a href="javascript:void(0);"onclick='window.scrollTo(0,0);' title="返回顶部"><img src="../OKQQ/images/s6/endbg.jpg" /></a></div>
+</div>
+<!--{/if}-->
+
+<!--{if $kefu.skin eq 7}-->
+<!--主题开始-->
+
+<!--主题开始-->
+<div class="shrink_s7" id="show_one" {if $kefu.fs_show eq 1}style="display:block;"{else}style="display:none;"{/if}>
+<a href="javascript:xianshi();"><img src="../OKQQ/images/s7/shrink.png" /></a></div>
+
+<div class="expansion_s7" {if $kefu.fs_show eq 0}style="display:block;"{else}style="display:none;"{/if} id="show_two">
+	<div class="close7"><a href="javascript:guanbi();"title="点击关闭"><img src="../OKQQ/images/s7/close.png" /></a></div>
+    <div class="close7"><img src="../OKQQ/images/s7/kfbg.png" /></div>
+    <div class="common common_s7">{include file="/library/kefu_showone.lbi"}</div>
+    <div><a href="javascript:void(0);"onclick='window.scrollTo(0,0);' title="返回顶部"><img src="../OKQQ/images/s7/endbg.png" /></a></div>
+</div>
+
+<!--{/if}-->
+
+
+<!--{if $kefu.skin eq 8}-->
+<!--主题开始-->
+<div class="shrink_s8" id="show_one" {if $kefu.fs_show eq 1}style="display:block;"{else}style="display:none;"{/if}><a href="javascript:xianshi();"><img src="../OKQQ/images/s8/shrink.jpg" /></a></div>
+
+<div class="expansion_s8" {if $kefu.fs_show eq 0}style="display:block;"{else}style="display:none;"{/if} id="show_two">
+	<div><a href="javascript:guanbi();"title="点击关闭"><img src="../OKQQ/images/s8/close.jpg" /></a></div>
+    <div><img src="../OKQQ/images/s8/kfbg.jpg" /></div>
+    <div class="common common_s8">{include file="/library/kefu_showone.lbi"}</div>
+    <div><a href="javascript:void(0);"onclick='window.scrollTo(0,0);' title="返回顶部"><img src="../OKQQ/images/s8/endbg.jpg" /></a></div>
+</div>
+<!--{/if}-->
+
+
+<!--{if $kefu.skin eq 9}-->
+<!--主题开始-->
+<div class="shrink_s9" id="show_one" {if $kefu.fs_show eq 1}style="display:block;"{else}style="display:none;"{/if}><a href="javascript:xianshi();"><img src="../OKQQ/images/s9/shrink.jpg" /></a></div>
+
+<div class="expansion_s9" {if $kefu.fs_show eq 0}style="display:block;"{else}style="display:none;"{/if} id="show_two">
+	<div><a href="javascript:guanbi();"title="点击关闭"><img src="../OKQQ/images/s9/close.jpg" /></a></div>
+    <div><img src="../OKQQ/images/s9/kfbg.jpg" /></div>
+    <div class="common common_s9">{include file="/library/kefu_showone.lbi"}</div>
+    <div><a href="javascript:void(0);"onclick='window.scrollTo(0,0);' title="返回顶部"><img src="../OKQQ/images/s9/endbg.jpg" /></a></div>
+</div>
+<!--{/if}-->
+
+
+
+<!--{if $kefu.skin eq 10}-->
+<!--主题开始-->
+
+<div class="shrink_s10" id="show_one" {if $kefu.fs_show eq 1}style="display:block;"{else}style="display:none;"{/if}><a href="javascript:xianshi();"><img src="../OKQQ/images/s10/shrink.png" /></a></div>
+
+<div class="expansion_s10" {if $kefu.fs_show eq 0}style="display:block;"{else}style="display:none;"{/if} id="show_two">
+	<div><a href="javascript:guanbi();"title="点击关闭"><img src="../OKQQ/images/s10/close.png" /></a></div>
+    <div class="kfbg10"><img src="../OKQQ/images/s10/kfbg.png" /></div>
+    <div class="common common_s10">{include file="/library/kefu_showone.lbi"}</div>
+    <div ><a href="javascript:void(0);"onclick='window.scrollTo(0,0);' title="返回顶部"><img src="../OKQQ/images/s10/gotop.jpg" /></a></div>
+    <div><img src="../OKQQ/images/s10/endbg.png" /></div>
+</div>
+
+<!--{/if}-->
+
+
+<!--{if $kefu.skin eq 11}-->
+<!--主题开始-->
+<div class="shrink_s11" id="show_one" {if $kefu.fs_show eq 1}style="display:block;"{else}style="display:none;"{/if}><a href="javascript:xianshi();"><img src="../OKQQ/images/s11/shrink.png" /></a></div>
+
+<div class="expansion_s11" {if $kefu.fs_show eq 0}style="display:block;"{else}style="display:none;"{/if} id="show_two">
+	<div><a href="javascript:guanbi();"title="点击关闭"><img src="../OKQQ/images/s11/close.png" /></a></div>
+    <div class="common common_s11">{include file="/library/kefu_showone.lbi"}</div>
+    <div ><a href="javascript:void(0);"onclick='window.scrollTo(0,0);' title="返回顶部"><img src="../OKQQ/images/s11/gotop.jpg" /></a></div>
+    <div><img src="../OKQQ/images/s11/endbg.png" /></div>
+</div>
+<!--{/if}-->
+
+<!--{if $kefu.skin eq 12}-->
+<!--主题开始-->
+<div class="shrink_s12" id="show_one" {if $kefu.fs_show eq 1}style="display:block;"{else}style="display:none;"{/if}><a href="javascript:xianshi();"><img src="../OKQQ/images/s12/shrink.jpg" /></a></div>
+
+<div class="expansion_s12" {if $kefu.fs_show eq 0}style="display:block;"{else}style="display:none;"{/if} id="show_two">
+	<div><a href="javascript:guanbi();"title="点击关闭"><img src="../OKQQ/images/s12/close.jpg" /></a></div>
+    <div><img src="../OKQQ/images/s12/kfbg.jpg" /></div>
+    <div class="common common_s12">{include file="/library/kefu_showone.lbi"}</div>
+    <div><a href="javascript:void(0);"onclick='window.scrollTo(0,0);' title="返回顶部"><img src="../OKQQ/images/s12/endbg.jpg" /></a></div>
+</div>
+<!--{/if}-->
+
+
+
+<!--{if $kefu.skin eq 13}-->
+<!--主题开始-->
+<div class="shrink_s13" id="show_one" {if $kefu.fs_show eq 1}style="display:block;"{else}style="display:none;"{/if}><a href="javascript:xianshi();"><img src="../OKQQ/images/s13/shrink.jpg" /></a></div>
+
+<div class="expansion_s13" {if $kefu.fs_show eq 0}style="display:block;"{else}style="display:none;"{/if} id="show_two">
+	<div><a href="javascript:guanbi();"title="点击关闭"><img src="../OKQQ/images/s13/close.png" /></a></div>
+    <div class="common common_s13">{include file="/library/kefu_showone.lbi"}</div>
+    <div><a href="javascript:void(0);"onclick='window.scrollTo(0,0);' title="返回顶部"><img src="../OKQQ/images/s13/endbg.png" /></a></div>
+</div>
+<!--{/if}-->
+
+
+
+<!--{if $kefu.skin eq 14}-->
+<!--主题开始-->
+<div class="shrink_s14" id="show_one" {if $kefu.fs_show eq 1}style="display:block;"{else}style="display:none;"{/if}><a href="javascript:xianshi();"><img src="../OKQQ/images/s14/shrink.jpg" /></a></div>
+
+<div class="expansion_s14" {if $kefu.fs_show eq 0}style="display:block;"{else}style="display:none;"{/if} id="show_two">
+	<div><a href="javascript:guanbi();"title="点击关闭"><img src="../OKQQ/images/s14/close.jpg" /></a></div>
+    <div><img src="../OKQQ/images/s14/kfbg.jpg" /></div>
+    <div class="common common_s14">{include file="/library/kefu_showone.lbi"}</div>
+    <div><a href="javascript:void(0);"onclick='window.scrollTo(0,0);' title="返回顶部"><img src="../OKQQ/images/s14/endbg.jpg" /></a></div>
+</div>
+<!--{/if}-->
+
+
+
+<!--{if $kefu.skin eq 15}-->
+<!--主题开始-->
+<div class="shrink_s15" id="show_one" {if $kefu.fs_show eq 1}style="display:block;"{else}style="display:none;"{/if}><a href="javascript:xianshi();"><img src="../OKQQ/images/s15/shrink.png" /></a></div>
+
+<div class="expansion_s15" {if $kefu.fs_show eq 0}style="display:block;"{else}style="display:none;"{/if} id="show_two">
+	<div><a href="javascript:guanbi();" title="点击关闭"><img src="../OKQQ/images/s15/close.png" /></a></div>
+    <div><img src="../OKQQ/images/s15/kfbg.jpg" /></div>
+    <div class="common common_s15">{include file="/library/kefu_showone.lbi"}</div>
+    <div><a href="javascript:void(0);"onclick='window.scrollTo(0,0);' title="返回顶部"><img src="../OKQQ/images/s15/endbg.jpg" /></a></div>
+</div>
+<!--{/if}-->
+
+
+<!--{if $kefu.skin eq 16}-->
+<!--主题开始-->
+<div class="shrink_s16" id="show_one" {if $kefu.fs_show eq 1}style="display:block;"{else}style="display:none;"{/if}><a href="javascript:xianshi();"><img src="../OKQQ/images/s16/shrink.jpg" /></a></div>
+
+<div class="expansion_s16" {if $kefu.fs_show eq 0}style="display:block;"{else}style="display:none;"{/if} id="show_two">
+	<div><a href="javascript:guanbi();" title="点击关闭"><img src="../OKQQ/images/s16/close.jpg" /></a></div>
+    <div><img src="../OKQQ/images/s16/kfbg.jpg" /></div>
+    <div class="common common_s16">{include file="/library/kefu_showone.lbi"}</div>
+    <div><a href="javascript:void(0);"onclick='window.scrollTo(0,0);' title="返回顶部"><img src="../OKQQ/images/s16/endbg.jpg" /></a></div>
+</div>
+<!--{/if}-->
+
+
+
+
+</div>
+
+<!-- {/if} -->
+

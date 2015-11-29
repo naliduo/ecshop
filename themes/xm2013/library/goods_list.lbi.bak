@@ -1,0 +1,63 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="hd">
+        <div class="category-list-order">
+          <dl class="xm-filter-list category-order-list clearfix">
+            <dt>排序方式：</dt>
+            <dd>
+              <ul id="typeSort">
+                <li class="<!-- {if $pager.sort == 'goods_id'} -->{$pager.order}<!-- {else} -->default<!-- {/if} -->"><a href="{$script_name}.php?category={$category}&display={$pager.display}&brand={$brand_id}&price_min={$price_min}&price_max={$price_max}&filter_attr={$filter_attr}&page={$pager.page}&sort=goods_id&order=<!-- {if $pager.sort == 'goods_id' && $pager.order == 'DESC'} -->ASC<!-- {else} -->DESC<!-- {/if} -->#goods_list"><span class="icon-common icon-order-ascending"></span>按上架时间</a></li>
+                <li class="<!-- {if $pager.sort == 'shop_price'} -->{$pager.order}<!-- {else} -->default<!-- {/if} -->"><a href="{$script_name}.php?category={$category}&display={$pager.display}&brand={$brand_id}&price_min={$price_min}&price_max={$price_max}&filter_attr={$filter_attr}&page={$pager.page}&sort=shop_price&order=<!-- {if $pager.sort == 'shop_price' && $pager.order == 'ASC'} -->DESC<!-- {else} -->ASC<!-- {/if} -->#goods_list"><span class="icon-common icon-order-ascending"></span>价格由低到高</a></li>
+                <li class="<!-- {if $pager.sort == 'last_update'} -->{$pager.order}<!-- {else} -->default<!-- {/if} -->"><a href="{$script_name}.php?category={$category}&display={$pager.display}&brand={$brand_id}&price_min={$price_min}&price_max={$price_max}&filter_attr={$filter_attr}&page={$pager.page}&sort=last_update&order=<!-- {if $pager.sort == 'last_update' && $pager.order == 'DESC'} -->ASC<!-- {else} -->DESC<!-- {/if} -->#goods_list"><span class="icon-common icon-order-ascending"></span>{$lang.sort.last_update}</a></li>
+              </ul>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="bd">
+        <div class="xm-goods-list-wrap">
+          <ul class="xm-goods-list clearfix">
+		  
+		  <!--{foreach from=$goods_list item=goods}-->
+    <!-- {if $goods.goods_id} -->
+            <li>
+              <div class="xm-goods-item">
+                <div class="item-thumb"><a href="{$goods.url}" title="{$goods.goods_name}"><img src="{$goods.goods_thumb}" alt="{$goods.goods_name}" /></a></div>
+                <h2 class="item-name"><a href="{$goods.url}" title="{$goods.goods_name}">{$goods.goods_name}</a></h2>
+                <div class="item-price"><!--{if $goods.promote_price neq "" } -->{$goods.promote_price}<!--{else}-->{$goods.shop_price}<!--{/if}--><del>{$goods.market_price}</del></div>
+                <div class="item-action"><a class="action-add-cart xmAddShopCart" href="javascript:addToCart({$goods.goods_id})" ><span class="icon-common icon-common-plus"></span>加入购物车</a></div>
+                <div class="item-flags"><span class="icon-saleoff icon-saleoff-0"><!--{if $goods.watermark_img eq "watermark_promote_small" } -->促销<!--{elseif $goods.watermark_img eq "watermark_new_small" } -->新品<!--{elseif $goods.watermark_img eq "watermark_best_small" } -->推荐<!--{elseif $goods.watermark_img eq "watermark_hot_small" } -->热销<!--{/if}--></span></div>
+              </div>
+            </li>
+            <!--{/if}-->
+    <!--{/foreach}-->
+			
+          </ul>
+        </div>
+      </div>
+<script type="Text/Javascript" language="JavaScript">
+<!--
+{literal}
+function selectPage(sel)
+{
+  sel.form.submit();
+}
+{/literal}
+//-->
+</script>
+<script type="text/javascript">
+window.onload = function()
+{
+  
+}
+{foreach from=$lang.compare_js item=item key=key}
+{if $key neq 'button_compare'}
+var {$key} = "{$item}";
+{else}
+var button_compare = '';
+{/if}
+{/foreach}
+var compare_no_goods = "{$lang.compare_no_goods}";
+var btn_buy = "{$lang.btn_buy}";
+var is_cancel = "{$lang.is_cancel}";
+var select_spe = "{$lang.select_spe}";
+</script>
