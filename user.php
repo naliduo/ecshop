@@ -703,6 +703,10 @@ if($username_e) $username=$username_e;
         }
         $ucdata = isset($user->ucdata)? $user->ucdata : '';
     
+        if ( false === strpos($back_act, "?")){
+            $back_act .= "?1=1";
+        }
+        $back_act .= "&euser=".$username;
         
        show_message($_LANG['login_success'] . $ucdata , array($_LANG['back_up_page'], $_LANG['profile_lnk']), array($back_act,'user.php'), 'info');
         	
@@ -785,7 +789,12 @@ elseif ($action == 'logout')
 
     $user->logout();
     $ucdata = empty($user->ucdata)? "" : $user->ucdata;
-    show_message($_LANG['logout'] . $ucdata, array($_LANG['back_up_page'], $_LANG['back_home_lnk']), array($back_act, 'index.php'), 'info');
+    
+    //$url = "http://112.124.110.58:8080/index.php?logout";
+    //$html = file_get_contents($url);
+    //echo $html;
+    show_logout_message($_LANG['logout'] . $ucdata, array($_LANG['back_up_page'], $_LANG['back_home_lnk']), array($back_act, 'index.php'), 'info');
+    
 }
 
 /* 个人资料页面 */

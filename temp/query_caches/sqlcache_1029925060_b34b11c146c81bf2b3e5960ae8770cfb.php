@@ -1,1 +1,0 @@
-<?php exit;?>1446887384a:4:{i:0;a:2:{s:10:"article_id";s:2:"23";s:5:"title";s:15:"会员卡协议";}i:1;a:2:{s:10:"article_id";s:2:"18";s:5:"title";s:12:"服务政策";}i:2;a:2:{s:10:"article_id";s:2:"16";s:5:"title";s:12:"服务流程";}i:3;a:2:{s:10:"article_id";s:2:"15";s:5:"title";s:24:"配送的范围及费用";}}
