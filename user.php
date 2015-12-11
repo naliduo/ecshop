@@ -709,7 +709,7 @@ if($username_e) $username=$username_e;
         $back_act .= "&euser=".$username;
         */
         
-        show_message($_LANG['login_success'] . $ucdata , array($_LANG['back_up_page'], $_LANG['profile_lnk']), array($back_act,'user.php'), 'info');
+        show_login_message($_LANG['login_success'] . $ucdata , array($_LANG['back_up_page'], $_LANG['profile_lnk']), array($back_act,'user.php'), 'info');
         	
        
         
