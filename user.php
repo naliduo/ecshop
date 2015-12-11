@@ -703,12 +703,13 @@ if($username_e) $username=$username_e;
         }
         $ucdata = isset($user->ucdata)? $user->ucdata : '';
     
-        if ( false === strpos($back_act, "?")){
+        /*if ( false === strpos($back_act, "?")){
             $back_act .= "?1=1";
         }
         $back_act .= "&euser=".$username;
+        */
         
-       show_message($_LANG['login_success'] . $ucdata , array($_LANG['back_up_page'], $_LANG['profile_lnk']), array($back_act,'user.php'), 'info');
+        show_message($_LANG['login_success'] . $ucdata , array($_LANG['back_up_page'], $_LANG['profile_lnk']), array($back_act,'user.php'), 'info');
         	
        
         
