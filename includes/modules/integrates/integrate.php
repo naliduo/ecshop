@@ -161,6 +161,24 @@ class integrate
         }
     }
 
+    function login_wx($username, $password, $remember = null)
+    {
+        if ($this->check_user($username) > 0)
+        {
+            if ($this->need_sync)
+            {
+                $this->sync($username,$password);
+            }
+            $this->set_session($username);
+            $this->set_cookie($username, $remember);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
     /**
      *
      *
