@@ -23,6 +23,12 @@ require_once(ROOT_PATH . 'languages/' .$_CFG['lang']. '/user.php');
 
 $user_id = $_SESSION['user_id'];
 $action  = isset($_REQUEST['act']) ? trim($_REQUEST['act']) : 'default';
+if ( isset($_GET['act'] ) ) {
+    $action = trim($_GET['act']);
+    if( empty($action) ){
+        $action = 'default';
+    }
+}
 
 $affiliate = unserialize($GLOBALS['_CFG']['affiliate']);
 $smarty->assign('affiliate', $affiliate);
@@ -31,7 +37,7 @@ $back_act='';
 
 // 不需要登录的操作或自己验证是否登录（如ajax处理）的act
 $not_login_arr =
-array('login','act_login','register','act_register','act_edit_password','get_password','send_pwd_email','password', 'signin', 'add_tag', 'collect', 'return_to_cart', 'logout', 'email_list', 'validate_email', 'send_hash_mail', 'order_query', 'is_registered', 'check_email','clear_history','qpassword_name', 'get_passwd_question', 'check_answer');
+array('login','act_login','act_login_wechat','register','act_register','act_edit_password','get_password','send_pwd_email','password', 'signin', 'add_tag', 'collect', 'return_to_cart', 'logout', 'email_list', 'validate_email', 'send_hash_mail', 'order_query', 'is_registered', 'check_email','clear_history','qpassword_name', 'get_passwd_question', 'check_answer');
 
 /* 显示页面的action列表 */
 $ui_arr = array('register', 'login', 'profile', 'bindusercard','usercarddg','taocan_list','taocan_buy','edittaocan','deltaocan','order_list', 'order_detail', 'address_list', 'collection_list',
@@ -703,8 +709,249 @@ if($username_e) $username=$username_e;
         }
         $ucdata = isset($user->ucdata)? $user->ucdata : '';
     
+        /*if ( false === strpos($back_act, "?")){
+            $back_act .= "?1=1";
+        }
+        $back_act .= "&euser=".$username;
+        */
         
-       show_message($_LANG['login_success'] . $ucdata , array($_LANG['back_up_page'], $_LANG['profile_lnk']), array($back_act,'user.php'), 'info');
+        show_login_message($_LANG['login_success'] . $ucdata , array($_LANG['back_up_page'], $_LANG['profile_lnk']), array($back_act,'user.php'), 'info');
+        	
+       
+        
+        
+    }
+    else
+    {
+        $_SESSION['login_fail'] ++ ;
+        show_message($_LANG['login_failure'], $_LANG['relogin_lnk'], 'user.php', 'error');
+    }
+}
+// 微信
+elseif ($action == 'act_login_wechat')
+{
+    $wxid = isset($_GET['wxid']) ? trim($_GET['wxid']) : '';
+    //echo $wxid.'<br /><br />';
+    $row = $db->getRow("select uid from " . $ecs->table('weixin_user') ." where wxid='$wxid'");
+    if ($row)
+    {
+        $uid = $row['uid'];
+       //echo $row['uid'].'<br /><br />';
+       $row = $row = $db->getRow("select user_id, user_name from " . $ecs->table('users') ." where user_id='$uid'");
+        if ($row)
+        {
+        $username = $row['user_name'];
+        //echo $row['user_name'].'<br /><br />';
+        //echo $row['uid'].'<br /><br />';
+        }
+    }
+    
+    //$username = isset($_POST['username']) ? trim($_POST['username']) : '';
+    $password = isset($_POST['password']) ? trim($_POST['password']) : '';
+    $back_act = isset($_GET['back_act']) ? trim($_GET['back_act']) : '';
+
+
+    $captcha = intval($_CFG['captcha']);
+    
+    /* Added by Jack, 2015.05.31 start */
+    if ($_CFG['ihuyi_sms_mobile_log'] == '1')
+    {
+    	require_once(ROOT_PATH . 'includes/lib_sms.php');
+    
+    	if (ismobile($username))
+    	{
+    		$sql = "SELECT user_name from " . $ecs->table('users') . " WHERE mobile_phone='$username'";
+    		$row = $db->getRow($sql);
+    		$username = $row['user_name'];
+    	}
+    }
+    
+    /* Added by Jack, 2015.05.31 end */
+    
+
+	$login_type = intval($_POST['login_type']);
+
+	if($login_type ==1)
+   {
+        $email = $username;
+		/* 检查email */
+		if (empty($email))
+		{
+			show_message('登录邮箱不能为空', '请重新登录', 'user.php', 'error');
+		}
+		else
+		{
+			if (!is_email($email))
+			{
+				show_message('登录邮箱格式错误', '请重新登录', 'user.php', 'error');
+			}
+		}
+		$num = $db->getOne("select count(*) from " . $ecs->table('users') ." where email='$email' and password='" .md5($password) ."'" );
+		if($num ==1)
+		{
+		   $row = $db->getRow("select user_id, user_name from " . $ecs->table('users') ." where email='$email' and password='" .md5($password) ."'");
+		   
+		   if ($row)
+			{
+			   $_SESSION['user_id'] = $row['user_id'];
+			   $_SESSION['user_name']   = $row['username'];
+				show_message($_LANG['login_success'] . $ucdata , array($_LANG['back_up_page'], $_LANG['profile_lnk']), array($back_act,'user.php'), 'info');
+			}
+			else
+			{
+				$_SESSION['login_fail'] ++ ;
+				show_message($_LANG['login_failure'], $_LANG['relogin_lnk'], 'user.php', 'error');
+			}
+
+
+		}
+		else
+		{
+		    $num = $db->getOne("select count(*) from " . $ecs->table('users') ." where email='$email' " );
+			if($num==0)
+			{
+			   show_message('此邮箱还未注册，您可以用此邮箱新注册一个会员帐号，如果您已有有本站会员帐号，请登录后填写邮箱后方可使用邮箱登录!', array('立即注册','重新登录'), array('user.php?act=register','user.php'), 'error');	
+			
+			}
+			elseif($num >1)
+			{
+			   show_message('邮箱重复，请联系管理员验证专属你的邮箱!', array('立即用其它方式登录'), array('user.php?act=login'), 'error');
+			
+			}
+			show_message('邮箱登录失败', '请重新登录', 'user.php', 'error');		
+		
+		}
+
+  
+  }
+  if($login_type==2)
+  {
+        $mobile = $username; 
+		if(!preg_match("/^13[0-9]{1}[0-9]{8}$|15[0189]{1}[0-9]{8}$|189[0-9]{8}$/",$mobile))
+		{
+		   show_message('手机号格式错误', '请重新登录', 'user.php', 'error');		
+         }
+		$num = $db->getOne("select count(*) from " . $ecs->table('users') ." where mobile_phone='$mobile' and password='" .md5($password) ."'" );
+		if($num ==1)
+		{
+		   $row = $db->getRow("select user_id, user_name from " . $ecs->table('users') ." where mobile_phone='$mobile' and password='" .md5($password) ."'");
+		   
+		   if ($row)
+			{
+			   $_SESSION['user_id'] = $row['user_id'];
+			   $_SESSION['user_name']   = $row['username'];
+				show_message($_LANG['login_success'] . $ucdata , array($_LANG['back_up_page'], $_LANG['profile_lnk']), array($back_act,'user.php'), 'info');
+			}
+			else
+			{
+				$_SESSION['login_fail'] ++ ;
+				show_message($_LANG['login_failure'], $_LANG['relogin_lnk'], 'user.php', 'error');
+			}
+
+
+		}
+		else
+		{
+		    $num = $db->getOne("select count(*) from " . $ecs->table('users') ." where mobile_phone='$mobile' " );
+			if($num==0)
+			{
+			   show_message('此手机号还未注册，您可以用此手机号新注册一个会员帐号，如果您已有有本站会员帐号，请登录后绑定手机号后方可使用手机登录!', array('立即注册此手机号','重新登录'), array('user.php?act=register&mobile='.$mobile,'user.php'), 'error');	
+			
+			}
+			elseif($num >1)
+			{
+			   show_message('手机号重复，请联系管理员验证专属你的手机号!', array('立即用其它方式登录'), array('user.php?act=login'), 'error');
+			
+			}
+			show_message('手机号登录失败', '请重新登录', 'user.php', 'error');		
+		
+		}
+  
+  }
+  if($login_type==3)
+  {
+           $card_info = $db->getRow("select * from " . $ecs->table('user_card') ." where card_no='$username' and card_pass='$password' and is_show =1 " );
+		   //var_dump($card_info);exit;
+		  if($card_info)
+		  {
+			 $user_id = intval($card_info['user_id']);
+			 if($user_id)
+			  {
+				 $user_name = $db->getOne("select user_name from " . $ecs->table('users') ." where user_id='$user_id'" );
+				 
+					 if ($user_name)
+				   {
+					  $_SESSION['user_id'] = $user_id;
+					  $_SESSION['user_name']   = $username;
+					show_message($_LANG['login_success'] . $ucdata , array($_LANG['back_up_page'], $_LANG['profile_lnk']), array($back_act,'user.php'), 'info');
+				   }
+				   else
+				   {
+					$_SESSION['login_fail'] ++ ;
+					show_message($_LANG['login_failure'], $_LANG['relogin_lnk'], 'user.php', 'error');
+				   }
+			  }
+			  else
+			  {
+			        $cu_user_name = 'cu_'.$card_info['card_no'];
+					$user_name = 'cu_'.$card_info['card_no'];
+					$email = $card_info['email']==''?$cu_user_name.'@temp.com':$card_info['email'];
+					$other = array();
+					include_once(ROOT_PATH . 'includes/lib_passport.php');
+					if (register($cu_user_name, $password, $email, $other) !== false)
+					{
+						$db->autoExecute($ecs->table('user_card'), array('user_id'=>$_SESSION['user_id'],'bind_time'=>gmtime(),'card_status'=>1), 'UPDATE', " id='$card_info[id]' ");
+						$ucdata = empty($user->ucdata)? "" : $user->ucdata;
+						show_message(sprintf($_LANG['login_success'], $cu_user_name . $ucdata), array($_LANG['back_up_page'], $_LANG['profile_lnk']), array($back_act, 'user.php'), 'info');
+					}
+					else
+					{
+						$_SESSION['login_fail'] ++ ;
+					    show_message($_LANG['login_failure'], $_LANG['relogin_lnk'], 'user.php', 'error');
+					}
+			  
+			  }
+
+		  }
+		  else
+		  {
+			   $num = $db->getOne("select count(*) from " . $ecs->table('user_card') ." where card_no='$username' and card_pass ='$password'  and user_id=0 and is_show=1 " );
+			   if($num==1)
+			   {
+			  
+				  show_message('此卡号还未绑定，您可以用此新注册一个会员帐号并绑定此卡号，如果您已有本站会员帐号，请登录后在会员中心绑定此卡号后方可登录!', array('立即注册并绑定此卡号','重新登录'), array('user.php?act=register&card_no='.$username.'&card_pass='.$password,'user.php'), 'error'); 
+			   
+			   }
+			   
+			   show_message('会员卡卡号不存在', '请重新登录', 'user.php', 'error'); 
+		  }
+  
+  }
+if(is_email($username))
+{
+$sql ="select user_name from ".$ecs->table('users')." where email='".$username."'";
+$username_e = $db->getOne($sql);
+if($username_e) $username=$username_e;
+}
+if(is_telephone($username))
+{
+$sql ="select user_name from ".$ecs->table('users')." where mobile_phone='".$username."'";
+$username_e = $db->getOne($sql);
+if($username_e) $username=$username_e;
+}
+    if ($user->login_wx($username, $password,isset($_POST['remember'])))
+    {
+        update_user_info();
+        recalculate_price();
+        //$todate = $db->getOne("select to_date from ".$ecs->table("users")." where user_id=".$_SESSION['user_id']);
+        $sql = "select to_date from ".$ecs->table("users") . " where member_novalid ='1' and  user_id='".$_SESSION['user_id'] ."'";
+        $member_novalid = $db->getOne($sql);
+        if( !empty($member_novalid) and $member_novalid < gmtime()){ //判断合同期限
+            $_SESSION['is_login_tip'] = '1';
+        }
+        $ucdata = isset($user->ucdata)? $user->ucdata : '';
+    echo $back_act;
+        show_login_message($_LANG['login_success'] . $ucdata , array($_LANG['back_up_page'], $_LANG['profile_lnk']), array($back_act,'user.php'), 'info');
         	
        
         
@@ -785,7 +1032,12 @@ elseif ($action == 'logout')
 
     $user->logout();
     $ucdata = empty($user->ucdata)? "" : $user->ucdata;
-    show_message($_LANG['logout'] . $ucdata, array($_LANG['back_up_page'], $_LANG['back_home_lnk']), array($back_act, 'index.php'), 'info');
+    
+    //$url = "http://112.124.110.58:8080/index.php?logout";
+    //$html = file_get_contents($url);
+    //echo $html;
+    show_logout_message($_LANG['logout'] . $ucdata, array($_LANG['back_up_page'], $_LANG['back_home_lnk']), array($back_act, 'index.php'), 'info');
+    
 }
 
 /* 个人资料页面 */
