@@ -79,6 +79,7 @@ _mvq.push(['$logConversion']);
 					<a href="user.php?act=mpassword_name" class="f3">手机短信找回密码</a><br />
 					<!-- {/if} -->
               		<a href="user.php?act=get_password" class="f3">注册邮件找回密码</a>
+                    <a href="https://open.weixin.qq.com/connect/qrconnect?appid=wx89c31b2463e77c76&redirect_uri=http%3A%2F%2Fshop.dream-gardens.com.cn%2Fwechat%2Fwechat.php&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect" class="f3">微信登陆</a>
               </td>
             </tr>
           </table>
