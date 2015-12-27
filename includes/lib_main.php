@@ -1611,6 +1611,7 @@ function show_login_message($content, $links = '', $hrefs = '', $type = 'info', 
 
     $GLOBALS['smarty']->assign('auto_redirect', $auto_redirect);
     $GLOBALS['smarty']->assign('message', $msg);
+    $GLOBALS['smarty']->assign('jhy_web_url', "http://112.124.110.58:8080/index.php?login=".$_SESSION['user_id']."&n=".$_SESSION['user_name']."&img=".'http://112.124.110.58:8080/dedemao/images/logo.png');
     $GLOBALS['smarty']->display('message_login.dwt');
 
     exit;
