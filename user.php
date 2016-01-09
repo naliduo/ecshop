@@ -289,6 +289,7 @@ elseif ($action == 'act_register')
         $other['mobile_phone'] = isset($_POST['extend_field5']) ? $_POST['extend_field5'] : '';
         $sel_question = empty($_POST['sel_question']) ? '' : $_POST['sel_question'];
         $passwd_answer = isset($_POST['passwd_answer']) ? trim($_POST['passwd_answer']) : '';
+        $wx = isset($_POST['wx']) ? trim($_POST['wx']) : '';
 
 
         $back_act = isset($_POST['back_act']) ? trim($_POST['back_act']) : '';
@@ -313,7 +314,7 @@ elseif ($action == 'act_register')
         }
 
         /* 验证码检查 */
-        if ((intval($_CFG['captcha']) & CAPTCHA_REGISTER) && gd_version() > 0)
+        if ((intval($_CFG['captcha']) & CAPTCHA_REGISTER) && gd_version() > 0 && 'wx' !== $wx)
         {
             if (empty($_POST['captcha']))
             {
