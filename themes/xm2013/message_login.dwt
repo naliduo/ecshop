@@ -1,4 +1,4 @@
-<iframe src="http://112.124.110.58:8080/index.php?login=123" width="0" height="0"></iframe>
+<iframe src="{$jhy_web_url}" width="0" height="0"></iframe>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
