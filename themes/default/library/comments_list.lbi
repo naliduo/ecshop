@@ -11,6 +11,9 @@
         <font class="f2"><!-- {if $comment.username} -->{$comment.username|escape:html}<!-- {else} -->{$lang.anonymous}<!-- {/if} --></font> <font class="f3">( {$comment.add_time} )</font><br />
         <img src="../images/stars{$comment.rank}.gif" alt="{$comment.comment_rank}" />
         <p>{$comment.content}</p>
+        <p style="width:60px;height:60px;float:left;">
+        <img style="position:absolute;left:0;top:3px;width:55px;height:55px;" src="<!-- {if $comment.avatar} -->{$comment.avatar}<!-- {else} -->images/avatar.gif<!-- {/if} -->">
+        </p>
 				<!-- {if $comment.re_content} -->
         <p><font class="f1">{$lang.admin_username}</font>{$comment.re_content}</p>
 				<!-- {/if} -->

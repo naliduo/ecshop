@@ -564,11 +564,13 @@ function get_user_surplus($user_id)
 function get_user_default($user_id)
 {
     $user_bonus = get_user_bonus();
-
-    $sql = "SELECT pay_points, user_money, credit_line, last_login,from_date,to_date, is_validated FROM " .$GLOBALS['ecs']->table('users'). " WHERE user_id = '$user_id'";
+    /*增加会员头像*/
+    $sql = "SELECT pay_points, user_money, credit_line, last_login,from_date,to_date, is_validated, avatar FROM " .$GLOBALS['ecs']->table('users'). " WHERE user_id = '$user_id'";
     $row = $GLOBALS['db']->getRow($sql);
 
     $info = array();
+    $info['avatar'] = $row['avatar'];//会员头像
+
     if(!empty($row['from_date'])){
         $info['from_date'] = local_date("Y/m/d",$row['from_date']);
     }

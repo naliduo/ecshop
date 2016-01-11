@@ -17,6 +17,10 @@ define('IN_ECS', true);
 
 require(dirname(__FILE__) . '/includes/init.php');
 
+/*新增会员头像功能*/
+include_once(ROOT_PATH . '/includes/cls_image.php');//会员头像
+$image = new cls_image($_CFG['bgcolor']);//会员头像
+$allow_suffix = array('gif', 'jpg', 'png', 'jpeg', 'bmp');//会员头像
 
 /* 载入语言文件 */
 require_once(ROOT_PATH . 'languages/' .$_CFG['lang']. '/user.php');
@@ -222,8 +226,6 @@ if ($action == 'default')
     $smarty->assign('prompt',      get_user_prompt($user_id));
     $smarty->display('user_clips.dwt');
 }
-
-
 
 
 /* 显示会员注册界面 */
@@ -581,6 +583,7 @@ elseif ($action == 'act_login')
 
   
   }
+
   if($login_type==2)
   {
         $mobile = $username; 
@@ -1044,7 +1047,6 @@ elseif ($action == 'logout')
 elseif ($action == 'profile')
 {
     include_once(ROOT_PATH . 'includes/lib_transaction.php');
-
     $user_info = get_profile($user_id);
 
     /* 取出注册扩展字段 */
@@ -1099,6 +1101,7 @@ elseif ($action == 'act_edit_profile')
     $other['mobile_phone'] = $mobile_phone = isset($_POST['extend_field5']) ? trim($_POST['extend_field5']) : '';
     $sel_question = empty($_POST['sel_question']) ? '' : $_POST['sel_question'];
     $passwd_answer = isset($_POST['passwd_answer']) ? trim($_POST['passwd_answer']) : '';
+    $avatar = isset($_POST['avatar']) ? $_POST['avatar'] : '';//会员头像
 
     /* 更新用户扩展字段的数据 */
     $sql = 'SELECT id FROM ' . $ecs->table('reg_fields') . ' WHERE type = 0 AND display = 1 ORDER BY dis_order, id';   //读出所有扩展字段的id
@@ -1140,12 +1143,79 @@ elseif ($action == 'act_edit_profile')
         show_message($_LANG['passport_js']['mobile_phone_invalid']);
     }
 
+    /* 检查图片：如果有错误，检查尺寸是否超过最大值；否则，检查文件类型 */
+    if (isset($_FILES['avatar']['error'])) // php 4.2 版本才支持 error
+    {
+        // 最大上传文件大小
+        $php_maxsize = ini_get('upload_max_filesize');
+        $htm_maxsize = '1M';
+       
+        // 会员头像
+        if ($_FILES['avatar']['error'] == 0)
+        {
+            if (!$image->check_img_type($_FILES['avatar']['type']))
+            {
+                show_message("图片格式不正确！");
+            }
+        }
+        elseif ($_FILES['avatar']['error'] == 1)
+        {
+            show_message(sprintf('图片文件太大了(最大值：1M)，无法上传。', $php_maxsize), $_LANG['profile_lnk'], 'user.php?act=profile', 'info');
+        }
+        elseif ($_FILES['avatar']['error'] == 2)
+        {
+            show_message(sprintf('图片文件太大了(最大值：1M)，无法上传。', $htm_maxsize), $_LANG['profile_lnk'], 'user.php?act=profile', 'info');
+        }
+       
+    }
+    /* 4.1版本 */
+    else
+    {
+        // 会员头像
+        if ($_FILES['avatar']['tmp_name'] != 'none')
+        {
+            if (!$image->check_img_type($_FILES['avatar']['type']))
+            {
+                show_message("图片格式不正确！");
+            }
+        }
+    }
+           
+    //会员头像 by neo
+    if (!empty($_FILES['avatar']['name']))
+    {
+        /* 更新会员头像之前先删除旧的头像 */
+        $sql = "SELECT avatar " .
+                " FROM " . $GLOBALS['ecs']->table('users') .
+                " WHERE user_id = '$user_id'";
+       
+        $row = $GLOBALS['db']->getRow($sql);
+       
+        if ($row['avatar'] != '')
+        {
+            @unlink($row['avatar']);
+        }
+               
+        $img_name = $user_id . '.' . end(explode('.', $_FILES['avatar']['name']));
+       
+        $target = ROOT_PATH . DATA_DIR . '/avatar/';
+               
+        $original_img = $image->upload_image($_FILES['avatar'], 'avatar', $img_name); // 原始图片
+       
+        $avatar = $image->make_thumb($original_img, 55, 55, $target);
+       
+        if ($avatar === false)
+        {
+            show_message("图片保存出错！");
+        }
+    }
 
     $profile  = array(
         'user_id'  => $user_id,
         'email'    => isset($_POST['email']) ? trim($_POST['email']) : '',
         'sex'      => isset($_POST['sex'])   ? intval($_POST['sex']) : 0,
         'birthday' => $birthday,
+        'avatar'   => $avatar,//会员头像
         'other'    => isset($other) ? $other : array()
         );
 
@@ -3365,6 +3435,7 @@ elseif ($action == 'transform_points')
     }
     $sql = "SELECT user_id, user_name, pay_points, rank_points FROM " . $ecs->table('users')  . " WHERE user_id='$user_id'";
     $row = $db->getRow($sql);
+
     if ($_CFG['integrate_code'] == 'ucenter')
     {
         $exchange_type = 'ucenter';
@@ -3594,9 +3665,8 @@ elseif($action=='usercarddg'){
     	show_message("会员卡绑定成功", '您需要退出后重新登录君禾园网站，才能享受会员折扣下订单!', 'user.php?act=logout', 'info');
         exit;
     }
-
 }
-elseif($action=='bindusercard'){
+elseif($action=='bindusercard'){    
     include_once(ROOT_PATH . 'includes/lib_transaction.php');
     $birthday = trim($_POST['birthdayYear']) .'-'. trim($_POST['birthdayMonth']) .'-'.trim($_POST['birthdayDay']);
     $other['msn'] = $msn = isset($_POST['extend_field1']) ? trim($_POST['extend_field1']) : '';
@@ -3606,6 +3676,7 @@ elseif($action=='bindusercard'){
     $other['mobile_phone'] = $mobile_phone = isset($_POST['extend_field5']) ? trim($_POST['extend_field5']) : '';
     $sel_question = empty($_POST['sel_question']) ? '' : $_POST['sel_question'];
     $passwd_answer = isset($_POST['passwd_answer']) ? trim($_POST['passwd_answer']) : '';
+    $avatar = isset($_POST['avatar']) ? $_POST['avatar'] : '';//会员头像
 
     /* 更新用户扩展字段的数据 */
     $sql = 'SELECT id FROM ' . $ecs->table('reg_fields') . ' WHERE type = 0 AND display = 1 ORDER BY dis_order, id';   //读出所有扩展字段的id
@@ -3647,20 +3718,86 @@ elseif($action=='bindusercard'){
         show_message($_LANG['passport_js']['mobile_phone_invalid']);
     }
 
+    /* 检查图片：如果有错误，检查尺寸是否超过最大值；否则，检查文件类型 */
+    if (isset($_FILES['avatar']['error'])) // php 4.2 版本才支持 error
+    {
+        // 最大上传文件大小
+        $php_maxsize = ini_get('upload_max_filesize');
+        $htm_maxsize = '1M';
+       
+        // 会员头像
+        if ($_FILES['avatar']['error'] == 0)
+        {
+            if (!$image->check_img_type($_FILES['avatar']['type']))
+            {
+                show_message("图片格式不正确！");
+            }
+        }
+        elseif ($_FILES['avatar']['error'] == 1)
+        {
+            show_message(sprintf('图片文件太大了(最大值：1M)，无法上传。', $php_maxsize), $_LANG['profile_lnk'], 'user.php?act=profile', 'info');
+        }
+        elseif ($_FILES['avatar']['error'] == 2)
+        {
+            show_message(sprintf('图片文件太大了(最大值：1M)，无法上传。', $htm_maxsize), $_LANG['profile_lnk'], 'user.php?act=profile', 'info');
+        }
+       
+    }
+    /* 4.1版本 */
+    else
+    {
+        // 会员头像
+        if ($_FILES['avatar']['tmp_name'] != 'none')
+        {
+            if (!$image->check_img_type($_FILES['avatar']['type']))
+            {
+                show_message("图片格式不正确！");
+            }
+        }
+    }
+
+    //会员头像
+    if (!empty($_FILES['avatar']['name']))
+    {
+        /* 更新会员头像之前先删除旧的头像 */
+        $sql = "SELECT avatar " .
+                " FROM " . $GLOBALS['ecs']->table('users') .
+                " WHERE user_id = '$user_id'";
+       
+        $row = $GLOBALS['db']->getRow($sql);
+       
+        if ($row['avatar'] != '')
+        {
+            @unlink($row['avatar']);
+        }
+               
+        $img_name = $user_id . '.' . end(explode('.', $_FILES['avatar']['name']));
+       
+        $target = ROOT_PATH . DATA_DIR . '/avatar/';
+               
+        $original_img = $image->upload_image($_FILES['avatar'], 'avatar', $img_name); // 原始图片
+       
+        $avatar = $image->make_thumb($original_img, 55, 55, $target);
+       
+        if ($avatar === false)
+        {
+            show_message("图片保存出错！");
+        }
+    }
 
     $profile  = array(
         'user_id'  => $user_id,
         'email'    => isset($_POST['email']) ? trim($_POST['email']) : '',
         'sex'      => isset($_POST['sex'])   ? intval($_POST['sex']) : 0,
         'birthday' => $birthday,
+        'avatar'   => $avatar,//会员头像
         'other'    => isset($other) ? $other : array()
     );
 
 
     if (edit_profile($profile))
     {
-
-       bindusercard();
+        bindusercard();
     }
     //下一步
     $smarty->display('user_transaction.dwt');

@@ -56,6 +56,11 @@ function edit_profile($profile)
         $cfg['bday'] = $profile['birthday'];
     }
 
+    //会员头像
+    if (!empty($profile['avatar']))
+    {
+        $cfg['avatar'] = $profile['avatar'];
+    }
 
     if (!$GLOBALS['user']->edit_user($cfg))
     {
@@ -111,7 +116,7 @@ function get_profile($user_id)
     $info  = array();
     $infos = array();
     $sql  = "SELECT user_name, birthday, sex, question, answer, rank_points, pay_points,user_money, user_rank,".
-             " msn, qq, office_phone, home_phone, mobile_phone, passwd_question, passwd_answer ".
+             " msn, qq, office_phone, home_phone, mobile_phone, passwd_question, passwd_answer, avatar ".//会员头像
            "FROM " .$GLOBALS['ecs']->table('users') . " WHERE user_id = '$user_id'";
     $infos = $GLOBALS['db']->getRow($sql);
     $infos['user_name'] = addslashes($infos['user_name']);
@@ -166,6 +171,7 @@ function get_profile($user_id)
     $info['user_money']  = isset($infos['user_money'])  ? $infos['user_money']  : 0;
     $info['sex']         = isset($infos['sex'])      ? $infos['sex']      : 0;
     $info['birthday']    = isset($infos['birthday']) ? $infos['birthday'] : '';
+    $info['avatar']      = isset($infos['avatar']) ? $infos['avatar'] : '';//会员头像
     $info['question']    = isset($infos['question']) ? htmlspecialchars($infos['question']) : '';
 
     $info['user_money']  = price_format($info['user_money'], false);

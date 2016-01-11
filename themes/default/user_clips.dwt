@@ -43,6 +43,18 @@
          <!-- *用户中心默认显示页面 start-->
          <!-- {if $action eq 'default'} -->
           <font class="f5"><b class="f4">{$info.username}</b> {$lang.welcome_to} {$info.shop_name}！</font><br />
+          <style>
+          .avtar .img a{display:none;width:72px;height:23px;background:url(images/change_avtar.gif);position:absolute;margin-left:44px;margin-top:93px}
+          .avtar .hover a{display:block}
+          .Left .img{border:1px solid #d0d0d0;margin-bottom:5px}
+          .Left .img,.Left .img img{width:120px;height:120px}
+          </style>
+          <div class="Left avtar" style="float:left;width:122px;text-align:center;">
+            <div onmouseout="this.className='img'" onmouseover="this.className='img hover'" class="img">
+              <a title="修改我的头像" href="user.php?act=profile" class="red"></a>
+              <img src="{if $info.avatar}{$info.avatar}{else}images/avatar.gif{/if}">
+            </div>
+          </div>
           <div class="blank"></div>
           {$lang.last_time}: {$info.last_time}<br />
           <div class="blank5"></div>
