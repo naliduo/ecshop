@@ -71,6 +71,7 @@ class ecshop extends integrate
         $this->field_gender = 'sex';
         $this->field_bday = 'birthday';
         $this->field_reg_date = 'reg_time';
+        $this->field_avatar = 'avatar';//会员头像
         $this->need_sync = false;
         $this->is_ecshop = 1;
     }

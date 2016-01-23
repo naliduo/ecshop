@@ -258,7 +258,6 @@ class cls_template
         {
             $this->_current_file = $filename;
             $source = $this->fetch_str(file_get_contents($filename));
-
             if (file_put_contents($name, $source, LOCK_EX) === false)
             {
                 trigger_error('can\'t write:' . $name);
@@ -403,7 +402,9 @@ class cls_template
         }
         else
         {
-            $tag_sel = array_shift(explode(' ', $tag));
+            $tag_tmp = (explode(' ', $tag));
+            $tag_sel = array_shift($tag_tmp);
+            //$tag_sel = array_shift(explode(' ', $tag));
             switch ($tag_sel)
             {
                 case 'if':

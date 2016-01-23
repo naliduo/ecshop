@@ -73,6 +73,9 @@ class integrate
 
     var $error          = 0;
 
+    /* 会员头像 */
+    var $field_avatar = '';
+
     /*------------------------------------------------------ */
     //-- PRIVATE ATTRIBUTEs
     /*------------------------------------------------------ */
@@ -329,6 +332,12 @@ class integrate
         if ((!empty($cfg['bday'])) && $this->field_bday != 'NULL')
         {
             $values[] = $this->field_bday . "='" . $cfg['bday'] . "'";
+        }
+        
+        //会员头像
+        if ((!empty($cfg['avatar'])) && $this->field_avatar != 'NULL')
+        {
+            $values[] = $this->field_avatar . "='" . $cfg['avatar'] . "'";
         }
 
         if ($values)

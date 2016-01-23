@@ -1715,9 +1715,9 @@ function assign_comment($id, $type, $page = 1)
 
     $page_count = ($count > 0) ? intval(ceil($count / $size)) : 1;
 
-    $sql = 'SELECT * FROM ' . $GLOBALS['ecs']->table('comment') .
-            " WHERE id_value = '$id' AND comment_type = '$type' AND status = 1 AND parent_id = 0".
-            ' ORDER BY comment_id DESC';
+    $sql = 'SELECT c.*,u.avatar FROM ' . $GLOBALS['ecs']->table('comment') . ' as c left join ' . $GLOBALS['ecs']->table('users') .
+            " as u on c.user_id = u.user_id WHERE c.id_value = '$id' AND c.comment_type = '$type' AND c.status = 1 AND c.parent_id = 0".
+            ' ORDER BY c.comment_id DESC';//会员头像 by neo
     $res = $GLOBALS['db']->selectLimit($sql, $size, ($page-1) * $size);
 
     $arr = array();
@@ -1732,6 +1732,7 @@ function assign_comment($id, $type, $page = 1)
         $arr[$row['comment_id']]['content']  = nl2br(str_replace('\n', '<br />', $arr[$row['comment_id']]['content']));
         $arr[$row['comment_id']]['rank']     = $row['comment_rank'];
         $arr[$row['comment_id']]['add_time'] = local_date($GLOBALS['_CFG']['time_format'], $row['add_time']);
+        $arr[$row['comment_id']]['avatar']   = $row['avatar'];//会员头像
     }
     /* 取得已有回复的评论 */
     if ($ids)

@@ -162,7 +162,8 @@ if (isWidescreen){document.getElementsByTagName("body")[0].className="w950";}
         </script>
       <h5><span>{$lang.profile}</span></h5>
       <div class="blank"></div>
-     <form name="formEdit" action="user.php" method="post" onSubmit="return userEdit()">
+     <form name="formEdit" action="user.php" method="post" onSubmit="return userEdit()" enctype="multipart/form-data">
+<input type="hidden" name="MAX_FILE_SIZE" value="1097152" /><!-- 1M图片上传大小设置 -->
       <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
                 <tr>
                   <td width="28%" align="right" bgcolor="#FFFFFF">{$lang.email}： </td>
@@ -239,6 +240,19 @@ if (isWidescreen){document.getElementsByTagName("body")[0].className="w950";}
 		</tr>
 		<!-- {/if} -->
 		{/foreach}
+            <tr>
+              <td width="28%" align="right" bgcolor="#FFFFFF">会员头像：</td>
+              <td width="72%" align="left" bgcolor="#FFFFFF">
+              <div style="width:50%;float:left;">
+                  <input id="avatar" type="file" size="40" value="" name="avatar">
+                  <br/>
+                  <span style="color:#FF0000"> 图片像素最佳为55px * 55px，<br/>大小不得超过1M</span>
+              </div>
+              <div style="width:50%;float:left;">
+                  <img src="{if $profile.avatar}{$profile.avatar}{else}images/avatar.gif{/if}" alt="" width="55" height="55">
+              </div>
+              </td>
+            </tr>
                 <tr>
                   <td colspan="2" align="center" bgcolor="#FFFFFF"><input name="act" type="hidden" value="act_edit_profile" />
                     <input name="submit" type="submit" value="{$lang.confirm_edit}" class="bnt_blue_1" style="border:none;" />
