@@ -1612,8 +1612,8 @@ function show_login_message($content, $links = '', $hrefs = '', $type = 'info', 
     $GLOBALS['smarty']->assign('auto_redirect', $auto_redirect);
     $GLOBALS['smarty']->assign('message', $msg);
     $GLOBALS['smarty']->assign('jhy_web_url', "http://112.124.110.58:8080/index.php?login=".$_SESSION['user_id']."&n=".$_SESSION['user_name']."&rankid=".$_SESSION['rankid']."&img=".$_SESSION['avatar']."&alias=".$_SESSION['alias']);
-    $GLOBALS['smarty']->assign('sns_web_url', "http://112.124.110.58:8083/index.php?app=public&mod=Register&act=loginByJHY&uname=".$_SESSION['user_name'].'&id='.$_SESSION['user_id']);
-    $GLOBALS['smarty']->assign('sns_web_login_url', "http://112.124.110.58:8083/index.php?app=public&mod=Passport&act=doLoginByJHY&login_email=".$_SESSION['user_id'] );
+    $GLOBALS['smarty']->assign('sns_web_url', "http://112.124.110.58:8084/index.php?app=public&mod=Register&act=loginByJHY&uname=".$_SESSION['user_name'].'&id='.$_SESSION['user_id']);
+    $GLOBALS['smarty']->assign('sns_web_login_url', "http://112.124.110.58:8084/index.php?app=public&mod=Passport&act=doLoginByJHY&login_email=".$_SESSION['user_id'] );
     $GLOBALS['smarty']->display('message_login.dwt');
 
     exit;

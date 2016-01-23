@@ -1,5 +1,3 @@
-<iframe src="http://112.124.110.58:8080/index.php?logout" width="0" height="0"></iframe>
-<iframe src="http://112.124.110.58:8083/index.php?app=public&mod=Passport&act=logout" width="0" height="0"></iframe>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -262,7 +260,11 @@ function ResumeError()
    return true;
 }
 window.onerror = ResumeError; 
-</script><!-- #EndLibraryItem --></body>
+</script><!-- #EndLibraryItem -->
+
+<iframe src="http://112.124.110.58:8080/index.php?logout" width="0" height="0"></iframe>
+<iframe src="http://112.124.110.58:8084/index.php?app=public&mod=Passport&act=logout" width="0" height="0"></iframe>
+</body>
 <script type="text/javascript">
 var time_hide_all_cat = null;
 if (document.getElementById("div_all_cat").className == 'showlist snone'){
