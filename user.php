@@ -44,6 +44,62 @@ $ui_arr = array('register', 'login', 'profile', 'bindusercard','usercarddg','tao
 'message_list', 'tag_list', 'get_password', 'reset_password', 'booking_list', 'add_booking', 'account_raply',
 'account_deposit', 'account_log', 'account_detail', 'act_account', 'pay', 'default', 'bonus', 'group_buy', 'group_buy_detail', 'affiliate', 'comment_list','validate_email','track_packages', 'transform_points','qpassword_name', 'get_passwd_question', 'check_answer','user_card');
 
+function SpGetPinyin($str, $ishead=0, $isclose=1)
+{
+    //global $pinyins;
+    $restr = '';
+    $str = trim($str);
+    $slen = strlen($str);
+    if($slen < 2)
+    {
+        return $str;
+    }
+    /*if(count($pinyins) == 0)
+    {
+        $fp = fopen(DEDEINC.'/data/pinyin.dat', 'r');
+        while(!feof($fp))
+        {
+            $line = trim(fgets($fp));
+            $pinyins[$line[0].$line[1]] = substr($line, 3, strlen($line)-3);
+        }
+        fclose($fp);
+    }*/
+    for($i=0; $i<$slen; $i++)
+    {
+        if(ord($str[$i])>0x80)
+        {
+            $c = $str[$i].$str[$i+1];
+            $i++;
+            if(isset($pinyins[$c]))
+            {
+                if($ishead==0)
+                {
+                    $restr .= $pinyins[$c];
+                }
+                else
+                {
+                    $restr .= $pinyins[$c][0];
+                }
+            }else
+            {
+                $restr .= "_";
+            }
+        }else if( preg_match("/[a-z0-9]/i", $str[$i]) )
+        {
+            $restr .= $str[$i];
+        }
+        else
+        {
+            $restr .= "_";
+        }
+    }
+    if($isclose==0)
+    {
+        unset($pinyins);
+    }
+    return $restr;
+}
+
 /* 未登录处理 */
 if (empty($_SESSION['user_id']))
 {
@@ -715,7 +771,21 @@ if($username_e) $username=$username_e;
         }
         $back_act .= "&euser=".$username;
         */
+        $row = $db->getRow("select user_name,avatar, alias,rank_points from " . $ecs->table('users') ." where user_id='".$_SESSION['user_id'] ."'");
         
+        if ($row)
+         {  
+            $_SESSION['avatar']   = $row['avatar'];
+            $_SESSION['alias']   = $row['alias'];
+            $huiyuanrow = $db->getRow("SELECT rank_id, rank_name FROM " . $ecs->table('user_rank') ." WHERE min_points<=".$row['rank_points'] ." AND max_points>=".$row['rank_points'] ." and special_rank=0 ");
+            if($huiyuanrow)
+            {
+            //$_SESSION['rankname']   = $huiyuanrow['rank_name'];
+            $_SESSION['rankid']   = $huiyuanrow['rank_id'];
+            }
+        
+        }        
+
         show_login_message($_LANG['login_success'] . $ucdata , array($_LANG['back_up_page'], $_LANG['profile_lnk']), array($back_act,'user.php'), 'info');
         	
        
@@ -732,6 +802,9 @@ if($username_e) $username=$username_e;
 elseif ($action == 'act_login_wechat')
 {
     $wxid = isset($_GET['wxid']) ? trim($_GET['wxid']) : '';
+    $wxnm = isset($_GET['wxnm']) ? trim($_GET['wxnm']) : '';
+    $password = isset($_POST['password']) ? trim($_POST['password']) : '';
+    $back_act = isset($_GET['back_act']) ? trim($_GET['back_act']) : '';
     //echo $wxid.'<br /><br />';
     $row = $db->getRow("select uid from " . $ecs->table('weixin_user') ." where wxid='$wxid'");
     if ($row)
@@ -745,13 +818,39 @@ elseif ($action == 'act_login_wechat')
         //echo $row['user_name'].'<br /><br />';
         //echo $row['uid'].'<br /><br />';
         }
+    }else if ( '' !== $wxnm ) {
+        // auto log
+        
+        $username = "wx_".$wxnm;
+        $email = SpGetPinyin( iconv('utf-8','gbk//ignore', stripslashes($username) ),0,1)."@qq.com";
+        $password = '1qaz@WSX';
+        $data = "username=".urlencode($username)."&email=".urlencode($email)."&password=".urlencode($password)."&confirm_password=".urlencode($password)."&wx=wx&agreement=1&act=act_register";
+        //echo $data;
+        $ch = curl_init();
+          curl_setopt($ch, CURLOPT_POST, 1);
+          curl_setopt($ch, CURLOPT_URL, 'http://112.124.110.58:8081/user.php');
+          curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+          
+          ob_start();
+          curl_exec($ch);
+          $response = ob_get_contents();
+          ob_end_clean();
+          //echo $response;
+          curl_close($ch);
+          //die;
+          
+          // binding with weixin
+          $sql = "SELECT user_id from " . $ecs->table('users') . " WHERE user_name='$username'";
+          //echo $sql;
+    $row = $db->getRow($sql);
+    $userid = $row['user_id'];
+          $sql = "INSERT INTO " . $ecs->table('weixin_user') . "(uid, wxid, nickname) VALUES ('" . $userid . "', '" . $wxid . "', '" . $wxnm ."')";
+          //echo $sql;
+        $db->query($sql);
+        //die;
     }
-    
     //$username = isset($_POST['username']) ? trim($_POST['username']) : '';
-    $password = isset($_POST['password']) ? trim($_POST['password']) : '';
-    $back_act = isset($_GET['back_act']) ? trim($_GET['back_act']) : '';
-
-
+    
     $captcha = intval($_CFG['captcha']);
     
     /* Added by Jack, 2015.05.31 start */
@@ -952,6 +1051,22 @@ if($username_e) $username=$username_e;
         }
         $ucdata = isset($user->ucdata)? $user->ucdata : '';
     echo $back_act;
+          
+         $row = $db->getRow("select user_name,avatar, alias,rank_points from " . $ecs->table('users') ." where user_id='".$_SESSION['user_id'] ."'");
+        
+        if ($row)
+         {  
+            $_SESSION['avatar']   = $row['avatar'];
+            $_SESSION['alias']   = $row['alias'];
+            $huiyuanrow = $db->getRow("SELECT rank_id, rank_name FROM " . $ecs->table('user_rank') ." WHERE min_points<=".$row['rank_points'] ." AND max_points>=".$row['rank_points'] ." and special_rank=0 ");
+            if($huiyuanrow)
+            {
+            //$_SESSION['rankname']   = $huiyuanrow['rank_name'];
+            $_SESSION['rankid']   = $huiyuanrow['rank_id'];
+            }
+        
+        }       
+    
         show_login_message($_LANG['login_success'] . $ucdata , array($_LANG['back_up_page'], $_LANG['profile_lnk']), array($back_act,'user.php'), 'info');
         	
        
