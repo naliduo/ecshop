@@ -119,6 +119,7 @@
             <li>
             <input name="act" type="hidden" value="act_register" />
             <input type="hidden" name="back_act" value="{$back_act}" />
+            <input type="hidden" name="wxid" value="{$wxid}" />
             <input id='btn_enter' type="submit" class="btn" value="注册" />
             </li>
 		</ul>
