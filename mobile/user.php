@@ -30,11 +30,22 @@ if ($_SESSION['user_id'] > 0)
 }
 $smarty->assign('nowtime',  local_date('Y-m-d'));
 $act = isset($_REQUEST['act']) ? $_REQUEST['act'] : '';
+//echo $act;
+//die;
+
+if ( isset($_REQUEST['wxid']) ) {
+    $_SESSION['wxid'] = trim($_REQUEST['wxid']);
+    $_SESSION['wxnm'] = isset($_REQUEST['wxnm']) ? $_REQUEST['wxnm'] : '';
+}
+
 $user_id = $_SESSION['user_id'];
 
 /* 用户登陆 */
 if ($act == 'do_login')
 {
+    $wxid = isset($_SESSION['wxid']) ? trim($_SESSION['wxid']) : '';
+    //echo $wxid;
+    //die;
 	$user_name = !empty($_POST['username']) ? $_POST['username'] : '';
 	$pwd = !empty($_POST['pwd']) ? $_POST['pwd'] : '';
 	$gourl = !empty($_POST['gourl']) ? $_POST['gourl'] : '';
@@ -62,7 +73,24 @@ if ($act == 'do_login')
 			$user->set_cookie($user_name);
 			update_user_info();
 	        recalculate_price();
-	        
+	        //echo $wxid;
+            //die;
+            // wx
+            if ( $wxid !== '' )
+            {
+                $wxnm = isset($_SESSION['wxnm']) ? $_SESSION['wxnm'] : '';
+                $sql = "select wxid from ".$ecs->table('weixin_user')." where `uid` = '".$_SESSION['user_id']."' ";
+                $row = $db->getOne($sql);
+                if (empty($row)){
+                    $sql = "INSERT INTO " . $ecs->table('weixin_user') . "(uid, wxid, nickname) VALUES ('" . $_SESSION['user_id'] . "', '" . $wxid . "', '" . $wxnm ."')";
+                }else{
+                    $sql = "update ".$ecs->table('weixin_user') ."set `wxid` = '".$wxid."', `nickname` = '".$wxnm."' where `uid` = '" . $_SESSION['user_id']."'";
+                }
+                //echo $sql;
+                //die;
+                $db->query($sql);
+            }
+            
 	        // 会员有效期到期
 	        //$member_novalid = $db->getOne("select to_date from ".$ecs->table("users") . " where member_novalid ='1' and  user_id=".$_SESSION['user_id']);
 	        $sql = "select to_date from ".$ecs->table("users") . " where member_novalid ='1' and  user_id='".$_SESSION['user_id'] ."'";
@@ -585,6 +613,10 @@ elseif ($act == 'register')
 	$_LANG['passwd_questions']['favorite_novel']  = '我最喜欢的小说？';
 	$_LANG['passwd_questions']['favorite_equipe'] = '我最喜欢的运动队？';
 	/* 密码提示问题 */
+    $wxid = isset($_SESSION['wxid']) ? trim($_SESSION['wxid']) : '';
+    $smarty->assign('wxid', $wxid);
+    //echo $wxid;
+    //die;
 	$smarty->assign('passwd_questions', $_LANG['passwd_questions']);
 	$smarty->assign('footer', get_footer());
 	$smarty->display('user_passport.dwt');
@@ -606,6 +638,10 @@ elseif ($act == 'act_register')
 		$passwd_answer = isset($_POST['passwd_answer']) ? compile_str(trim($_POST['passwd_answer'])) : '';
 
 		$back_act = isset($_POST['back_act']) ? trim($_POST['back_act']) : '';
+        
+        $wxid = isset($_SESSION['wxid']) ? trim($_SESSION['wxid']) : '';
+        echo $wxid;
+        die();
 
 		if (m_register($username, $password, $email, $other) !== false)
 		{
