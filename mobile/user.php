@@ -78,19 +78,25 @@ if ($act == 'do_login')
             // wx
             if ( $wxid !== '' )
             {
+            //echo '123';
+            //die;
                 $wxnm = isset($_SESSION['wxnm']) ? $_SESSION['wxnm'] : '';
                 $sql = "select wxid from ".$ecs->table('weixin_user')." where `uid` = '".$_SESSION['user_id']."' ";
+                //echo $sql;
+                //die;
                 $row = $db->getOne($sql);
                 if (empty($row)){
                     $sql = "INSERT INTO " . $ecs->table('weixin_user') . "(uid, wxid, nickname) VALUES ('" . $_SESSION['user_id'] . "', '" . $wxid . "', '" . $wxnm ."')";
                 }else{
-                    $sql = "update ".$ecs->table('weixin_user') ."set `wxid` = '".$wxid."', `nickname` = '".$wxnm."' where `uid` = '" . $_SESSION['user_id']."'";
+                    $sql = "update ".$ecs->table('weixin_user') ." set `wxid` = '".$wxid."', `nickname` = '".$wxnm."' where `uid` = '" . $_SESSION['user_id']."'";
                 }
                 //echo $sql;
                 //die;
                 $db->query($sql);
             }
             
+            //echo $sql;
+            //die;
 	        // 会员有效期到期
 	        //$member_novalid = $db->getOne("select to_date from ".$ecs->table("users") . " where member_novalid ='1' and  user_id=".$_SESSION['user_id']);
 	        $sql = "select to_date from ".$ecs->table("users") . " where member_novalid ='1' and  user_id='".$_SESSION['user_id'] ."'";
@@ -132,8 +138,27 @@ if ($act == 'do_login')
 /* 微信用户自动登陆 */
 elseif ($act == 'weixin_login')
 {
-	$user_name = !empty($_REQUEST['username']) ? $_GET['username'] : '';
-	$pwd = !empty($_GET['pwd']) ? $_GET['pwd'] : '';
+    $wxid = isset($_SESSION['wxid']) ? trim($_SESSION['wxid']) : '';
+    $sql = "select `uid` from ".$ecs->table('weixin_user')." where `wxid` = '".$wxid."' ";
+    //echo $sql;
+    //die;
+    $row = $db->getOne($sql);
+    if (empty($row)){
+        ecs_header("Location:user.php\n");
+        die;
+    }
+    
+    $sql = "select `user_name`, `password` from ".$ecs->table('users')." where `user_id` = '".$row."'";
+    //echo $sql;
+    //die;
+    $row = $db->getRow($sql);
+    //echo 'user_name:'.$row['user_name'].'<br />';
+    //echo 'password:'.$row['password'];
+    //die;
+	//$user_name = !empty($_REQUEST['username']) ? $_GET['username'] : '';
+    $user_name = $row['user_name'];
+	//$pwd = !empty($_GET['pwd']) ? $_GET['pwd'] : '';
+    $pwd = $row['password'];
 	$gourl = !empty($_GET['gourl']) ? $_GET['gourl'] : '';
 	
 	$remember = isset($_GET['remember']) ? $_GET['remember'] : 0;
@@ -153,7 +178,8 @@ elseif ($act == 'weixin_login')
 	}
 	else
 	{
-		if ($user->check_user($user_name, $pwd) > 0)
+		//if ($user->check_user($user_name, $pwd) > 0)
+        if ($user->check_user($user_name, null) > 0)
 		{
 			$user->set_session($user_name);
 			$user->set_cookie($user_name);
@@ -624,6 +650,8 @@ elseif ($act == 'register')
 /* 注册会员的处理 */
 elseif ($act == 'act_register')
 {
+//echo '111';
+//die;
 		include_once(ROOT_PATH . 'includes/lib_passport.php');
 
 		$username = isset($_POST['username']) ? trim($_POST['username']) : '';
@@ -639,12 +667,13 @@ elseif ($act == 'act_register')
 
 		$back_act = isset($_POST['back_act']) ? trim($_POST['back_act']) : '';
         
-        $wxid = isset($_SESSION['wxid']) ? trim($_SESSION['wxid']) : '';
-        echo $wxid;
-        die();
-
+        //echo '222';
+        //die;
+        
 		if (m_register($username, $password, $email, $other) !== false)
 		{
+        //echo '333';
+        //die;
 			/*把新注册用户的扩展信息插入数据库*/
 			$sql = 'SELECT id FROM ' . $ecs->table('reg_fields') . ' WHERE type = 0 AND display = 1 ORDER BY dis_order, id';   //读出所有自定义扩展字段的id
 			$fields_arr = $db->getAll($sql);
@@ -673,8 +702,8 @@ elseif ($act == 'act_register')
 				$sql = 'UPDATE ' . $ecs->table('users') . " SET `passwd_question`='$sel_question', `passwd_answer`='$passwd_answer'  WHERE `user_id`='" . $_SESSION['user_id'] . "'";
 				$db->query($sql);
 			}
-
-			$ucdata = empty($user->ucdata)? "" : $user->ucdata;
+            
+            $ucdata = empty($user->ucdata)? "" : $user->ucdata;
 			$Loaction = 'index.php';
 			ecs_header("Location: $Loaction\n");
 		}
@@ -1316,6 +1345,23 @@ function m_register($username, $password, $email, $other = array())
 		$GLOBALS['db']->autoExecute($GLOBALS['ecs']->table('users'), $update_data, 'UPDATE', 'user_id = ' . $_SESSION['user_id']);
 
 		update_user_info();	  // 更新用户信息
+        
+        $wxid = isset($_SESSION['wxid']) ? trim($_SESSION['wxid']) : '';
+        //echo 'wxid:'.$wxid;
+        //die;
+        if ( $wxid !== '' )
+        {
+            $wxnm = isset($_SESSION['wxnm']) ? $_SESSION['wxnm'] : '';
+            //echo $wxid;
+            //die();
+            //echo $ecs->table('weixin_user');
+            //die();
+            $sql = "INSERT INTO ".$GLOBALS['ecs']->table('weixin_user')." (uid, wxid, nickname) VALUES ('" . $_SESSION['user_id'] . "', '" . $wxid . "', '" . $wxnm ."')";
+            //echo $sql;
+            //die;
+            $GLOBALS['db']->query($sql);
+        }
+        
         $Loaction = 'user.php?act=user_center';
         ecs_header("Location: $Loaction\n");
 		return true;
