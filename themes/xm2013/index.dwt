@@ -33,7 +33,9 @@ _mvq.push(['$logConversion']);
 </script>
 							
 </head>
-<body><!-- #BeginLibraryItem "/library/page_header.lbi" -->
+<body>
+
+<!-- #BeginLibraryItem "/library/page_header.lbi" -->
 
 <script type="text/javascript">
 var process_request = "正在处理您的请求...";
@@ -42,7 +44,8 @@ var process_request = "正在处理您的请求...";
 var isWidescreen=screen.width<1200;
 if (isWidescreen){document.getElementsByTagName("body")[0].className="w950";}
 </script>
-<div class="header container">
+
+<div class="header container" style="display: none;">
   <div class="top">
     <div class="logo"><a class="icon-common-logo" href="index.php" title=""><img src="themes/xm2013/images/logo.gif" /></a></div>
     <div class="right clearfix">
@@ -103,7 +106,7 @@ if (isWidescreen){document.getElementsByTagName("body")[0].className="w950";}
         </ul>
       </div>
     </div>
-    <div class="showlist snone" id="div_all_cat">
+    <div class="showlist snone" id="div_all_cat" style="display: none;">
       <ul class="lists">
 	  <!--{foreach from=get_categories_tree() item=cat}-->
         <li onmouseover="this.className='navhover'" onmouseout="this.className=''"><a class="tit" href="{$cat.url}">{$cat.name|escape:html}</a><em class="icon-common icon-common-arrowright"></em>
@@ -126,19 +129,57 @@ if (isWidescreen){document.getElementsByTagName("body")[0].className="w950";}
   </div>
 </div>
 <script type="text/javascript" src="themes/xm2013/js/jquery.js"></script>
-<script type="text/javascript" src="themes/xm2013/js/xm.js"></script><!-- #EndLibraryItem -->
+<script type="text/javascript" src="themes/xm2013/js/xm.js"></script>
+<!-- #EndLibraryItem -->
 
+<div style="background-color: #a6cb21; width: 1190px; margin: auto; height: 111px; margin-bottom: 9px;">
+    <img src='themes/xm2013/images/shop_home_logo.png' style='padding: 18px 18px 0px 36px; float: left;'/>
+    <div style="padding: 18px 10px 0px 36px; float: left;">
+        <div style='padding-bottom: 10px;'>
+            <img src='themes/xm2013/images/shop_home_phone.png' style='padding: 0px 10px 5px 0px;'/>
+            <span style='font-size: 20px;'>400-821-3860  周一至周五9：00-17:50</span>
+        </div>
+        <div>
+            <img src='themes/xm2013/images/shop_home_home.png' style='margin-bottom: 10px; padding: 0px 10px 0px 0px;'/><span style="color: white;">首页</span>
+            <img src='themes/xm2013/images/shop_home_category.png' style='margin-bottom: 10px; padding: 0px 10px 0px 25px;'/><span style="color: white;">饮食分类</span>
+            <img src='themes/xm2013/images/shop_home_shoppingcar.png' style='margin-bottom: 10px; padding: 0px 10px 0px 25px;'/><span style="color: white;">礼盒卡券</span>
+            <img src='themes/xm2013/images/shop_home_car.png' style='margin-bottom: 10px; padding: 0px 10px 0px 25px;'/><span style="color: white;">君禾宅配</span>
+        </div>
+    </div>
+    <div style="padding: 18px 0px 0px 30px; float: left;">
+        <div style='background-color: #86a329; color: white; line-height: 35px; font-size: 20px; padding: 0px 20px 0px 10px; margin-right: 60px;'>
+            <a style='color: white;' href="user.php">登录</a> / <a style='color: white;' href="user.php?act=register">免费注册会员</a>
+        </div>
+        <div class="search" style='padding-top: 10px;'>
+        <form id="user_search" action="search.php" method='get'>
+            <div style="background-color: white;">
+              <img src='themes/xm2013/images/shop_home_search_flag.png' style="margin-top: -5px;"/>
+              <input type="text" id="keyword" name="keywords" class="txt" value="" placeholder="请输入关键词" style="border-width: 0px; font-size: 20px; width: 165px;" />
+              <img src='themes/xm2013/images/shop_home_search_clear.png' style="margin-top: -5px;" onclick="jQuery('#keyword').val('')"/>
+              <input type="submit" class="" value='搜索' style='line-height: 24px; border-width: 0px; background-color: #86a329; color: white; font-size: 20px; padding-right: 15px;'/>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div style='float: left; padding: 10px 0px 0px 30px; float: left;'>
+        <img src='themes/xm2013/images/shop_home_code.png' style='padding-left: 50px;'/><br />
+        <span>扫一扫二维码，加入君禾园</span>
+    </div>
+</div>
 
 <script type="text/javascript">
-document.getElementById("div_all_cat").className = "showlist";
+//document.getElementById("div_all_cat").className = "showlist";
+jQuery(".header.container").remove();
 </script>
 
 <div class="container">
-  <div class="fpics row clearfix">
-    <div class="span3 fpics-left"></div>
-    <div class="span12">
+  <!--<div class="fpics row clearfix">-->
+  <div class="">
+    <!--<div class="span3 fpics-left"></div>-->
+    <!--<div class="span12">-->
+    <div class="">
       <div id="yc-mod-slider">
-        <div id="xmFocus" class="xmFocus">
+        <div id="xmFocus" class="xmFocus" style="height: 540px;">
 		<!--{foreach from=get_flash_xml() item=playerdb name=get_flash_xml}-->
           <div style="background: url({$playerdb.src}) no-repeat scroll center 50% rgb(255, 255, 255); display: block;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px" index="{$smarty.foreach.get_flash_xml.iteration}"><a href="{$playerdb.url}" target="_blank"></a></div>
 		<!--{/foreach}-->   
@@ -150,7 +191,7 @@ document.getElementById("div_all_cat").className = "showlist";
         </div>
         <script type="text/javascript">$(function(){Xmeb.App.xmFocus.init($("#xmFocus"),{mwidth:"auto",autoWidth:true});Xmeb.App.lazyload({defObj:".home_main",defHeight:50});});</script>
       </div>
-      <div class="hdshow row">
+      <div class="hdshow row" style="display: none;">
         <div class="span3">
           <!-- TemplateBeginEditable name="广告-首页轮播底部广告1" -->
 <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
@@ -186,8 +227,134 @@ document.getElementById("div_all_cat").className = "showlist";
       </div>
     </div>
   </div>
+  
+  <div style="margin: auto; width: 1161px; padding-bottom: 9px;">
+    <div style="float: left; padding-right: 9px;">
+        <!-- TemplateBeginEditable name="广告-首页会员卡商品广告1" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+    </div>
+    <div style="float: left; padding-right: 9px;">
+    <!-- TemplateBeginEditable name="广告-首页会员卡商品广告2" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+    </div>
+    <div>
+    <!-- TemplateBeginEditable name="广告-首页会员卡商品广告3" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+    </div>
+  </div>
+  
+  <div style="margin: auto; width: 916px; padding-bottom: 36px;">
+      <div style="float: left; width: 705px;">
+        <div style="float: left; padding-right: 9px;">
+        <!-- TemplateBeginEditable name="广告-首页新品上架广告1" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+    {insert name='ads' id=$ads_id num=$ads_num}
+     <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+        </div>
+        <div style="float: left; padding-right: 9px;">
+        <!-- TemplateBeginEditable name="广告-首页新品上架广告2" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+    {insert name='ads' id=$ads_id num=$ads_num}
+     <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+        </div>
+        <div style="padding-bottom:9px;">
+        <!-- TemplateBeginEditable name="广告-首页新品上架广告3" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+    {insert name='ads' id=$ads_id num=$ads_num}
+     <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+        </div>
+        <div style="float: left; padding-right: 9px;">
+        <!-- TemplateBeginEditable name="广告-首页新品上架广告4" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+    {insert name='ads' id=$ads_id num=$ads_num}
+     <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+        </div>
+        <div style="float: left; padding-right: 9px;">
+        <!-- TemplateBeginEditable name="广告-首页新品上架广告5" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+    {insert name='ads' id=$ads_id num=$ads_num}
+     <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+        </div>
+        <div style="">
+        <!-- TemplateBeginEditable name="广告-首页新品上架广告6" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+    {insert name='ads' id=$ads_id num=$ads_num}
+     <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+        </div>
+    </div>
+    <div style="">
+        <!-- TemplateBeginEditable name="广告-首页新品上架广告7" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+    {insert name='ads' id=$ads_id num=$ads_num}
+     <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+        </div>
+  </div>
+
+  <div style="margin: auto; width: 916px;">
+    <div style="float: left; padding-right: 9px;">
+    <!-- TemplateBeginEditable name="广告-首页热卖商品广告1" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+    </div>
+    <div style="float: right">
+    <!-- TemplateBeginEditable name="广告-首页热卖商品广告4" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+    </div>
+    <div>
+        <div style="padding-bottom: 9px;">
+        <!-- TemplateBeginEditable name="广告-首页热卖商品广告2" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+        </div>
+        <div>
+        <!-- TemplateBeginEditable name="广告-首页热卖商品广告3" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+        </div>
+    </div>
+  </div>
+  
   <div id="lazyLoad-box">
-    <div class="newgoods row clearfix">
+    <div class="newgoods row clearfix" style="display: none;">
       <div class="span12">
         <div class="xm-box">
           <div class="hd">
@@ -291,7 +458,7 @@ document.getElementById("div_all_cat").className = "showlist";
 
       </div>
     </div>
-    <div class="hotgoods">
+    <div class="hotgoods" style="display: none;">
       <div class="xm-box">
         <div class="hd">
           <h3 class="title"><b>热销产品</b></h3>
@@ -384,7 +551,7 @@ document.getElementById("div_all_cat").className = "showlist";
         </div>
       </div>
     </div>
-    <div class="xm-box home-today-goods">
+    <div class="xm-box home-today-goods" style="display: none;">
       <div class="hd">
         <h3 class="title"><b>健康礼品系列</b></h3>
       </div>
