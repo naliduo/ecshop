@@ -24,6 +24,8 @@ $_LANG['shot_message'] = "短消息";
 $_LANG['label_welcome'] = '欢迎页';
 $_LANG['label_profile'] = '用户信息';
 $_LANG['label_order'] = '我的订单';
+$_LANG['label_active'] = '活动列表';
+$_LANG['label_share'] = '分享列表';
 $_LANG['label_address'] = '收货地址';
 $_LANG['label_message'] = '我的留言';
 $_LANG['label_tag'] = '我的标签';
@@ -685,5 +687,17 @@ $_LANG['passwd_questions']['favorite_food']   = '我最喜爱的食物？';
 $_LANG['passwd_questions']['interest']        = '我最大的爱好？';
 $_LANG['passwd_questions']['favorite_novel']  = '我最喜欢的小说？';
 $_LANG['passwd_questions']['favorite_equipe'] = '我最喜欢的运动队？';
+
+/*活动列表*/
+$_LANG['active_title'] = '活动名称';
+$_LANG['active_status'] = '活动状态';
+$_LANG['active_signupstatus'] = '报名状态';
+$_LANG['active_signupdate'] = '报名时间';
+
+/*分享列表*/
+$_LANG['share_title'] = '分享名称';
+$_LANG['share_status'] = '活动状态';
+$_LANG['share_signupstatus'] = '报名状态';
+$_LANG['share_signupdate'] = '报名时间';
 
 ?>

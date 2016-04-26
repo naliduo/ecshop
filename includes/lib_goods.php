@@ -1364,6 +1364,25 @@ function favourable_info($act_id)
 }
 
 /**
+ * 取得倒计时活动信息
+ * @param   int     $act_id     活动id
+ * @return  array
+ */
+function countdown_goods_info($act_id)
+{
+    $sql = "SELECT * FROM " . $GLOBALS['ecs']->table('countdown_goods') .
+            " WHERE act_id = '$act_id'";
+    $row = $GLOBALS['db']->getRow($sql);
+    if (!empty($row))
+    {
+        $row['start_time'] = local_date($GLOBALS['_CFG']['time_format'], $row['start_time']);
+        $row['end_time'] = local_date($GLOBALS['_CFG']['time_format'], $row['end_time']);
+    }
+
+    return $row;
+}
+
+/**
  * 批发信息
  * @param   int     $act_id     活动id
  * @return  array

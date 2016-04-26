@@ -62,7 +62,16 @@
       </ul>
  
     </div>
-    <!--订单管理end-->
+    <!--订单管理end-->    
+      <div class="account order">
+      <h2>报名管理</h2>
+      <ul class="pending">
+        <li> <a href="user.php?act=activity_list" title="" target="">我的活动报名&nbsp;</a> <a class="link"><span class="more"><span class="inner"></span></span></a> </li>
+        <li> <a href="user.php?act=share_list" title="" target="">我的分享报名&nbsp;</a> <a class="link"><span class="more"><span class="inner"></span></span></a> </li>
+      </ul> 
+    </div>
+    <!--报名管理end-->
+     
     <!--账户管理begin-->
     <div class="account order">
       <h2>账户管理</h2>

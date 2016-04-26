@@ -1,16 +1,16 @@
-imgUrl1="data/afficheimg/20150803vommzi.jpg";
+imgUrl1="data/afficheimg/20160416yqpitk.png";
 imgtext1="01";
 imgLink1=escape("http://shop.dream-gardens.com.cn/category.php?id=3");
-imgUrl2="data/afficheimg/20150511edxltn.jpg";
+imgUrl2="data/afficheimg/20160416ogyuqu.png";
 imgtext2="02";
 imgLink2=escape("http://shop.dream-gardens.com.cn/article.php?id=9");
-imgUrl3="data/afficheimg/20150511chtfge.jpg";
+imgUrl3="data/afficheimg/20160416oehnnm.png";
 imgtext3="03";
 imgLink3=escape("http://www.dream-gardens.com.cn/expertise/");
-imgUrl4="data/afficheimg/20140923ucgdiq.jpg";
+imgUrl4="data/afficheimg/20160416sqqsfh.png";
 imgtext4="04";
 imgLink4=escape("http://shop.dream-gardens.com.cn/");
-imgUrl5="data/afficheimg/20150901bpqtib.jpg";
+imgUrl5="data/afficheimg/20160416swkqed.png";
 imgtext5="";
 imgLink5=escape("http://shop.dream-gardens.com.cn/category.php?id=3");
 

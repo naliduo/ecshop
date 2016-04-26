@@ -45,8 +45,17 @@ array('login','act_login','act_login_wechat','register','act_register','act_edit
 
 /* 显示页面的action列表 */
 $ui_arr = array('register', 'login', 'profile', 'bindusercard','usercarddg','taocan_list','taocan_buy','edittaocan','deltaocan','order_list', 'order_detail', 'address_list', 'collection_list',
-'message_list', 'tag_list', 'get_password', 'reset_password', 'booking_list', 'add_booking', 'account_raply',
+'message_list', 'tag_list', 'get_password', 'reset_password', 'booking_list', 'add_booking', 'account_raply','activity_list','share_list',
 'account_deposit', 'account_log', 'account_detail', 'act_account', 'pay', 'default', 'bonus', 'group_buy', 'group_buy_detail', 'affiliate', 'comment_list','validate_email','track_packages', 'transform_points','qpassword_name', 'get_passwd_question', 'check_answer','user_card');
+
+if ( isset($_REQUEST['wxid']) ) {
+    $_SESSION['wxid'] = trim($_REQUEST['wxid']);
+    $_SESSION['wxnm'] = isset($_REQUEST['wxnm']) ? $_REQUEST['wxnm'] : '';
+}
+
+//echo 'wxid:'.$_SESSION['wxid'].'<br />';
+//echo 'wxnm:'.$_SESSION['wxnm'];
+//die;
 
 function SpGetPinyin($str, $ishead=0, $isclose=1)
 {
@@ -391,6 +400,8 @@ elseif ($action == 'act_register')
 
         if (register($username, $password, $email, $other) !== false)
         {
+        //echo '111';
+        //die;
             /* Added by Jack, 2015.05.31 start */
         	
         	if ($_CFG['ihuyi_sms_customer_registed'] == '1')
@@ -414,6 +425,22 @@ elseif ($action == 'act_register')
         			$db->query($sql);
         		}
         	}
+            
+            $wxid = isset($_SESSION['wxid']) ? trim($_SESSION['wxid']) : '';
+            //echo 'wxid:'.$wxid;
+            //die;
+            if ( $wxid !== '' )
+            {
+                $wxnm = isset($_SESSION['wxnm']) ? $_SESSION['wxnm'] : '';
+                //echo $wxid;
+                //die();
+                //echo $ecs->table('weixin_user');
+                //die();
+                $sql = "INSERT INTO ".$ecs->table('weixin_user')." (uid, wxid, nickname) VALUES ('" . $_SESSION['user_id'] . "', '" . $wxid . "', '" . $wxnm ."')";
+                //echo $sql;
+                //die;
+                $db->query($sql);
+            }
         	
         	$sql = "UPDATE " . $ecs->table('verify_code') . " SET reguid=" . $_SESSION['user_id'] . ",regdateline='" . gmtime() ."',status=2 WHERE mobile='$mobile' AND verifycode='$verifycode' AND getip='" . real_ip() . "' AND status=1 AND dateline>'" . gmtime() ."'-86400";
         	$db->query($sql);
@@ -783,16 +810,33 @@ if($username_e) $username=$username_e;
             $huiyuanrow = $db->getRow("SELECT rank_id, rank_name FROM " . $ecs->table('user_rank') ." WHERE min_points<=".$row['rank_points'] ." AND max_points>=".$row['rank_points'] ." and special_rank=0 ");
             if($huiyuanrow)
             {
-            //$_SESSION['rankname']   = $huiyuanrow['rank_name'];
+            $_SESSION['rankname']   = $huiyuanrow['rank_name'];
             $_SESSION['rankid']   = $huiyuanrow['rank_id'];
             }
         
         }        
 
-        show_login_message($_LANG['login_success'] . $ucdata , array($_LANG['back_up_page'], $_LANG['profile_lnk']), array($back_act,'user.php'), 'info');
-        	
-       
+        $wxid = isset($_SESSION['wxid']) ? trim($_SESSION['wxid']) : '';
+        if ( $wxid !== '' )
+        {
+        //echo '123';
+        //die;
+            $wxnm = isset($_SESSION['wxnm']) ? $_SESSION['wxnm'] : '';
+            $sql = "select wxid from ".$ecs->table('weixin_user')." where `uid` = '".$_SESSION['user_id']."' ";
+            //echo $sql;
+            //die;
+            $row = $db->getOne($sql);
+            if (empty($row)){
+                $sql = "INSERT INTO " . $ecs->table('weixin_user') . "(uid, wxid, nickname) VALUES ('" . $_SESSION['user_id'] . "', '" . $wxid . "', '" . $wxnm ."')";
+            }else{
+                $sql = "update ".$ecs->table('weixin_user') ." set `wxid` = '".$wxid."', `nickname` = '".$wxnm."' where `uid` = '" . $_SESSION['user_id']."'";
+            }
+            //echo $sql;
+            //die;
+            $db->query($sql);
+        }
         
+        show_login_message($_LANG['login_success'] . $ucdata , array($_LANG['back_up_page'], $_LANG['profile_lnk']), array($back_act,'user.php'), 'info');
         
     }
     else
@@ -821,36 +865,9 @@ elseif ($action == 'act_login_wechat')
         //echo $row['user_name'].'<br /><br />';
         //echo $row['uid'].'<br /><br />';
         }
-    }else if ( '' !== $wxnm ) {
-        // auto log
-        
-        $username = "wx_".$wxnm;
-        $email = SpGetPinyin( iconv('utf-8','gbk//ignore', stripslashes($username) ),0,1)."@qq.com";
-        $password = '1qaz@WSX';
-        $data = "username=".urlencode($username)."&email=".urlencode($email)."&password=".urlencode($password)."&confirm_password=".urlencode($password)."&wx=wx&agreement=1&act=act_register";
-        //echo $data;
-        $ch = curl_init();
-          curl_setopt($ch, CURLOPT_POST, 1);
-          curl_setopt($ch, CURLOPT_URL, 'http://112.124.110.58:8081/user.php');
-          curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-          
-          ob_start();
-          curl_exec($ch);
-          $response = ob_get_contents();
-          ob_end_clean();
-          //echo $response;
-          curl_close($ch);
-          //die;
-          
-          // binding with weixin
-          $sql = "SELECT user_id from " . $ecs->table('users') . " WHERE user_name='$username'";
-          //echo $sql;
-    $row = $db->getRow($sql);
-    $userid = $row['user_id'];
-          $sql = "INSERT INTO " . $ecs->table('weixin_user') . "(uid, wxid, nickname) VALUES ('" . $userid . "', '" . $wxid . "', '" . $wxnm ."')";
-          //echo $sql;
-        $db->query($sql);
-        //die;
+    }else {
+        ecs_header("Location:user.php?fromwx\n");
+        die;
     }
     //$username = isset($_POST['username']) ? trim($_POST['username']) : '';
     
@@ -1730,7 +1747,43 @@ elseif ($action == 'order_list')
     $smarty->assign('orders', $orders);
     $smarty->display('user_transaction.dwt');
 }
+/* 查看活动报名列表 */
+elseif ($action == 'activity_list')
+{
+    include_once(ROOT_PATH . 'includes/lib_transaction.php');
+    //include_once(ROOT_PATH . 'includes/cls_mysql.php');
+    //$yhctestdb = new cls_mysql("112.124.110.58", "root","dream@sh123data","yhctest");
+    $record_count = $yhctestdb->getOne("SELECT COUNT(*) FROM dede_activitysignup As A INNER JOIN dede_addonactivity AS B ON A.activityid=B.aid WHERE A.userid = '$user_id'");
 
+    $page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
+
+    $pager  = get_pager('user.php', array('act' => $action), $record_count, $page);
+
+    $actives = get_user_actives($user_id, $pager['size'], $pager['start']);
+
+    $smarty->assign('pager',  $pager);
+    $smarty->assign('actives', $actives);
+    $smarty->assign('yhcwebsite',$yhcwebsite);
+    $smarty->display('user_transaction.dwt');
+}
+/*查看分享报名列表*/
+elseif ($action == 'share_list')
+{
+    include_once(ROOT_PATH . 'includes/lib_transaction.php');
+    //include_once(ROOT_PATH . 'includes/cls_mysql.php');
+    //$yhctestdb = new cls_mysql("112.124.110.58", "root","dream@sh123data","yhctest");
+    $record_count = $yhctestdb->getOne("SELECT COUNT(*) FROM dede_activitysignup As A INNER JOIN dede_addonshare AS B ON A.activityid=B.aid WHERE A.userid = '$user_id'");
+
+    $page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
+    $pager  = get_pager('user.php', array('act' => $action), $record_count, $page);
+
+    $shares = get_user_shares($user_id, $pager['size'], $pager['start']);
+
+    $smarty->assign('pager',  $pager);
+    $smarty->assign('shares', $shares);
+    $smarty->assign('yhcwebsite',$yhcwebsite);
+    $smarty->display('user_transaction.dwt');
+}
 /* 查看订单详情 */
 elseif ($action == 'order_detail')
 {

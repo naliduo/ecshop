@@ -222,6 +222,82 @@ elseif ($act == 'weixin_login')
 	exit;
 }
 
+elseif ($act == 'activity_list')
+{
+	if(!$_SESSION['user_id']){
+		$smarty->assign('footer', get_footer());
+		$smarty->display('login.dwt');
+		exit;
+	}
+    $record_count = $yhctestdb->getOne("SELECT COUNT(*) FROM dede_activitysignup As A INNER JOIN dede_addonactivity AS B ON A.activityid=B.aid WHERE A.userid = '$user_id'");	
+	if ($record_count > 0){
+		include_once(ROOT_PATH . 'includes/lib_transaction.php');
+        include_once(ROOT_PATH . 'includes/lib_order.php');
+		$page_num = '10';
+		$page = !empty($_GET['page']) ? intval($_GET['page']) : 1;
+		$pages = ceil($record_count / $page_num);
+		if ($page <= 0)
+		{
+			$page = 1;
+		}
+		if ($pages == 0)
+		{
+			$pages = 1;
+		}
+		if ($page > $pages)
+		{
+			$page = $pages;
+		}
+		$pagebar = get_wap_pager($record_count, $page_num, $page, 'user.php?act=activity_list', 'page');
+		$smarty->assign('pagebar' , $pagebar);
+
+        $actives = get_user_actives($user_id,  $page_num, $page_num * ($page - 1));
+        
+        $smarty->assign('actives', $actives);
+        $smarty->assign('yhcwebsite',$yhcwebsite);
+	}
+	$smarty->display('activity_list.dwt');
+	exit;
+}
+
+elseif ($act == 'share_list')
+{
+	if(!$_SESSION['user_id']){
+		$smarty->assign('footer', get_footer());
+		$smarty->display('login.dwt');
+		exit;
+	}
+     $record_count = $yhctestdb->getOne("SELECT COUNT(*) FROM dede_activitysignup As A INNER JOIN dede_addonshare AS B ON A.activityid=B.aid WHERE A.userid = '$user_id'");
+	if ($record_count > 0){
+		include_once(ROOT_PATH . 'includes/lib_transaction.php');
+        include_once(ROOT_PATH . 'includes/lib_order.php');
+		$page_num = '10';
+		$page = !empty($_GET['page']) ? intval($_GET['page']) : 1;
+		$pages = ceil($record_count / $page_num);
+		if ($page <= 0)
+		{
+			$page = 1;
+		}
+		if ($pages == 0)
+		{
+			$pages = 1;
+		}
+		if ($page > $pages)
+		{
+			$page = $pages;
+		}
+		$pagebar = get_wap_pager($record_count, $page_num, $page, 'user.php?act=activity_list', 'page');
+		$smarty->assign('pagebar' , $pagebar);
+
+        $shares = get_user_shares($user_id,$page_num, $page_num * ($page - 1));        
+        
+        $smarty->assign('shares', $shares);
+        $smarty->assign('yhcwebsite',$yhcwebsite);
+	}
+	$smarty->display('share_list.dwt');
+	exit;
+}
+
 elseif ($act == 'order_list')
 {
 	if(!$_SESSION['user_id']){

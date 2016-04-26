@@ -50,6 +50,7 @@ if (!defined('IN_ECS'))
     $purview['14_package_list']      = 'package_manage';
 //  $purview['02_snatch_list']       = 'gift_manage';  //赠品管理
     $purview['15_exchange_goods']    = 'exchange_goods';  //赠品管理
+    $purview['16_countdown_goods']    = 'countdown_goods';  //倒计时商品管理
 
 //文章管理权限
     $purview['02_articlecat_list']   = 'article_cat';

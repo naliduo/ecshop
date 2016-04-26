@@ -3,6 +3,8 @@
 <a href="user.php" {if $action eq 'default'}class="curs"{/if}><img src="../images/u1.gif"> {$lang.label_welcome}</a>
 <a href="user.php?act=profile"{if $action eq 'profile'}class="curs"{/if}><img src="../images/u2.gif"> {$lang.label_profile}</a>
 <a href="user.php?act=order_list"{if $action eq 'order_list'|| $action eq 'order_detail'}class="curs"{/if}><img src="../images/u3.gif"> {$lang.label_order}</a>
+<a href="user.php?act=activity_list"{if $action eq 'activity_list'}class="curs"{/if}><img src="images/u3.gif"> {$lang.label_active}</a>
+<a href="user.php?act=share_list"{if $action eq 'share_list'}class="curs"{/if}><img src="images/u3.gif"> {$lang.label_share}</a>
 <a href="user.php?act=taocan_buy"{if $action eq 'taocan_buy'}class="curs"{/if}><img src="../images/u14.gif"> 套餐购买</a>
 <a href="user.php?act=taocan_list"{if $action eq 'taocan_list'}class="curs"{/if}><img src="../images/u3.gif"> 我的套餐</a>
 <a href="user.php?act=user_card"{if $action eq 'user_card'}class="curs"{/if}><img src="../images/u2.gif"> 会员卡</a>

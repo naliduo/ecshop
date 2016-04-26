@@ -287,6 +287,116 @@ function add_bonus($user_id, $bouns_sn)
 }
 
 /**
+ *  获取用户指定范围的活动列表
+ *
+ * @access  public
+ * @param   int         $user_id        用户ID号
+ * @param   int         $num            列表最大数量
+ * @param   int         $start          列表起始位置
+ * @return  array       $active_list    活动列表
+ */
+function get_user_actives($user_id, $num = 10, $start = 0)
+{
+    /* 取得活动列表 */
+    $arr = array();
+
+    $sql="SELECT a.Success,a.SignUpDate,a.activityid,b.datestart,b.dateend, b.activitytype,c.title,b.isnew FROM dede_activitysignup AS a INNER JOIN dede_addonactivity AS b ON a.activityid=b.aid 
+    INNER JOIN dede_archives AS c ON b.aid=c.id WHERE a.userid='$user_id' ORDER BY a.id DESC";
+
+    $res = $GLOBALS['yhctestdb']->SelectLimit($sql, $num, $start);
+
+    while ($row = $GLOBALS['yhctestdb']->fetchRow($res))
+    {
+        $signupstatus="";        
+        if($row['Success']==0)
+        {
+            $signupstatus="审核中";
+        }
+        else if ($row['Success']==1)
+        {
+            $signupstatus="报名成功";
+        }
+        else if ($row['Success']==2)
+        {
+            $signupstatus="报名失败";
+        }
+
+        $activetystatus="";
+        if($row['isnew']=="是")
+        {
+            $activetystatus="进行中";
+        }
+        else
+        {
+            $activetystatus="已结束";
+        }
+        $arr[] = array('title'=>$row['title'],
+                       'activeid'=>$row['activityid'],
+                       'sdate'=>$row['datestart'],
+                       'edate'=>$row['dateend'],
+                       'atype'=>$row['activitytype'],
+                       'Success'=>$signupstatus,
+                       'SignUpDate'=>local_date($GLOBALS['_CFG']['time_format'], $row['SignUpDate']),
+                       'activeStatus'=>$activetystatus
+                       );
+    }
+    return $arr;
+}
+/**
+ *  获取用户指定范围的分享列表
+ *
+ * @access  public
+ * @param   int         $user_id        用户ID号
+ * @param   int         $num            列表最大数量
+ * @param   int         $start          列表起始位置
+ * @return  array       $share_list    分享列表
+ */
+function get_user_shares($user_id, $num = 10, $start = 0)
+{
+    /* 取得分享列表 */
+    $arr = array();
+
+    $sql="SELECT a.Success,a.SignUpDate,a.activityid,c.title,b.activityenddate FROM dede_activitysignup AS a INNER JOIN dede_addonshare AS b ON a.activityid=b.aid 
+    INNER JOIN dede_archives AS c ON b.aid=c.id WHERE a.userid='$user_id' ORDER BY a.id DESC";
+
+    $res = $GLOBALS['yhctestdb']->SelectLimit($sql, $num, $start);
+
+    while ($row = $GLOBALS['yhctestdb']->fetchRow($res))
+    {
+        $signupstatus="";
+        if($row['Success']==0)
+        {
+            $signupstatus="审核中";
+        }
+        else if ($row['Success']==1)
+        {
+            $signupstatus="报名成功";
+        }
+        else if ($row['Success']==2)
+        {
+            $signupstatus="报名失败";
+        }
+
+        $activetystatus="";
+        if($row['activityenddate']>time())
+        {
+            $activetystatus="进行中";
+        }
+        else
+        {
+            $activetystatus="已结束";
+        }
+        $arr[] = array('title'=>$row['title'],
+                       'activeid'=>$row['activityid'],
+                       'Success'=>$signupstatus,
+                       'SignUpDate'=>local_date($GLOBALS['_CFG']['time_format'], $row['SignUpDate']),
+                       'activeStatus'=>$activetystatus
+                       );
+    }
+    return $arr;
+}
+
+/**
  *  获取用户指定范围的订单列表
  *
  * @access  public

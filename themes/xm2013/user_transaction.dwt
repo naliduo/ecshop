@@ -127,6 +127,8 @@ if (isWidescreen){document.getElementsByTagName("body")[0].className="w950";}
 <a href="user.php" {if $action eq 'default'}class="curs"{/if}><img src="images/u1.gif"> {$lang.label_welcome}</a>
 <a href="user.php?act=profile"{if $action eq 'profile'}class="curs"{/if}><img src="images/u2.gif"> {$lang.label_profile}</a>
 <a href="user.php?act=order_list"{if $action eq 'order_list'|| $action eq 'order_detail'}class="curs"{/if}><img src="images/u3.gif"> {$lang.label_order}</a>
+<a href="user.php?act=activity_list"{if $action eq 'activity_list'}class="curs"{/if}><img src="images/u3.gif"> {$lang.label_active}</a>
+<a href="user.php?act=share_list"{if $action eq 'share_list'}class="curs"{/if}><img src="images/u3.gif"> {$lang.label_share}</a>
 <a href="user.php?act=address_list"{if $action eq 'address_list'}class="curs"{/if}><img src="images/u4.gif"> {$lang.label_address}</a>
 <a href="user.php?act=collection_list"{if $action eq 'collection_list'}class="curs"{/if}><img src="images/u5.gif"> {$lang.label_collection}</a>
 <a href="user.php?act=message_list"{if $action eq 'message_list'}class="curs"{/if}><img src="images/u6.gif"> {$lang.label_message}</a>
@@ -808,6 +810,152 @@ function selectPage(sel)
         </form>
        <!--{/if}-->
       <!--#订单列表界面 end-->
+            <!--#活动列表界面 start-->
+       <!-- {if $action eq 'activity_list'} -->
+       <h5><span>{$lang.label_active}</span></h5>
+       <div class="blank"></div>
+       <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
+          <tr align="center">
+            <td bgcolor="#ffffff">{$lang.active_title}</td>
+            <td bgcolor="#ffffff">{$lang.active_status}</td>
+            <td bgcolor="#ffffff">{$lang.active_signupstatus}</td>
+            <td bgcolor="#ffffff">{$lang.active_signupdate}</td>  
+          </tr>
+          <!--{foreach from=$actives item=item}-->
+          <tr>
+            <td align="center" bgcolor="#ffffff"><a href="{$yhcwebsite}/plus/view.php?aid={$item.activeid}" class="f6">{$item.title}</a></td>
+            <td align="right" bgcolor="#ffffff">{$item.activeStatus}</td>
+            <td align="center" bgcolor="#ffffff">{$item.Success}</td>
+            <td align="center" bgcolor="#ffffff">{$item.SignUpDate}</td>
+          </tr>
+          <!--{/foreach}-->
+          </table>
+        <div class="blank5"></div>
+        <!-- #BeginLibraryItem "/library/pages.lbi" -->
+<!--翻页 start-->
+<form name="selectPageForm" action="{$smarty.server.PHP_SELF}" method="get">
+<!-- {if $pager.styleid eq 0 } -->
+<div id="pager">
+  {$lang.pager_1}{$pager.record_count}{$lang.pager_2}{$lang.pager_3}{$pager.page_count}{$lang.pager_4} <span> <a href="{$pager.page_first}">{$lang.page_first}</a> <a href="{$pager.page_prev}">{$lang.page_prev}</a> <a href="{$pager.page_next}">{$lang.page_next}</a> <a href="{$pager.page_last}">{$lang.page_last}</a> </span>
+    <!--{foreach from=$pager.search key=key item=item}-->
+      {if $key eq 'keywords'}
+          <input type="hidden" name="{$key}" value="{$item|escape:decode_url}" />
+        {else}
+          <input type="hidden" name="{$key}" value="{$item}" />
+      {/if}
+    <!--{/foreach}-->
+    <select name="page" id="page" onchange="selectPage(this)">
+    {html_options options=$pager.array selected=$pager.page}
+    </select>
+</div>
+<!--{else}-->
+<!--翻页 start-->
+ <div id="pager" class="pagebar">
+  <span class="f_l f6" style="margin-right:10px;">{$lang.pager_1}<b>{$pager.record_count}</b> {$lang.pager_2}</span>
+  <!-- {if $pager.page_first} --><a href="{$pager.page_first}">{$lang.page_first} ...</a><!-- {/if} -->
+  <!-- {if $pager.page_prev} --><a class="prev" href="{$pager.page_prev}">{$lang.page_prev}</a><!-- {/if} -->
+  <!-- {if $pager.page_count neq 1} -->
+    <!--{foreach from=$pager.page_number key=key item=item}-->
+      <!-- {if $pager.page eq $key} -->
+      <span class="page_now">{$key}</span>
+      <!-- {else} -->
+      <a href="{$item}">[{$key}]</a>
+      <!-- {/if} -->
+    <!--{/foreach}-->
+  <!-- {/if} -->
+
+  <!-- {if $pager.page_next} --><a class="next" href="{$pager.page_next}">{$lang.page_next}</a><!-- {/if} -->
+  <!-- {if $pager.page_last} --><a class="last" href="{$pager.page_last}">...{$lang.page_last}</a><!-- {/if} -->
+  <!-- {if $pager.page_kbd} -->
+    <!--{foreach from=$pager.search key=key item=item}-->
+      {if $key eq 'keywords'}
+          <input type="hidden" name="{$key}" value="{$item|escape:decode_url}" />
+        {else}
+          <input type="hidden" name="{$key}" value="{$item}" />
+      {/if}
+    <!--{/foreach}-->
+    <kbd style="float:left; margin-left:8px; position:relative; bottom:3px;"><input type="text" name="page" onkeydown="if(event.keyCode==13)selectPage(this)" size="3" class="B_blue" /></kbd>
+    <!-- {/if} -->
+</div>
+      <!--翻页 END-->
+  <!-- {/if} -->
+</form>
+<!-- #EndLibraryItem -->
+<!--{/if}-->
+      <!--#活动列表界面 end-->
+<!--#分享列表界面 start-->
+  <!-- {if $action eq 'share_list'} -->
+       <h5><span>{$lang.label_share}</span></h5>
+       <div class="blank"></div>
+       <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
+          <tr align="center">
+            <td bgcolor="#ffffff">{$lang.share_title}</td>
+            <td bgcolor="#ffffff">{$lang.share_status}</td>
+            <td bgcolor="#ffffff">{$lang.share_signupstatus}</td>
+            <td bgcolor="#ffffff">{$lang.share_signupdate}</td>  
+          </tr>
+          <!--{foreach from=$shares item=item}-->
+          <tr>
+            <td align="center" bgcolor="#ffffff"><a href="{$yhcwebsite}/plus/view.php?aid={$item.activeid}" class="f6">{$item.title}</a></td>
+            <td align="right" bgcolor="#ffffff">{$item.activeStatus}</td>
+            <td align="center" bgcolor="#ffffff">{$item.Success}</td>
+            <td align="center" bgcolor="#ffffff">{$item.SignUpDate}</td>
+          </tr>
+          <!--{/foreach}-->
+          </table>
+        <div class="blank5"></div>
+        <!-- #BeginLibraryItem "/library/pages.lbi" -->
+<!--翻页 start-->
+<form name="selectPageForm" action="{$smarty.server.PHP_SELF}" method="get">
+<!-- {if $pager.styleid eq 0 } -->
+<div id="pager">
+  {$lang.pager_1}{$pager.record_count}{$lang.pager_2}{$lang.pager_3}{$pager.page_count}{$lang.pager_4} <span> <a href="{$pager.page_first}">{$lang.page_first}</a> <a href="{$pager.page_prev}">{$lang.page_prev}</a> <a href="{$pager.page_next}">{$lang.page_next}</a> <a href="{$pager.page_last}">{$lang.page_last}</a> </span>
+    <!--{foreach from=$pager.search key=key item=item}-->
+      {if $key eq 'keywords'}
+          <input type="hidden" name="{$key}" value="{$item|escape:decode_url}" />
+        {else}
+          <input type="hidden" name="{$key}" value="{$item}" />
+      {/if}
+    <!--{/foreach}-->
+    <select name="page" id="page" onchange="selectPage(this)">
+    {html_options options=$pager.array selected=$pager.page}
+    </select>
+</div>
+<!--{else}-->
+<!--翻页 start-->
+ <div id="pager" class="pagebar">
+  <span class="f_l f6" style="margin-right:10px;">{$lang.pager_1}<b>{$pager.record_count}</b> {$lang.pager_2}</span>
+  <!-- {if $pager.page_first} --><a href="{$pager.page_first}">{$lang.page_first} ...</a><!-- {/if} -->
+  <!-- {if $pager.page_prev} --><a class="prev" href="{$pager.page_prev}">{$lang.page_prev}</a><!-- {/if} -->
+  <!-- {if $pager.page_count neq 1} -->
+    <!--{foreach from=$pager.page_number key=key item=item}-->
+      <!-- {if $pager.page eq $key} -->
+      <span class="page_now">{$key}</span>
+      <!-- {else} -->
+      <a href="{$item}">[{$key}]</a>
+      <!-- {/if} -->
+    <!--{/foreach}-->
+  <!-- {/if} -->
+
+  <!-- {if $pager.page_next} --><a class="next" href="{$pager.page_next}">{$lang.page_next}</a><!-- {/if} -->
+  <!-- {if $pager.page_last} --><a class="last" href="{$pager.page_last}">...{$lang.page_last}</a><!-- {/if} -->
+  <!-- {if $pager.page_kbd} -->
+    <!--{foreach from=$pager.search key=key item=item}-->
+      {if $key eq 'keywords'}
+          <input type="hidden" name="{$key}" value="{$item|escape:decode_url}" />
+        {else}
+          <input type="hidden" name="{$key}" value="{$item}" />
+      {/if}
+    <!--{/foreach}-->
+    <kbd style="float:left; margin-left:8px; position:relative; bottom:3px;"><input type="text" name="page" onkeydown="if(event.keyCode==13)selectPage(this)" size="3" class="B_blue" /></kbd>
+    <!-- {/if} -->
+</div>
+      <!--翻页 END-->
+  <!-- {/if} -->
+</form>
+<!-- #EndLibraryItem -->
+<!-- {/if} -->
+<!--#分享列表界面 end-->
        <!--#包裹状态查询界面 start-->
       <!-- {if $action eq 'track_packages'} -->
         <h5><span>{$lang.label_track_packages}</span></h5>

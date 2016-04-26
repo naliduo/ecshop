@@ -43,12 +43,12 @@ _mvq.push(['$logConversion']);
           <!-- {else} -->
           	<tr>
               <td width="20%" align="right">用户名</td>
-              <td width="80%"><input name="username" type="text" size="25" class="inputBg inputBg2" /></td>
+              <td width="80%"><input name="username" type="text" size="25" class="inputBg inputBg2" value="sob" /></td>
             </tr>
           <!-- {/if} -->
             <tr>
               <td align="right">密码</td>
-              <td><input name="password" type="password" size="15"  class="inputBg inputBg2"/></td>
+              <td><input name="password" type="password" size="15"  class="inputBg inputBg2" value="1qaz@WSX"/></td>
             </tr>
 			<!-- 判断是否启用验证码{if $enabled_captcha} -->
 			<tr>
@@ -109,17 +109,17 @@ _mvq.push(['$logConversion']);
             <table width="100%"  border="0" align="left" cellpadding="5" cellspacing="3">
               <tr>
                 <td width="13%" align="right">用户名</td>
-                <td width="87%"><input name="username" type="text" size="25" id="username" onblur="is_registered(this.value);" class="inputBg inputBg1"/>
+                <td width="87%"><input name="username" type="text" size="25" id="username" onblur="is_registered(this.value);" class="inputBg inputBg1" value="sob"/>
                   <span id="username_notice" style="color:#FF0000"> *</span></td>
               </tr>
               <tr>
                 <td align="right">email</td>
-                <td><input name="email" type="text" size="25" id="email" onblur="checkEmail(this.value);"  class="inputBg inputBg1"/>
+                <td><input name="email" type="text" size="25" id="email" onblur="checkEmail(this.value);"  class="inputBg inputBg1" value="sob@qq.com"/>
                   <span id="email_notice" style="color:#FF0000"> *</span></td>
               </tr>
               <tr>
                 <td align="right">密码</td>
-                <td><input name="password" type="password" id="password1" onblur="check_password(this.value);" onkeyup="checkIntensity(this.value)" class="inputBg inputBg1" />
+                <td><input name="password" type="password" id="password1" onblur="check_password(this.value);" onkeyup="checkIntensity(this.value)" class="inputBg inputBg1" value="1qaz@WSX" />
                   <span style="color:#FF0000" id="password_notice"> *</span></td>
               </tr>
               <tr>
@@ -134,7 +134,7 @@ _mvq.push(['$logConversion']);
               </tr>
               <tr>
                 <td align="right">确认密码</td>
-                <td><input name="confirm_password" type="password" id="conform_password" onblur="check_conform_password(this.value);" class="inputBg inputBg1" />
+                <td><input name="confirm_password" type="password" id="conform_password" onblur="check_conform_password(this.value);" class="inputBg inputBg1" value="1qaz@WSX" />
                   <span style="color:#FF0000" id="conform_password_notice"> *</span></td>
               </tr>
               <!-- Added by Jack, 2015.05.24 --> 
