@@ -68,7 +68,7 @@
         <button onclick="jQuery('#amount').text('2600'); jQuery('#pid').val(246);" style="color: #a5cc1f; font-size: 20px; line-height: 34px; padding: 0px 12px; background: transparent; border-radius: 15px; border: 1px solid #a5cc1f; margin: 10px;">2600元</button>
         <button onclick="jQuery('#amount').text('4800'); jQuery('#pid').val(247);" style="color: #a5cc1f; font-size: 20px; line-height: 34px; padding: 0px 12px; background: transparent; border-radius: 15px; border: 1px solid #a5cc1f; margin: 10px;">4800元</button>
         <button onclick="jQuery('#amount').text('9600'); jQuery('#pid').val(248);" style="color: #a5cc1f; font-size: 20px; line-height: 34px; padding: 0px 12px; background: transparent; border-radius: 15px; border: 1px solid #a5cc1f; margin: 10px;margin-bottom: 20px;">9600元</button>
-        <p style="line-height: 35px; font-size: 21px; padding: 20px 0px; border-top: solid #E3E3E3 2px; border-bottom: solid #E3E3E3 2px;">
+        <p style="line-height: 35px; font-size: 21px; padding: 20px 0px; border-top: solid #E3E3E3 2px; border-bottom: solid #E3E3E3 2px;font-weight:bold;">
             充值金额：<span id="amount" style="color: red;">380</span><span style="color: red;">元</span>
             <input id="pid" type="hidden" value="244"/>
         </p>
