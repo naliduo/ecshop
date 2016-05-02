@@ -90,9 +90,9 @@
 				</ul>
 			</div>-->
             <div style="text-align: center;">
-                <a href='/'><img src="images/mobile_home_养生套餐.png" style="width: 25%" /></a>
-                <a href='/'><img src="images/mobile_home_促销套餐.png" style="width: 25%" /></a>
-                <a href='/'><img src="images/mobile_home_免费试吃.png" style="width: 25%" /></a>
+                <a href='/'><img src="images/mobile_home_养生套餐.png" style="width: 25%;margin-top: 6px;" /></a>
+                <a href='/'><img src="images/mobile_home_促销套餐.png" style="width: 25%;" /></a>
+                <a href='/'><img src="images/mobile_home_免费试吃.png" style="width: 25%;margin-top: 4px;" /></a>
             </div>
             <!-- @end div.row_category -->
 			<!--<div class="row row_list">
@@ -168,7 +168,7 @@
             <div style="padding: 0px 5px;">
                 <img src="images/mobile_home_ad1.png" style="width: 100%; max-width: 603px;" />
                 <p style="background-color: #a5cb1f; color: white; font-size: 29px; text-align: center; line-height: 70px; margin: 20px 0px;">君禾园商城</p>
-                <img src="images/mobile_home_ad2.png" style="width: 100%; max-width: 645px;" />
+                <a href="qa.html"><img src="images/mobile_home_ad2.png" style="width: 100%; max-width: 645px;" /></a>
                 <img src="images/mobile_home_ad3.png" style="width: 100%; max-width: 646px;" />
             </div>
             <div style="background-color: #a5cb1f;text-align: center;">
