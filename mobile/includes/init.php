@@ -81,6 +81,7 @@ require(ROOT_PATH . 'includes/lib_main.php');
 require(ROOT_PATH . 'mobile/includes/lib_main.php');
 require(ROOT_PATH . 'includes/inc_constant.php');
 require(ROOT_PATH . 'includes/cls_error.php');
+require(ROOT_PATH . 'includes/lib_insert.php');
 
 /* 对用户传入的变量进行转义操作。*/
 if (!get_magic_quotes_gpc())
@@ -100,6 +101,7 @@ if (!get_magic_quotes_gpc())
 
 /* 创建 ECSHOP 对象 */
 $ecs = new ECS($db_name, $prefix);
+define('DATA_DIR', '/'.$ecs->data_dir());
 
 /* 初始化数据库类 */
 require(ROOT_PATH . 'includes/cls_mysql.php');

@@ -19,6 +19,9 @@ define('ECS_ADMIN', true);
 require(dirname(__FILE__) . '/includes/init.php');
 require(ROOT_PATH . 'mobile/includes/lib_wxch.php');
 
+
+assign_template();
+
 /* 推荐商品 */
 $best_goods = get_recommend_goods_wap('best',10);
 $best_num = count($best_goods);

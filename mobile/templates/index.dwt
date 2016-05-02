@@ -41,8 +41,8 @@
     });
     </script>
 </head>
-<body style="">
-		<header>
+<body style="background-color: white;">
+		<!--<header>
 			<div id="header" class="header">
 				<div class="cart">
 					<a href="cart.php">购物车</a>
@@ -51,7 +51,7 @@
 					<a href="index.php">{$shop_name}</a>
 				</div>
 			</div>
-		</header>
+		</header>-->
 
 		<div id="viewport" class="viewport">
 			<div class="row row_swiper mt20">
@@ -75,7 +75,7 @@
 				</div>
 			</div><!-- @end div.row_swiper -->
 
-			<div class="row row_category">
+			<!--<div class="row row_category">
 				<ul class="h_box">
 					<li><a href="goods_list.php?type=new"><img src="images/icon_indexn_01.png"></a><p>新品上市</p></li>
 					<li><a href="goods_list.php?type=hot&sort=click_count&order=ASC"><img src="images/icon_indexn_02.png"></a><p>热销产品</p></li>
@@ -88,18 +88,23 @@
 					<li><a href="user.php?act=user_center"><img src="images/icon_indexn_07.png"></a><p>会员中心</p></li>
 					<li><a href="kefu.php"><img src="images/icon_indexn_08.png"></a><p>联系客服</p></li>
 				</ul>
-			</div>
+			</div>-->
+            <div style="text-align: center;">
+                <a href='/'><img src="images/mobile_home_养生套餐.png" style="width: 25%" /></a>
+                <a href='/'><img src="images/mobile_home_促销套餐.png" style="width: 25%" /></a>
+                <a href='/'><img src="images/mobile_home_免费试吃.png" style="width: 25%" /></a>
+            </div>
             <!-- @end div.row_category -->
-			<div class="row row_list">
+			<!--<div class="row row_list">
 			<div id="list">
 				<ul>
                 	{foreach from=$best_goods item=goods name=goods}
                     {if $smarty.foreach.goods.index <= 7}
-					<li>
+					<li style="display: inline-block;">
 						<div class="type_ad">
 							<a href="goods.php?id={$goods.id}">
 								<div class="imgurl">
-									<img src="./../{$goods.original_img}">
+									<img src="./../{$goods.original_img}" style="width: 125px; height: 125px;">
 								</div>
 								<div class="info">
 									<div class="product_name">
@@ -115,7 +120,63 @@
                     {/foreach}
 				</ul>
 			</div>
-			</div>
+			</div>-->
+<div style="width: 345px; margin: auto;">
+    <div style="float: left;">            
+    <!-- TemplateBeginEditable name="广告-首页轮播底部广告1" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+    {insert name='ads' id=34 num=1}
+    <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+    </div>
+    <div style="float: left;">
+    <!-- TemplateBeginEditable name="广告-首页轮播底部广告1" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+    {insert name='ads' id=35 num=1}
+    <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+    </div>
+    <div style="float: left;">
+    <!-- TemplateBeginEditable name="广告-首页轮播底部广告1" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+    {insert name='ads' id=36 num=1}
+    <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+    </div>
+    <div style="float: left;">
+    <!-- TemplateBeginEditable name="广告-首页轮播底部广告1" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+    {insert name='ads' id=37 num=1}
+    <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+    </div>
+    <div style="float: left;">
+    <!-- TemplateBeginEditable name="广告-首页轮播底部广告1" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+    {insert name='ads' id=38 num=1}
+    <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+    </div>
+    <div style="float: left;">
+    <!-- TemplateBeginEditable name="广告-首页轮播底部广告1" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+    {insert name='ads' id=39 num=1}
+    <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+    </div>
+</div>
+            <div style="padding: 0px 5px;">
+                <img src="images/mobile_home_ad1.png" style="width: 100%; max-width: 603px;" />
+                <p style="background-color: #a5cb1f; color: white; font-size: 29px; text-align: center; line-height: 70px; margin: 20px 0px;">君禾园商城</p>
+                <img src="images/mobile_home_ad2.png" style="width: 100%; max-width: 645px;" />
+                <img src="images/mobile_home_ad3.png" style="width: 100%; max-width: 646px;" />
+            </div>
+            <div style="background-color: #a5cb1f;text-align: center;">
+                <a href='/'><img src="images/mobile_home_bottom1.png" style="margin: 20px; width: 10%;" /></a>
+                <a href='category.php'><img src="images/mobile_home_bottom2.png" style="margin: 20px; width: 10%;" /></a>
+                <a href="cart.php"><img src="images/mobile_home_bottom3.png" style="margin: 20px; width: 15%;" /></a>
+                <a href="user.php?act=user_center"><img src="images/mobile_home_bottom4.png" style="margin: 20px; width: 10%;" /></a>
+            </div>
             <!-- @end div.row_list -->
 		</div>
 {include file='foot.dwt'}
