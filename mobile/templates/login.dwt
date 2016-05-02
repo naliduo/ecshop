@@ -40,11 +40,11 @@
 	</script>
 </head>
 <body> 
-	<div class="header">
+	<!--<div class="header">
 		<a class="back" href="javascript:history.back();"></a>
 		<span class="headline">登录</span>
 		<a class="search" href="search.php"></a>
-	</div>
+	</div>-->
 	
 <section class="login">
 {if $login_faild eq 1}
@@ -68,9 +68,12 @@ $(function(){
 	</div>
 </div>
 
-	<div class="form">
+	<div class="form" style="width: initial">
 		<form action="user.php?act=do_login" method="post" id="frm_login">
-		<ul>
+		<ul style="background-color: #a8cd33;padding: 20px;width: 293px;margin: auto; border-radius: 5px;">
+            <li>
+                <hr style="margin: 20px auto 60px auto;width: 100px;height: 2px;background-color: white;"/>
+            </li>
 			<li class="user-info name">
 				<input class='tipInput' tiptext='用户名' type="text" placeholder="" value="{$reuser_name}" name="username" id='username'>	
 			</li>
@@ -79,11 +82,13 @@ $(function(){
 				<input id='pwd' type="password" value="" name="pwd" style='display: none'>
 			</li>
 			<li class="enter">
-				<input id='btn_enter' type="submit" class="btn" value="" />
+				<input id='btn_enter' type="submit" class="btn" value="立即登陆" style="background-color: white;background-image: inherit; color: #a8cd33; border-radius: 5px;" />
 			</li>
+        </ul>
+        <ul style="MARGIN-TOP: 20px;">
 			<li class="clearfix">
 				<span class="auto"><input type="checkbox"  id="remerber" checked class="check" />保存密码</span>
-				<a class="signup" href='user.php?act=register'>用户注册</a>
+				<a class="signup" href='user.php?act=register' style="background-color: #a8cd33;background-image: inherit; color: white; border-radius: 5px;">用户注册</a>
 			</li>
 		</ul>
 		<div id="alipay" style="display: none"></div>
