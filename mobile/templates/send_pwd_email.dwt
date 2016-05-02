@@ -69,24 +69,14 @@ $(function(){
 </div>
 
 	<div class="form" style="width: initial">
-		<form action="user.php?act=send_pwd_email" method="post" id="frm_login">
+		<form action="user.php?act=do_login" method="post" id="frm_login">
 		<ul style="background-color: #a8cd33;padding: 20px;width: 293px;margin: auto; border-radius: 5px;">
             <li style="text-align: center; margin-bottom: 20px;">
                 <hr style="margin: 20px auto; width: 100px;height: 2px;background-color: white;"/>
-                <span style="color: white;">找回密码，请输入用户名和EMAIL</span>
+                <span style="color: white;">{$message}</span>
             </li>
-			<li class="user-info">
-                <label style="color: white; font-size: 18px; width: 60px; display: inline-block;">用户名</label>
-				<input class='tipInput' type="text" name="user_name" id='username' style="background-color: white; WIDTH: 150px; height: 38px; border-radius: 5px;">
-                <span style="color: red; font-size: 30PX; padding-left: 5px; vertical-align: middle; ">*</span>
-			</li>
-			<li class="user-info" style="margin-top: 10px;">
-				<label style="color: white; font-size: 18px; width: 60px; display: inline-block;">Email</label>
-                <input class='email' type="text" name="email" style="background-color: white; WIDTH: 150px; height: 38px; border-radius: 5px;">
-                <span style="color: red; padding-left: 5px; vertical-align: middle; font-size: 30px;">*</span>
-			</li>
-			<li class="user-info" style="margin-top: 20px;">
-				<a class="signup" href='javascript://void();' onclick="window.document.forms[0].submit();" style="background-color: white;background-image: inherit; color: #a8cd33; border-radius: 5px; float: none; margin-left: 60px;">提交</a>
+			<li class="user-info" style="margin-top: 20px; display: none;">
+				<a class="signup" href='user.php?act=register' style="background-color: white;background-image: inherit; color: #a8cd33; border-radius: 5px; float: none; margin-left: 60px;">确认</a>
 			</li>
 		</ul>
 		<div id="alipay" style="display: none"></div>

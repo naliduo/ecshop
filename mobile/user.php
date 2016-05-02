@@ -135,6 +135,63 @@ if ($act == 'do_login')
 	exit;
 }
 
+/* 找回密码 */
+if ($act == 'get_password')
+{
+    $smarty->display('get_password.dwt');
+    exit;
+}
+
+if ( $act == 'send_pwd_email' )
+{
+    /* 初始化会员用户名和邮件地址 */
+    $user_name = !empty($_POST['user_name']) ? trim($_POST['user_name']) : '';
+    $email     = !empty($_POST['email'])     ? trim($_POST['email'])     : '';
+
+    //echo $user_name;
+    //echo $email;
+    //exit;
+
+    include_once(ROOT_PATH . 'includes/lib_passport.php');
+
+    
+
+    //用户名和邮件地址是否匹配
+    $user_info = $user->get_user_info($user_name);
+
+    if ($user_info && $user_info['email'] == $email)
+    {
+        //生成code
+         //$code = md5($user_info[0] . $user_info[1]);
+
+        $code = md5($user_info['user_id'] . $_CFG['hash_code'] . $user_info['reg_time']);
+        //发送邮件的函数
+        if (send_pwd_email($user_info['user_id'], $user_name, $email, $code))
+        {
+            //show_message($_LANG['send_success'] . $email, $_LANG['back_home_lnk'], './', 'info');
+            $message = '君禾园验证码已发送至您的邮箱，请注意查收';
+        }
+        else
+        {
+            //发送邮件出错
+            //show_message($_LANG['fail_send_password'], $_LANG['back_page_up'], './', 'info');
+            $message = '发送邮件出错';
+        }
+    }
+    else
+    {
+        //用户名与邮件地址不匹配
+        //show_message($_LANG['username_no_email'], $_LANG['back_page_up'], '', 'info');
+        $message = '用户名与邮件地址不匹配';
+    }
+    
+    //echo $message;
+    //exit;
+    
+    $smarty->assign('message', $message);
+    $smarty->display('send_pwd_email.dwt');
+}
+
 /* 微信用户自动登陆 */
 elseif ($act == 'weixin_login')
 {
