@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="Keywords" content="{$keywords}" />
+    <meta name="Description" content="{$description}" />
+    <title>{$page_title}</title>
+    <link rel="icon" href="animated_favicon.gif" type="image/gif" />
+
+    <link href="base.css" rel="stylesheet" type="text/css" />
+    <link href="index.css" rel="stylesheet" type="text/css" />
+    <link rel="alternate" type="application/rss+xml" title="RSS|{$page_title}" href="{$feed_url}" />
+    {insert_scripts files='common.js,index.js'}
+</head>
+<body>
+
+<!-- #BeginLibraryItem "/library/page_header.lbi" -->
+<!-- #EndLibraryItem -->
+
+<!-- #BeginLibraryItem "/library/page_header_2.lbi" -->
+<!-- #EndLibraryItem -->
+
+<div class="container">
+  <div style="margin: auto; width: 1024px;">
+    <img src="themes/xm2013/images/coupon_1.png" style="margin-top: 85px;margin-bottom: 55px;" />
+  </div>
+  <p style="color: white; font-size: 29px; text-align: center; background-color: #A5CB1F; line-height: 85px;">君禾家庭成员福利</p>
+    <div style="margin: auto; width: 1024px;">
+        <img src="themes/xm2013/images/coupon_2.png" style="margin-top: 35px;margin-bottom: 55px;" />
+    </div>
+    
+    <div style="margin: auto; width: 1024px; text-align: center;">
+        <button onclick="jQuery('#amount').text('380'); jQuery('#pid').val(244);" style="color: #a5cc1f; font-size: 24px; line-height: 44px; padding: 0px 12px; background: transparent; border-radius: 15px; border: 1px solid #a5cc1f; margin: 20px;">380元</button>
+        <button onclick="jQuery('#amount').text('800'); jQuery('#pid').val(245);" style="color: #a5cc1f; font-size: 24px; line-height: 44px; padding: 0px 12px; background: transparent; border-radius: 15px; border: 1px solid #a5cc1f; margin: 20px;">800元</button>
+        <button onclick="jQuery('#amount').text('2600'); jQuery('#pid').val(246);" style="color: #a5cc1f; font-size: 24px; line-height: 44px; padding: 0px 12px; background: transparent; border-radius: 15px; border: 1px solid #a5cc1f; margin: 20px;">2600元</button>
+        <button onclick="jQuery('#amount').text('4800'); jQuery('#pid').val(247);" style="color: #a5cc1f; font-size: 24px; line-height: 44px; padding: 0px 12px; background: transparent; border-radius: 15px; border: 1px solid #a5cc1f; margin: 20px;">4800元</button>
+        <button onclick="jQuery('#amount').text('9600'); jQuery('#pid').val(248);" style="color: #a5cc1f; font-size: 24px; line-height: 44px; padding: 0px 12px; background: transparent; border-radius: 15px; border: 1px solid #a5cc1f; margin: 20px;">9600元</button>
+        <p style="line-height: 35px; font-size: 21px;">
+            充值金额：<span id="amount" style="color: red;">380</span><span style="color: red;">元</span>
+            <input id="pid" type="hidden" value="244"/>
+        </p>
+    </div>
+    
+    <div style="margin: 50px auto; width: 1024px; text-align: center;">
+        <button onclick="gotogoods();" style="color: white; font-size: 20px; line-height: 37px; padding: 0px 33px; background: #a5cc1f; border-radius: 15px; border: 1px solid #a5cc1f; ">立即充值</button>
+        <button onclick="window.history.back();" style="color: white; font-size: 20px; line-height: 37px; padding: 0px 33px; background: #a5cc1f; border-radius: 15px; border: 1px solid #a5cc1f; margin-left: 21px; margin-left: 21px;">返&nbsp;&nbsp;&nbsp;&nbsp;回</button>
+    </div>
+</div>
+<script type="text/javascript">
+    function gotogoods ( ) {
+        window.location.href = "/goods.php?id=" +jQuery("#pid").val();
+    }
+</script>
+
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+    jQuery(".header.container").hide();
+</script>
+
+</body>
+</html>
