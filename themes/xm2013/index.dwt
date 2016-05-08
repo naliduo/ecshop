@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="Keywords" content="{$keywords}" />
 <meta name="Description" content="{$description}" />
@@ -35,8 +36,8 @@ _mvq.push(['$logConversion']);
 </head>
 <body>
 
-<!-- #BeginLibraryItem "/library/page_header.lbi" -->
-<!-- #EndLibraryItem -->
+<script src="/js/json2.js" type="text/javascript"></script>
+<script src="/js/jquery.min.js" type="text/javascript"></script>
 
 <!-- #BeginLibraryItem "/library/page_header_2.lbi" -->
 
@@ -514,91 +515,15 @@ _mvq.push(['$logConversion']);
       </div>
     </div>
   </div>
-</div><!-- #BeginLibraryItem "/library/page_footer.lbi" -->
-<div class="footer container">
-  <div class="footerup">
-    <div class="footercont">
-      <ul class="nums clearfix">
-        <li class="first"><a href="#" target="_blank" ><span>7</span><strong>
-          <label>天</label>
-          退货保障 </strong></a></li>
-        <li class="line">|</li>
-        <li class="second"><a href="#" target="_blank"><span>15</span><strong>
-          <label>天</label>
-          换货承诺 </strong></a></li>
-        <li class="line">|</li>
-        <li class="third"><a href="#" target="_blank"><span>100</span><strong>
-          <label>元起</label>
-          全场免邮费 </strong></a></li>
-        <li class="line"></li>
-        <li class="fourth"><a href="#" target="_blank"><span>420</span><strong>
-          <label>余家</label>
-          售后服务网点 </strong></a></li>
-      </ul>
-      <div class="service clearfix">
-	  <!-- {foreach from=get_shop_help() item=help_cat} -->
-        <dl>
-          <dt>{$help_cat.cat_name}</dt>
-		  <!-- {foreach from=$help_cat.article item=item} -->
-          <dd><a href="{$item.url}" title="{$item.short_title}">{$item.short_title}</a></dd>
-          <!-- {/foreach} -->
-        </dl>
-      <!-- {/foreach} -->
-        <dl>
-          <dt>关注我们</dt>
-          <dd class="sina"><span class="icon-common icon-common-sina"></span><a href="http://e.weibo.com/xiaomishouji" target="_blank"> 新浪微博 </a></dd>
-          <dd class="kongjian"><span class="icon-common icon-common-kongjian"></span><a  href="http://user.qzone.qq.com/2451201053" target="_blank"> QQ空间 </a></dd>
-          <dd id="txweixin" class="facebook"><span class="icon-common icon-common-weixin"></span><a> 官方微信 </a></dd>
-        </dl>
-        <div class="online">
-          <ul>
-            <li class="item1"><span class="icon-common icon-common-tel"></span>400-100-5678 </li>
-            <li class="item2"> 仅收市话费，周一至周日8:00-18:00 </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="linker"><!-- {foreach name=nav_bottom_list from=$navigator_list.bottom item=nav} -->
-  <a href="{$nav.url}" <!-- {if $nav.opennew eq 1} --> target="_blank" <!-- {/if} -->>{$nav.name}</a><!-- {if !$smarty.foreach.nav_bottom_list.last} --> | <!-- {/if} -->
-  <!-- {/foreach} --></div>
-  <div class="footerbtm">
-    <div class="info"> {$copyright} <img src="themes/xm2013/images/footerbg.gif" /></div>
-    <div class="believe"><a target="_blank" href="#"><img src="themes/xm2013/images/f1.gif"></a><a target="_blank" href="#"><img src="themes/xm2013/images/f2.gif"></a><a target="_blank" href="#"><img src="themes/xm2013/images/f3.gif"></a><SCRIPT LANGUAGE="JavaScript" >
-			document.writeln("<a href='https://www.sgs.gov.cn/lz/licenseLink.do?method=licenceView&entyId=dov73ne26zbqq0ili51qzup34d4fmuekgo'><img src='themes/xm2013/images/icon.gif' border=0></a>")
-	</SCRIPT></div>
-  </div>
 </div>
 
+<!-- #BeginLibraryItem "/library/page_footer.lbi" -->
 
-
-
-
-
-
-
-
+<!-- #EndLibraryItem -->
 
 <script type="text/javascript">
-   if (Object.prototype.toJSONString){
-      var oldToJSONString = Object.toJSONString;
-      Object.prototype.toJSONString = function(){
-        if (arguments.length > 0){
-          return false;
-        }else{
-          return oldToJSONString.apply(this, arguments);
-        }
-		}
-}
-function ResumeError()
-{
-   return true;
-}
-window.onerror = ResumeError; 
-
-jQuery(".header.container").hide();
-
+    jQuery(".header.container").hide();
 </script>
 
-<!-- #EndLibraryItem --></body>
+</body>
 </html>
