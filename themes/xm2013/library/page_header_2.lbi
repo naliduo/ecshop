@@ -1,0 +1,207 @@
+<div style="background-color: #a6cb21; width: 1190px; margin: auto; height: 111px; margin-bottom: 9px;">
+    <img src='themes/xm2013/images/shop_home_logo.png' style='padding: 18px 18px 0px 36px; float: left;'/>
+    <div style="padding: 18px 10px 0px 36px; float: left;">
+        <div style='padding-bottom: 10px;'>
+            <img src='themes/xm2013/images/shop_home_phone.png' style='padding: 0px 10px 5px 0px;'/>
+            <span style='font-size: 20px;'>400-821-3860  周一至周五9：00-17:50</span>
+        </div>
+        <ul class="menu">
+            <li>
+                <img src='themes/xm2013/images/shop_home_home.png' style='margin-bottom: 10px; padding: 0px 10px 0px 0px;'/>
+                <a href="/" style="color: white;">首页</a>
+            </li>
+            <li class="categories">
+                <img src='themes/xm2013/images/shop_home_category.png' style='margin-bottom: 10px; padding: 0px 10px 0px 25px;'/>
+                <span>饮食分类</span>
+            </li>
+            <li class="categories_2" style="display: none;">
+                <img src='themes/xm2013/images/shop_home_category_2.png' style='margin-bottom: 10px; padding: 0px 10px 0px 25px;'/>
+                <span>饮食分类</span>
+            </li>
+            <li>
+                <img src='themes/xm2013/images/shop_home_shoppingcar.png' style='margin-bottom: 10px; padding: 0px 10px 0px 25px;'/>
+                <a href="/coupon.php" style="color: white;">礼盒卡券</a>
+            </li>
+            <li>
+                <img src='themes/xm2013/images/shop_home_car.png' style='margin-bottom: 10px; padding: 0px 10px 0px 25px;'/>
+                <a href="/" style="color: white;">君禾宅配</a>
+            </li>
+        </ul>
+        <style type="text/css">
+            ul.menu li {
+                display:inline-block;
+            }
+            ul.menu li span {
+                color: white;
+            }
+            div.submenu {
+                display: none;                
+                
+            }
+            ul.submenu,ul.submenu_2 { 
+                width: 1190px;
+                margin: auto;
+                top: -10px;
+                position: relative;
+                              
+            }
+            ul.submenu {
+                background-color: #a6cb21;
+                padding: 25px 0px;
+            }
+            ul.submenu_2 {
+                background-color: #FDFCED;
+                padding-bottom: 25px;
+            }
+            ul.submenu li, ul.submenu_2 li {
+                display: inline-block;
+                width: 135px;
+                font-size: 16px;
+                line-height: 36px;
+                border-left: solid #D3E488;
+                text-align: center;
+            }
+            ul.submenu_2 li {
+                padding-top: 25px;
+                border-left-width: 1px;
+                width: 137px;
+            }
+            ul.submenu li a {
+                color: white;
+            }
+            ul.submenu_2 li a {
+                display: block;
+            }
+            ul.menu li.categories:hover {
+                background-color: white;
+            }
+            ul.menu li.categories:hover span {
+                color: #a6cb21;
+            }
+        </style>
+        <script type="text/javascript">
+            jQuery("li.categories").hover(function(e){
+                jQuery( "li.categories img" )[0].src="themes/xm2013/images/shop_home_category_2.png";
+                jQuery("div.submenu").show();
+            },function(e){
+                jQuery( "li.categories img" )[0].src="themes/xm2013/images/shop_home_category.png";
+            } );
+       </script>
+    </div>
+    <div style="padding: 18px 0px 0px 30px; float: left;">
+        <div style='background-color: #86a329; color: white; line-height: 35px; font-size: 20px; padding: 0px 20px 0px 10px; margin-right: 60px;'>
+            <a style='color: white;' href="user.php">登录</a> / <a style='color: white;' href="user.php?act=register">免费注册会员</a>
+        </div>
+        <div class="search" style='padding-top: 10px;'>
+        <form id="user_search" action="search.php" method='get'>
+            <div style="background-color: white;">
+              <img src='themes/xm2013/images/shop_home_search_flag.png' style="margin-top: -5px;"/>
+              <input type="text" id="keyword" name="keywords" class="txt" value="" placeholder="请输入关键词" style="border-width: 0px; font-size: 20px; width: 165px;" />
+              <img src='themes/xm2013/images/shop_home_search_clear.png' style="margin-top: -5px;" onclick="jQuery('#keyword').val('')"/>
+              <input type="submit" class="" value='搜索' style='line-height: 24px; border-width: 0px; background-color: #86a329; color: white; font-size: 20px; padding-right: 15px;'/>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div style='float: left; padding: 10px 0px 0px 30px; float: left;'>
+        <img src='themes/xm2013/images/shop_home_code.png' style='padding-left: 50px;'/><br />
+        <span>扫一扫二维码，加入君禾园</span>
+    </div>
+</div>
+<div class="submenu">
+    <ul class='submenu'>
+        <li style="margin-left: 50px;"><a href="category.php?id=1">蔬菜类</a></li>
+        <li><a href="category.php?id=29">瓜果豆类</a></li>
+        <li><a href="category.php?id=2">五谷杂粮</a></li>
+        <li><a href="category.php?id=4">肉禽蛋类</a></li>
+        <li><a href="category.php?id=7">君禾特色类</a></li>
+        <li><a href="category.php?id=8">水产类</a></li>
+        <li><a href="category.php?id=3">推广产品</a></li>
+        <li><a href="category.php?id=5">其他</a></li>
+    </ul>
+    <ul class='submenu_2'>
+        <li style="margin-left: 50px;">
+            <a href="category.php?id=11">叶菜类</a>
+            <a href="category.php?id=12">茎菜类</a>
+            <a href="category.php?id=32">花菜类</a>
+            <a href="category.php?id=10">根菜类</a>
+            <a href="category.php?id=33">菌菇类</a>
+            <a href="category.php?id=30">芽菜类</a>
+            <a href="category.php?id=31">调味料类</a>
+        </li>
+        <li>
+            <a href="category.php?id=34">瓜果类</a>
+            <a href="category.php?id=28">豆类</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+        </li>
+        <li>
+            <a href="category.php?id=15">禾署类</a>
+            <a href="category.php?id=14">豆类</a>
+            <a href="category.php?id=13">谷物类</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+        </li>
+        <li>
+            <a href="category.php?id=21">禽类</a>
+            <a href="category.php?id=23">肉类</a>
+            <a href="category.php?id=22">蛋类</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+        </li>
+        <li>
+            <a href="category.php?id=41">新鲜研制</a>
+            <a href="category.php?id=40">干货类</a>
+            <a href="category.php?id=6">糕点类</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+        </li>
+        <li>
+            <a href="category.php?id=42">鱼类</a>
+            <a href="category.php?id=43">蟹类</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+        </li>
+        <li>
+            <a href="category.php?id=16">蔬果类</a>
+            <a href="category.php?id=37">营养品</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+        </li>
+        <li>
+            <a href="category.php?id=39">农场活动费用</a>
+            <a href="category.php?id=44">包装类</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+            <a href="javascript://void();">&nbsp;</a>
+        </li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    jQuery("div.submenu").on("mouseleave", function(e){
+        jQuery("div.submenu").hide();
+    });
+</script>
+
+<script type="text/javascript">
+//document.getElementById("div_all_cat").className = "showlist";
+jQuery(".header.container").remove();
+</script>

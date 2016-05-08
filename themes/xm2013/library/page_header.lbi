@@ -1,5 +1,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script><!--引入公共jquery库-->
+
+<script language="javascript">
+    /* IE11 Fix for SP2010 */
+    if (typeof(UserAgentInfo) != 'undefined' && !window.addEventListener) 
+    {
+        UserAgentInfo.strBrowser=1; 
+    } 
+</script>
+
+<script src="/js/json2.js"></script>
+<script src="http://lib.sinaapp.com/js/jquery/1.8/jquery.min.js" type="text/javascript"></script>
+<!--引入公共jquery库-->
 
 
 <script type="text/javascript">

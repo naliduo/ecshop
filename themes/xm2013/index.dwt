@@ -36,141 +36,11 @@ _mvq.push(['$logConversion']);
 <body>
 
 <!-- #BeginLibraryItem "/library/page_header.lbi" -->
-
-<script type="text/javascript">
-var process_request = "正在处理您的请求...";
-</script>
-<script type="text/javascript">
-var isWidescreen=screen.width<1200;
-if (isWidescreen){document.getElementsByTagName("body")[0].className="w950";}
-</script>
-
-<div class="header container" style="display: none;">
-  <div class="top">
-    <div class="logo"><a class="icon-common-logo" href="index.php" title=""><img src="themes/xm2013/images/logo.gif" /></a></div>
-    <div class="right clearfix">
-      <div class="menu">
-        <ul class="clearfix">
-          <li>
-            <script type="text/javascript" src="js/transport.js"></script>
-            <script type="text/javascript" src="js/utils.js"></script>
-            <label id="header_menu_top_login"><font id="ECS_MEMBERZONE">{insert name='member_info'}</font></label>
-          </li>
-          <li><a href="mobile">手机版</a></li>
-        </ul>
-      </div>
-      <div class="search">
-        <form id="user_search" action="search.php" method='get'>
-          <input type="text" id="keyword" name="keywords" class="txt" value="" placeholder="请输入关键词" />
-          <input type="submit"  class="mbtn" value=''/>
-          <label class="hot">{foreach from=$searchkeywords item=val}
-   <a href="search.php?keywords={$val|escape:url}">{$val}</a>
-   {/foreach}</label>
-        </form>
-      </div>
-
-      
-    <div style="margin-top:3px;" class="xshop buy_car_bg clearfix"  onmouseover="this.className='xshop hover_on buy_car_bg ul1_on'" onmouseout=  "this.className='xshop buy_car_bg'">
-	
-	<img src="images/nav_cat.gif" style="float:left; padding-right:5px; padding-left:10px; padding-top:7px;" /> 
-	<div id="ECS_CARTINFO">
-
-   <p><a href="flow.php">{insert name='cart_info'}</a></p>
-     </div> </div>
-      
-      <!--<div style="position: absolute;right: 31px;top: 78px;"><a target="_blank" id="kaifanggm" href="#">下轮开放购买：9月17日中午12点</a></div>-->
-    </div>
-  </div>
-  <div class="nav">
-    <div class="clearfix"><strong id="btnnav" class="side"><a href="catalog.php" class="catenav">全部商品分类<em class="tri"></em></a></strong>
-      <div class="lnks clearfix">
-        <ul class="lnks-li">
-          <li><a class="lnk  {if $navigator_list.config.index eq 1}on{/if}" href="index.php">首页</a></li>
-          
-		  <!-- {foreach name=nav_middle_list from=$navigator_list.middle item=nav} -->
-            <?php
-            $GLOBALS['smarty']->assign('get_child_tree', get_child_tree($GLOBALS['smarty']->_var['nav']['cid']));
-            $GLOBALS['smarty']->assign('menucatid',get_catid_byurl($GLOBALS['smarty']->_var['nav']['url']));
-            ?>
-          <li {if $menucatid && $get_child_tree}class="phonelistarr" onmouseover="this.className='phonelistarr nhover'" onmouseout="this.className='phonelistarr'"{/if}><a class="lnk {if $nav.active eq 1}on{/if}" href="{$nav.url}"> {$nav.name} </a>
-            {if $menucatid && $get_child_tree}
-              <dl>
-                <!--{foreach from=$get_child_tree item=child name=child}-->             
-                <dd {if $smarty.foreach.subcates.last}class="last"{/if}><a href="{$child.url}" title="{$cat.name|escape:html}">{$child.name}</a></dd>
-                <!--{/foreach}-->
-              </dl>
-            {/if}	
-          </li>
-		  <!-- {/foreach} -->
-       <div align="right" height:45px; line-height:45px; overflow:hidden;>{insert name='ads' id=29 num=1}</div>
-        </ul>
-      </div>
-    </div>
-    <div class="showlist snone" id="div_all_cat" style="display: none;">
-      <ul class="lists">
-	  <!--{foreach from=get_categories_tree() item=cat}-->
-        <li onmouseover="this.className='navhover'" onmouseout="this.className=''"><a class="tit" href="{$cat.url}">{$cat.name|escape:html}</a><em class="icon-common icon-common-arrowright"></em>
-		{if $cat.cat_id}
-          <label class="tri"><i></i></label>
-          <div class="show clearfix">
-            <div class="lt">
-              <dl class="firstdl">
-			  <!--{foreach from=$cat.cat_id item=child}-->
-                <dd><a  href="{$child.url}">{$child.name|escape:html}</a></dd>
-              <!--{/foreach}-->
-              </dl>
-            </div>
-          </div>
-		  {/if}	
-        </li>
-		<!--{/foreach}--> 
-      </ul>
-    </div>
-  </div>
-</div>
-<script type="text/javascript" src="themes/xm2013/js/jquery.js"></script>
-<script type="text/javascript" src="themes/xm2013/js/xm.js"></script>
 <!-- #EndLibraryItem -->
 
-<div style="background-color: #a6cb21; width: 1190px; margin: auto; height: 111px; margin-bottom: 9px;">
-    <img src='themes/xm2013/images/shop_home_logo.png' style='padding: 18px 18px 0px 36px; float: left;'/>
-    <div style="padding: 18px 10px 0px 36px; float: left;">
-        <div style='padding-bottom: 10px;'>
-            <img src='themes/xm2013/images/shop_home_phone.png' style='padding: 0px 10px 5px 0px;'/>
-            <span style='font-size: 20px;'>400-821-3860  周一至周五9：00-17:50</span>
-        </div>
-        <div>
-            <img src='themes/xm2013/images/shop_home_home.png' style='margin-bottom: 10px; padding: 0px 10px 0px 0px;'/><span style="color: white;">首页</span>
-            <img src='themes/xm2013/images/shop_home_category.png' style='margin-bottom: 10px; padding: 0px 10px 0px 25px;'/><span style="color: white;">饮食分类</span>
-            <img src='themes/xm2013/images/shop_home_shoppingcar.png' style='margin-bottom: 10px; padding: 0px 10px 0px 25px;'/><span style="color: white;">礼盒卡券</span>
-            <img src='themes/xm2013/images/shop_home_car.png' style='margin-bottom: 10px; padding: 0px 10px 0px 25px;'/><span style="color: white;">君禾宅配</span>
-        </div>
-    </div>
-    <div style="padding: 18px 0px 0px 30px; float: left;">
-        <div style='background-color: #86a329; color: white; line-height: 35px; font-size: 20px; padding: 0px 20px 0px 10px; margin-right: 60px;'>
-            <a style='color: white;' href="user.php">登录</a> / <a style='color: white;' href="user.php?act=register">免费注册会员</a>
-        </div>
-        <div class="search" style='padding-top: 10px;'>
-        <form id="user_search" action="search.php" method='get'>
-            <div style="background-color: white;">
-              <img src='themes/xm2013/images/shop_home_search_flag.png' style="margin-top: -5px;"/>
-              <input type="text" id="keyword" name="keywords" class="txt" value="" placeholder="请输入关键词" style="border-width: 0px; font-size: 20px; width: 165px;" />
-              <img src='themes/xm2013/images/shop_home_search_clear.png' style="margin-top: -5px;" onclick="jQuery('#keyword').val('')"/>
-              <input type="submit" class="" value='搜索' style='line-height: 24px; border-width: 0px; background-color: #86a329; color: white; font-size: 20px; padding-right: 15px;'/>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div style='float: left; padding: 10px 0px 0px 30px; float: left;'>
-        <img src='themes/xm2013/images/shop_home_code.png' style='padding-left: 50px;'/><br />
-        <span>扫一扫二维码，加入君禾园</span>
-    </div>
-</div>
+<!-- #BeginLibraryItem "/library/page_header_2.lbi" -->
 
-<script type="text/javascript">
-//document.getElementById("div_all_cat").className = "showlist";
-jQuery(".header.container").remove();
-</script>
+<!-- #EndLibraryItem -->
 
 <div class="container">
   <!--<div class="fpics row clearfix">-->
@@ -259,60 +129,60 @@ jQuery(".header.container").remove();
       <div style="float: left; width: 705px;">
         <div style="float: left; padding-right: 9px;">
         <!-- TemplateBeginEditable name="广告-首页新品上架广告1" -->
-    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
 
-    {insert name='ads' id=$ads_id num=$ads_num}
-     <!-- #EndLibraryItem -->
-    <!-- TemplateEndEditable -->
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
         </div>
         <div style="float: left; padding-right: 9px;">
         <!-- TemplateBeginEditable name="广告-首页新品上架广告2" -->
-    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
 
-    {insert name='ads' id=$ads_id num=$ads_num}
-     <!-- #EndLibraryItem -->
-    <!-- TemplateEndEditable -->
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
         </div>
         <div style="padding-bottom:9px;">
         <!-- TemplateBeginEditable name="广告-首页新品上架广告3" -->
-    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
 
-    {insert name='ads' id=$ads_id num=$ads_num}
-     <!-- #EndLibraryItem -->
-    <!-- TemplateEndEditable -->
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
         </div>
         <div style="float: left; padding-right: 9px;">
         <!-- TemplateBeginEditable name="广告-首页新品上架广告4" -->
-    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
 
-    {insert name='ads' id=$ads_id num=$ads_num}
-     <!-- #EndLibraryItem -->
-    <!-- TemplateEndEditable -->
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
         </div>
         <div style="float: left; padding-right: 9px;">
         <!-- TemplateBeginEditable name="广告-首页新品上架广告5" -->
-    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
 
-    {insert name='ads' id=$ads_id num=$ads_num}
-     <!-- #EndLibraryItem -->
-    <!-- TemplateEndEditable -->
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
         </div>
         <div style="">
         <!-- TemplateBeginEditable name="广告-首页新品上架广告6" -->
-    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
 
-    {insert name='ads' id=$ads_id num=$ads_num}
-     <!-- #EndLibraryItem -->
-    <!-- TemplateEndEditable -->
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
         </div>
     </div>
     <div style="">
         <!-- TemplateBeginEditable name="广告-首页新品上架广告7" -->
-    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
 
-    {insert name='ads' id=$ads_id num=$ads_num}
-     <!-- #EndLibraryItem -->
-    <!-- TemplateEndEditable -->
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
         </div>
   </div>
 
@@ -590,7 +460,55 @@ jQuery(".header.container").remove();
 {insert name='ads' id=$ads_id num=$ads_num}
  <!-- #EndLibraryItem -->
 <!-- TemplateEndEditable -->
-</li>       
+</li>   
+<li>
+<!-- TemplateBeginEditable name="广告-wap首页商品广告1" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+</li>
+<li>
+<!-- TemplateBeginEditable name="广告-wap首页商品广告2" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+</li>
+<li>
+<!-- TemplateBeginEditable name="广告-wap首页商品广告3" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+</li>
+<li>
+<!-- TemplateBeginEditable name="广告-wap首页商品广告4" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+</li>
+<li>
+<!-- TemplateBeginEditable name="广告-wap首页商品广告5" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+</li>
+<li>
+<!-- TemplateBeginEditable name="广告-wap首页商品广告6" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+</li>
           </ul>
         </div>
       </div>
@@ -677,20 +595,10 @@ function ResumeError()
    return true;
 }
 window.onerror = ResumeError; 
+
+jQuery(".header.container").hide();
+
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!-- #EndLibraryItem --></body>
 </html>
