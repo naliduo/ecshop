@@ -54,7 +54,8 @@ if (isWidescreen){document.getElementsByTagName("body")[0].className="w950";}
 </div>
 <script type="text/javascript">
     function gotogoods ( ) {
-        window.location.href = "/goods.php?id=" +jQuery("#pid").val();
+        //window.location.href = "/goods.php?id=" +jQuery("#pid").val();
+        window.location.href = "/recharge.php?step=recharge&money="+jQuery('#amount').text()+"&id="+jQuery("#pid").val();
     }
 </script>
 
