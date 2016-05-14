@@ -107,6 +107,16 @@ elseif ($act == 'clear'){
 	$smarty->assign('cart_faild', 1);
 	$smarty->assign('tips', '购物车已清空！');
 }
+
+elseif ($act == 'clear2'){
+	$sql = "DELETE FROM " . $ecs->table('cart') . " WHERE session_id='" . SESS_ID . "'";
+	$db->query($sql);
+	$smarty->assign('cart_faild', 1);
+	$smarty->assign('tips', '购物车已清空！');
+    echo 'ok';
+    die;
+}
+
 //无刷新更新购物车
 elseif($act=='update_group_cart'){
 	include('includes/cls_json.php');

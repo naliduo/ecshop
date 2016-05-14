@@ -345,6 +345,12 @@ href=article.php?act=detail&a_id=23 target=_blank>会员卡协议</a>），您�
     /* 保存 session */
     $_SESSION['flow_order'] = $order;
 
+    if ( isset($_GET['noshowlist']) ) {
+        $smarty->assign('noshowlist', 1);
+    }else{
+        $smarty->assign('noshowlist', 0);
+    }
+    
 	$smarty->assign('footer', get_footer());
 	$smarty->display('order.dwt');
 	exit;
