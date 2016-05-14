@@ -12,7 +12,7 @@
 	<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery.flexslider-min.js"></script>
 	<script type="text/javascript" src="js/jquery.lazyload.js"></script>
-	
+    
 	<script>
           var util = (function(){
               var u = navigator.userAgent.toLowerCase();
@@ -88,8 +88,9 @@
 					<li><a href="user.php?act=user_center"><img src="images/icon_indexn_07.png"></a><p>会员中心</p></li>
 					<li><a href="kefu.php"><img src="images/icon_indexn_08.png"></a><p>联系客服</p></li>
 				</ul>
-			</div>-->
-            <div style="text-align: center;">
+			</div>-->                 
+      
+            <div style="text-align: center;">                
                 <a href='/'><img src="images/mobile_home_养生套餐.png" style="width: 25%;margin-top: 6px;" /></a>
                 <a href='/'><img src="images/mobile_home_促销套餐.png" style="width: 25%;" /></a>
                 <a href='/'><img src="images/mobile_home_免费试吃.png" style="width: 25%;margin-top: 4px;" /></a>
@@ -179,5 +180,4 @@
             </div>
             <!-- @end div.row_list -->
 		</div>
-{include file='foot.dwt'}
 </body></html>
