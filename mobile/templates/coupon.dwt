@@ -83,7 +83,17 @@
         global_loading.parentNode.removeChild(global_loading);
         
         function gotogoods ( ) {
-            window.location.href = "/mobile/goods.php?id=" +jQuery("#pid").val();
+            //window.location.href = "/mobile/goods.php?id=" +jQuery("#pid").val();
+            
+            jQuery.get("cart.php?act=clear2",function(data){
+                //alert(data);
+                Ajax.call('buy.php?act=recharge', 'cp=quk_buy&goods=' + '{"quick": 1, "spec": [], "goods_id": '+jQuery("#pid").val()+', "number": "1", "parent": 0}', addToCartResponse, 'POST', 'JSON');
+            });
+        }
+        function addToCartResponse( ) {
+            jQuery.get("cart.php",function(data) {
+                window.location.href = "buy.php?act=checkout2";
+            });
         }
     </script>
 

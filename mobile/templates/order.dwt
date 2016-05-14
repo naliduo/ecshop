@@ -84,7 +84,11 @@
 
 
 		<!--商品列表begin-->
-		<div class="list">
+        <!--{if $noshowlist }-->
+		<div class="list" style="display: none;">
+        <!-- { else } -->
+        <div class="list">
+        <!-- {/if} -->
 			<ul>
 				<!-- {foreach from=$goods_list item=goods} -->
                 <li class="first clearfix">
