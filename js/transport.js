@@ -650,6 +650,9 @@ function obj2str(o){
     if(typeof o =="undefined") return "undefined";
     if(typeof o == "object"){
         if(o===null) return "null";
+        else if ( JSON ) {
+            r = JSON.stringify( o );
+        }
         else if(!o.sort){
             for(var i in o)
                 r.push("\""+i+"\""+":"+obj2str(o[i]))
