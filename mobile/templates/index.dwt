@@ -89,7 +89,17 @@
 					<li><a href="kefu.php"><img src="images/icon_indexn_08.png"></a><p>联系客服</p></li>
 				</ul>
 			</div>-->                 
-      
+        
+        <div style="height: 40px; background-color: #A5CB1F; margin: 10px 0px 20px 0px;">
+            <img src="images/倒计时.png" style="width: 100px; float: left; margin-top: -15px;" />
+            <div>
+                <span style="color: white; font-size: 14px;">养生套餐 / 促销套餐</span>
+                <br />
+                <span style="color: white; font-size: 14px;">限时还剩余</span>
+                <span style="color: red; font-size: 14px;">1天1小时1分钟（倒计时）</span>
+            </div>
+        </div>
+        
             <div style="text-align: center;">                
                 <a href='/'><img src="images/mobile_home_养生套餐.png" style="width: 25%;margin-top: 6px;" /></a>
                 <a href='/'><img src="images/mobile_home_促销套餐.png" style="width: 25%;" /></a>
