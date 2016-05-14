@@ -90,16 +90,55 @@
 				</ul>
 			</div>-->                 
         
-        <div style="height: 40px; background-color: #A5CB1F; margin: 10px 0px 20px 0px;">
-            <img src="images/倒计时.png" style="width: 100px; float: left; margin-top: -15px;" />
-            <div>
-                <span style="color: white; font-size: 14px;">养生套餐 / 促销套餐</span>
+        <div id="countdown" style="height: 40px; background-color: #A5CB1F; margin: 10px 0px 20px 0px;">
+            <img id="countdownimg" src="images/倒计时.png" style="width: 100px; float: left; margin: -15px 10px 0px 10px;" />
+            <div style="padding-top: 3px;">
+                <span id="countdowntitle" style="color: white; font-size: 14px;">养生套餐 / 促销套餐</span>
                 <br />
-                <span style="color: white; font-size: 14px;">限时还剩余</span>
-                <span style="color: red; font-size: 14px;">1天1小时1分钟（倒计时）</span>
+                <span id="countdowntip" style="color: white; font-size: 14px;">限时还剩余</span>
+                <span id="countdowntime" style="color: red; font-size: 14px;">1天1小时1分钟（倒计时）</span>
             </div>
         </div>
         
+        <script type="text/javascript">
+            var countdowntime;
+            jQuery.getJSON("/getcutdownactive.php",function(data){
+                jQuery("#countdown").click(function(){
+                    window.location.href = data.act_url;
+                });
+                jQuery("#countdownimg").attr("src",data.act_img);
+                jQuery("#countdowntitle").text(data.act_name);
+                var time = data.end_time;
+                countdowntime = new Date(data.end_time);
+                showCountdownTime();
+                setInterval("showCountdownTime()",1000*60);                
+            });
+            
+            function showCountdownTime( )
+            {
+                var now = new Date();
+                var time_distance = countdowntime - now;
+                if ( 60 < time_distance )
+                {
+                    var day = Math.floor(time_distance/86400000);
+                    time_distance = time_distance - day * 86400000;
+                    var hour = Math.floor( time_distance / 3600000 );
+                    time_distance = time_distance - hour * 3600000;
+                    var minute = Math.floor( time_distance / 60000 );
+                    jQuery("#countdowntime").text( day + "天" + hour + "小时" + minute + "分钟（倒计时）");
+                }
+                else if ( 0 < time_distance )
+                {
+                    jQuery("#countdowntime").text("1分钟（倒计时）");
+                }
+                else {
+                    jQuery("#countdownimg").attr("src","images/倒计时.png");
+                    jQuery("#countdowntitle").text("暂时没有倒计时活动,敬请期待...");
+                    jQuery("#countdowntime, #countdowntip").text("");
+                }
+            }
+        </script>
+
             <div style="text-align: center;">                
                 <a href='/'><img src="images/mobile_home_养生套餐.png" style="width: 25%;margin-top: 6px;" /></a>
                 <a href='/'><img src="images/mobile_home_促销套餐.png" style="width: 25%;" /></a>
