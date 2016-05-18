@@ -38,6 +38,7 @@ _mvq.push(['$logConversion']);
 
 <script src="/js/json2.js" type="text/javascript"></script>
 <script src="/js/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="themes/xm2013/js/xm2.js"></script>
 
 <!-- #BeginLibraryItem "/library/page_header_2.lbi" -->
 
@@ -50,7 +51,7 @@ _mvq.push(['$logConversion']);
     <!--<div class="span12">-->
     <div class="">
       <div id="yc-mod-slider">
-        <div id="xmFocus" class="xmFocus" style="height: 540px;">
+        <div id="xmFocus" class="xmFocus" style="height: 540px; width: inherit;">
 		<!--{foreach from=get_flash_xml() item=playerdb name=get_flash_xml}-->
           <div style="background: url({$playerdb.src}) no-repeat scroll center 50% rgb(255, 255, 255); display: block;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px" index="{$smarty.foreach.get_flash_xml.iteration}"><a href="{$playerdb.url}" target="_blank"></a></div>
 		<!--{/foreach}-->   

@@ -36,7 +36,8 @@
             }
             div.submenu {
                 display: none;                
-                
+                position: absolute;
+                z-index: 1000;
             }
             ul.submenu,ul.submenu_2 { 
                 width: 1190px;
