@@ -55,6 +55,9 @@
 		if(theForm.password.value == "" || theForm.password.value.replace(/[ ]/g,"").length < 6){
 			alert("密码至少为6位!");theForm.password.focus();return false;
 		}
+        if(theForm.password.value !== theForm.repassword.value){
+			alert("密码不匹配!");theForm.password.focus();return false;
+		}
 		if(theForm.email.value == ""){
 			alert("请输入Email!");theForm.email.focus();return false;
 		}
@@ -96,6 +99,19 @@
 			<li><div class="leftinput"><font style="color:#FF0000"> *</font>密码</div>
 			<div class="rightinput"><input id='password' type="password" value="" name="password"></div><div style="clear:both;"></div>
 			</li>
+            
+            <!--<li>
+                <div class="leftinput">密码强度</div>
+                <div class="rightinput">
+                      <div width="33%" id="pwd_lower" style="display: inline-block;">弱</div>
+                      <div width="33%" id="pwd_middle"  style="">中</div>
+                      <div width="33%" id="pwd_high"  style="">强</div>
+                </div>
+              </li>-->
+            <li><div class="leftinput"><font style="color:#FF0000"> *</font>确认密码</div>
+			<div class="rightinput"><input id='repassword' type="password" value="" name="repassword"></div><div style="clear:both;"></div>
+			</li>
+            
 			<li><div class="leftinput"><font style="color:#FF0000"> *</font>常用邮箱</div>
 			<div class="rightinput"><input name="email" type="text" id="email" class="tipInput" placeholder='常用邮箱' /></div><div style="clear:both;"></div>
 			</li>
