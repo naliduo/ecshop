@@ -1,5 +1,7 @@
 <div style="background-color: #a6cb21; width: 1190px; margin: auto; height: 111px; margin-bottom: 9px;">
+    <a href="http://www.dream-gardens.com.cn">
     <img src='themes/xm2013/images/shop_home_logo.png' style='padding: 18px 18px 0px 36px; float: left;'/>
+    </a>
     <div style="padding: 18px 10px 0px 36px; float: left;">
         <div style='padding-bottom: 10px;'>
             <img src='themes/xm2013/images/shop_home_phone.png' style='padding: 0px 10px 5px 0px;'/>
@@ -83,6 +85,8 @@
         <script type="text/javascript">
             jQuery("li.categories").hover(function(e){
                 jQuery( "li.categories img" )[0].src="themes/xm2013/images/shop_home_category_2.png";
+                var left = jQuery("div.submenu").prev().css("margin-left");
+                jQuery("div.submenu").css("left",left);
                 jQuery("div.submenu").show();
             },function(e){
                 jQuery( "li.categories img" )[0].src="themes/xm2013/images/shop_home_category.png";
