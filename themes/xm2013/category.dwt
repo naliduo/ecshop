@@ -20,9 +20,9 @@ _mvq.push(['$addCategory', '{$mycat_tmp.name|escape:"javascript"}', '{$category|
 _mvq.push(['$logData']);
 </script>
 
-							
+<script src="/js/jquery.min.js" type="text/javascript"></script>							
 </head>
-<body><!-- #BeginLibraryItem "/library/page_header.lbi" -->
+<body><!-- #BeginLibraryItem "/library/page_header_3.lbi" -->
 
 <script type="text/javascript">
 var process_request = "正在处理您的请求...";
@@ -66,49 +66,17 @@ if (isWidescreen){document.getElementsByTagName("body")[0].className="w950";}
     </div>
   </div>
   <div class="nav">
-    <div class="clearfix"><strong id="btnnav" class="side"><a href="catalog.php" class="catenav">全部商品分类<em class="tri"></em></a></strong>
-      <div class="lnks clearfix">
-        <ul class="lnks-li">
-          <li><a class="lnk  {if $navigator_list.config.index eq 1}on{/if}" href="index.php">首页</a></li>
-          
-		  <!-- {foreach name=nav_middle_list from=$navigator_list.middle item=nav} -->
-            <?php
-            $GLOBALS['smarty']->assign('get_child_tree', get_child_tree($GLOBALS['smarty']->_var['nav']['cid']));
-            $GLOBALS['smarty']->assign('menucatid',get_catid_byurl($GLOBALS['smarty']->_var['nav']['url']));
-            ?>
-          <li {if $menucatid && $get_child_tree}class="phonelistarr" onmouseover="this.className='phonelistarr nhover'" onmouseout="this.className='phonelistarr'"{/if}><a class="lnk {if $nav.active eq 1}on{/if}" href="{$nav.url}"> {$nav.name} </a>
-            {if $menucatid && $get_child_tree}
-              <dl>
-                <!--{foreach from=$get_child_tree item=child name=child}-->             
-                <dd {if $smarty.foreach.subcates.last}class="last"{/if}><a href="{$child.url}" title="{$cat.name|escape:html}">{$child.name}</a></dd>
-                <!--{/foreach}-->
-              </dl>
-            {/if}	
-          </li>
-		  <!-- {/foreach} -->
-       <div align="right" height:45px; line-height:45px; overflow:hidden;>{insert name='ads' id=29 num=1}</div>
-        </ul>
-      </div>
+    <div class="clearfix">
+      
+      
     </div>
-    <div class="showlist snone" id="div_all_cat">
-      <ul class="lists">
-	  <!--{foreach from=get_categories_tree() item=cat}-->
-        <li onmouseover="this.className='navhover'" onmouseout="this.className=''"><a class="tit" href="{$cat.url}">{$cat.name|escape:html}</a><em class="icon-common icon-common-arrowright"></em>
-		{if $cat.cat_id}
-          <label class="tri"><i></i></label>
-          <div class="show clearfix">
-            <div class="lt">
-              <dl class="firstdl">
-			  <!--{foreach from=$cat.cat_id item=child}-->
-                <dd><a  href="{$child.url}">{$child.name|escape:html}</a></dd>
-              <!--{/foreach}-->
-              </dl>
-            </div>
-          </div>
-		  {/if}	
-        </li>
-		<!--{/foreach}--> 
-      </ul>
+    <div class="showlist" id="div_all_cat">
+    <?php
+    $GLOBALS['smarty']->assign('ad',get_adv('首页-分类ID1-广告3'));
+    ?>
+	{if $ad}
+      <div ><a href='{$ad.url}' target='_blank'><img src='{$ad.image}' width='230' height='578' /></a></div>
+	{/if}
     </div>
   </div>
 </div>

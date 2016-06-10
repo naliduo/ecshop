@@ -127,8 +127,8 @@ _mvq.push(['$logConversion']);
     </div>
   </div>
   
-  <div style="margin: auto; width: 916px; padding-bottom: 36px;">
-      <div style="float: left; width: 705px;">
+  <div style="margin: auto; width: 1161px; padding-bottom: 9px;">
+      <div style="float: left; width: 885px;">
         <div style="float: left; padding-right: 9px;">
         <!-- TemplateBeginEditable name="广告-首页新品上架广告1" -->
 <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
@@ -188,7 +188,7 @@ _mvq.push(['$logConversion']);
         </div>
   </div>
 
-  <div style="margin: auto; width: 916px;">
+  <div style="margin: auto; width: 1161px;">
     <div style="float: left; padding-right: 9px;">
     <!-- TemplateBeginEditable name="广告-首页热卖商品广告1" -->
 <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
@@ -397,16 +397,8 @@ _mvq.push(['$logConversion']);
               <ul>
                 <li class="small">
                   <!-- TemplateBeginEditable name="广告-首页热卖商品广告8" -->
-<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
-
-{insert name='ads' id=$ads_id num=$ads_num}
- <!-- #EndLibraryItem -->
 <!-- TemplateEndEditable -->
                   <!-- TemplateBeginEditable name="广告-首页热卖商品广告9" -->
-<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
-
-{insert name='ads' id=$ads_id num=$ads_num}
- <!-- #EndLibraryItem -->
 <!-- TemplateEndEditable -->
                 </li>
                 <li>
@@ -465,50 +457,52 @@ _mvq.push(['$logConversion']);
 </li>   
 <li>
 <!-- TemplateBeginEditable name="广告-wap首页商品广告1" -->
-<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
-
-{insert name='ads' id=$ads_id num=$ads_num}
- <!-- #EndLibraryItem -->
 <!-- TemplateEndEditable -->
 </li>
 <li>
 <!-- TemplateBeginEditable name="广告-wap首页商品广告2" -->
-<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
-
-{insert name='ads' id=$ads_id num=$ads_num}
- <!-- #EndLibraryItem -->
 <!-- TemplateEndEditable -->
 </li>
 <li>
 <!-- TemplateBeginEditable name="广告-wap首页商品广告3" -->
-<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
-
-{insert name='ads' id=$ads_id num=$ads_num}
- <!-- #EndLibraryItem -->
 <!-- TemplateEndEditable -->
 </li>
 <li>
 <!-- TemplateBeginEditable name="广告-wap首页商品广告4" -->
-<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
-
-{insert name='ads' id=$ads_id num=$ads_num}
- <!-- #EndLibraryItem -->
 <!-- TemplateEndEditable -->
 </li>
 <li>
 <!-- TemplateBeginEditable name="广告-wap首页商品广告5" -->
-<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
-
-{insert name='ads' id=$ads_id num=$ads_num}
- <!-- #EndLibraryItem -->
 <!-- TemplateEndEditable -->
 </li>
 <li>
 <!-- TemplateBeginEditable name="广告-wap首页商品广告6" -->
-<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+<!-- TemplateEndEditable -->
+</li>
 
-{insert name='ads' id=$ads_id num=$ads_num}
- <!-- #EndLibraryItem -->
+
+<li>
+<!-- TemplateBeginEditable name="广告-wap首页商品广告7" -->
+<!-- TemplateEndEditable -->
+</li>
+<li>
+<!-- TemplateBeginEditable name="广告-wap首页商品广告8" -->
+<!-- TemplateEndEditable -->
+</li>
+<li>
+<!-- TemplateBeginEditable name="广告-wap首页商品广告9" -->
+<!-- TemplateEndEditable -->
+</li>
+<li>
+<!-- TemplateBeginEditable name="广告-wap首页商品广告10" -->
+<!-- TemplateEndEditable -->
+</li>
+<li>
+<!-- TemplateBeginEditable name="广告-wap首页商品广告11" -->
+<!-- TemplateEndEditable -->
+</li>
+<li>
+<!-- TemplateBeginEditable name="广告-wap首页商品广告12" -->
 <!-- TemplateEndEditable -->
 </li>
           </ul>

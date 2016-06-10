@@ -43,12 +43,14 @@ _mvq.push(['$logConversion']);
           <!-- {else} -->
           	<tr>
               <td width="20%" align="right">用户名</td>
-              <td width="80%"><input name="username" type="text" size="25" class="inputBg inputBg2" value="sob" /></td>
+              <!--<td width="80%"><input name="username" type="text" size="25" class="inputBg inputBg2" value="sob" /></td>-->
+              <td width="80%"><input name="username" type="text" size="25" class="inputBg inputBg2"/></td>
             </tr>
           <!-- {/if} -->
             <tr>
               <td align="right">密码</td>
-              <td><input name="password" type="password" size="15"  class="inputBg inputBg2" value="1qaz@WSX"/></td>
+              <!--<td><input name="password" type="password" size="15"  class="inputBg inputBg2" value="1qaz@WSX"/></td>-->
+              <td><input name="password" type="password" size="15"  class="inputBg inputBg2"/></td>
             </tr>
 			<!-- 判断是否启用验证码{if $enabled_captcha} -->
 			<tr>

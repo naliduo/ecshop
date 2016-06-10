@@ -42,7 +42,7 @@ echo "headimgurl: ".$json->headimgurl.'<br /><br />';
 <?php
 echo "var wxid = '".$json->openid."';";
 ?>
-var url = "http://112.124.110.58:8081/user.php?act=act_login_wechat&back_act=http%3A%2F%2F112.124.110.58%3A8080%2Findex.php&wxid=" + wxid;
+var url = "http://shop.dream-gardens.com.cn/user.php?act=act_login_wechat&back_act=http%3A%2F%2Fwww.dream-gardens.com.cn%2Findex.php&wxid=" + wxid;
 //window.open(url);
 window.location.href = url;
 </script>

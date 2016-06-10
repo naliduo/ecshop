@@ -64,9 +64,9 @@ _mvq.push(['$addItem', '{$order.order_sn|escape:"javascript"}', '{$goods.goods_i
 _mvq.push(['$logData']);
 {/if}
 </script>
-							
+<script src="/js/jquery.min.js" type="text/javascript"></script>
 </head>
-<body><!-- #BeginLibraryItem "/library/page_header.lbi" -->
+<body><!-- #BeginLibraryItem "/library/page_header_2.lbi" -->
 
 <script type="text/javascript">
 var process_request = "正在处理您的请求...";

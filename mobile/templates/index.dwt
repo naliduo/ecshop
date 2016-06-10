@@ -214,12 +214,56 @@
     <!-- #EndLibraryItem -->
     <!-- TemplateEndEditable -->
     </div>
+    
+    
+    <div style="float: left;">            
+    <!-- TemplateBeginEditable name="广告-首页轮播底部广告1" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+    {insert name='ads' id=41 num=1}
+    <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+    </div>
+    <div style="float: left;">
+    <!-- TemplateBeginEditable name="广告-首页轮播底部广告1" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+    {insert name='ads' id=42 num=1}
+    <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+    </div>
+    <div style="float: left;">
+    <!-- TemplateBeginEditable name="广告-首页轮播底部广告1" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+    {insert name='ads' id=43 num=1}
+    <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+    </div>
+    <div style="float: left;">
+    <!-- TemplateBeginEditable name="广告-首页轮播底部广告1" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+    {insert name='ads' id=44 num=1}
+    <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+    </div>
+    <div style="float: left;">
+    <!-- TemplateBeginEditable name="广告-首页轮播底部广告1" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+    {insert name='ads' id=45 num=1}
+    <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+    </div>
+    <div style="float: left;">
+    <!-- TemplateBeginEditable name="广告-首页轮播底部广告1" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+    {insert name='ads' id=46 num=1}
+    <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+    </div>    
 </div>
             <div style="padding: 0px 5px;">
                 <img src="images/mobile_home_ad1.png" style="width: 100%; max-width: 603px;" />
                 <p style="background-color: #a5cb1f; color: white; font-size: 29px; text-align: center; line-height: 70px; margin: 20px 0px;">君禾园商城</p>
                 <a href="qa.html"><img src="images/mobile_home_ad2.png" style="width: 100%; max-width: 645px;" /></a>
-                <img src="images/mobile_home_ad3.png" style="width: 100%; max-width: 646px;" />
+                <a href="http://112.124.110.58:8085/"> <img src="images/mobile_home_ad3.png" style="width: 100%; max-width: 646px;" /></a>
             </div>
             <div style="background-color: #a5cb1f;text-align: center;">
                 <a href='/'><img src="images/mobile_home_bottom1.png" style="margin: 20px; width: 10%;" /></a>

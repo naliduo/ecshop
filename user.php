@@ -1169,7 +1169,7 @@ elseif ($action == 'logout')
     $user->logout();
     $ucdata = empty($user->ucdata)? "" : $user->ucdata;
     
-    //$url = "http://112.124.110.58:8080/index.php?logout";
+    //$url = "http://www.dream-gardens.com.cn/index.php?logout";
     //$html = file_get_contents($url);
     //echo $html;
     show_logout_message($_LANG['logout'] . $ucdata, array($_LANG['back_up_page'], $_LANG['back_home_lnk']), array($back_act, 'index.php'), 'info');

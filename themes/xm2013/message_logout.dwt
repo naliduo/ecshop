@@ -262,7 +262,7 @@ function ResumeError()
 window.onerror = ResumeError; 
 </script><!-- #EndLibraryItem -->
 
-<iframe src="http://112.124.110.58:8080/index.php?logout" width="0" height="0"></iframe>
+<iframe src="http://www.dream-gardens.com.cn/index.php?logout" width="0" height="0"></iframe>
 <iframe src="http://112.124.110.58:8084/index.php?app=public&mod=Passport&act=logout" width="0" height="0"></iframe>
 </body>
 <script type="text/javascript">
