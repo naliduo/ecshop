@@ -111,7 +111,7 @@ $db = new cls_mysql($db_host, $db_user, $db_pass, $db_name);
 $db->set_disable_cache_tables(array($ecs->table('sessions'), $ecs->table('sessions_data'), $ecs->table('cart')));
 $db_host = $db_user = $db_pass = $db_name = NULL;
 
-$yhcwebsite = "http://112.124.110.58:8080/";
+$yhcwebsite = "http://www.dream-gardens.com.cn/";
 $yhctestdb = new cls_mysql("112.124.110.58", "root","dream@sh123data","yhctest");
 
 /* 创建错误处理对象 */
