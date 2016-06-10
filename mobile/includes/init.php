@@ -108,7 +108,7 @@ require(ROOT_PATH . 'includes/cls_mysql.php');
 $db = new cls_mysql($db_host, $db_user, $db_pass, $db_name);
 $db_host = $db_user = $db_pass = $db_name = NULL;
 
-$yhcwebsite = "http://112.124.110.58:8085/";
+$yhcwebsite = "http://weixin.dream-gardens.com.cn/";
 $yhctestdb = new cls_mysql("112.124.110.58", "root","dream@sh123data","yhctest");
 
 /* 创建错误处理对象 */
