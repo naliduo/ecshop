@@ -1,0 +1,49 @@
+.bottom.bottom2 li:before {
+  width: 25px;
+  height: 20px;
+  display: inline-block; }
+.bottom.bottom2 li:nth-of-type(1):before {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAoCAMAAACLrFl+AAAAn1BMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8Kd3m4AAAANHRSTlMA7QTySpU6GQv7Wh8qp1Ql45n06cZ7TzAX76QJ082FIh0P4r0yFOTYtp5EPy0M9q2RdGqLVBIvVQAAAT9JREFUOMu91GtvgjAUgOHTgiiXoQKKiIgKeGXedv7/b1tHSZaMFilZfL8Q0jzQ9CSFf4wOVUWREV1NbBLU1Ex6uD4comKciWcB5AomJJr78ywnXc3FI+f6b/tOhuqmn//usIOhFu4cAAVDn3hIARRM/MCETV3BxGsMtgAKZnTCLIZGLedWHJEsRAtn9MXGTtAnW+FoUWzCife8axJyOjT3NjbYyOOBmDg4s/e+9fdDlyAHGUlxDWXy1RwiO7GBNpIRoFS0xIj4YBhhKRFz8JIMp7y70ZVQFz2N5V1P/CKIXhPLvACl1I4+arLsQIxqf6Q3Ge56kJs6OaqSxaoHyaRkKiOBjHwuJSRoIZGQFG3EnFXdPE6iLDRY+mrVcifV+eNqQz7WJSCLpmPegr/mLm8eysnG5hX8tXTnVboDb+8bcnIfhcz9pP0AAAAASUVORK5CYII="); }
+.bottom.bottom2 li:nth-of-type(2):before {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAoCAMAAACLrFl+AAAAflBMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////vroaSAAAAKnRSTlMA/m9lr0U/j4NffxYtC6BKQy8Rdmu1l4dyWlE4KRrSzbqsqIsxB2NWHiHFCVONAAAAy0lEQVQ4y+3SyY7CMBBF0YedOKPbjhMyp5tm5v9/kAorI5UQIhKrnNVVSW9XWH2PKXdBEGyjK+AEJWdX3uAR+83sLweyHwpWUMDT/m9mvy8n2yM819yEZNDAaaTkmELDM41WKWWP84SSZXON1QIqqaMoqtsJ0B0lpz5P33+Y3FZSyqp3gFaUnCp08IxKJklyNnQ8DZQcaR1WCxSmFEK0nQN0SMkp+2zhw4i3HuZpMlwOcRw3VQbonpJz6KbnSZOmaSwfE0pO02VYfeAOcaQR/SLuqU4AAAAASUVORK5CYII="); }
+.bottom.bottom2 li:nth-of-type(3):before {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAoCAMAAACLrFl+AAAAn1BMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8Kd3m4AAAANHRSTlMABPil/Gkm+u/jywyq84ZEINyeKRbTwrSimndZEuq9uq5+OzCWj1xAGwjXz8ZwNWBQSzdkmT34HAAAAWdJREFUOMvN02tvgjAUBuBSii13uclFBBHxPp3u/P/ftm7JnNsOVZJl2fPxJG85DW/JP6eVm+i4brePJ8YZ54wxOn08sl2FnVd0dGkPWOxdFbRkIA+mQyO+WJLLnmI4zWN0vWo3ij1HR4R7dir7NtNw61n4jG/WaQR37InYh8OY4AowSoLJXR9PnGdWRFAnMNB5lMizcK2ZowVwFH+sskbIdMq7/sYuxRqZpmJBehmwwtZV9dV3m5/DF3lOvyhA7u8JX/XYdnpJ/Cfj1soKjkS1mEfiCXwziRSR4u0HxKOvopIozM0LGUZW3B6WsFM4D0u0FjBhBlJiSYeqrqvUkfQwz/Dux42TzdM0rSeSlST7nSkJ1xUUoK/8mgL5TZuMu419/Wwj+HxM1BxGOXu61osxClmsTCwSYAw+Dt7WwADMxYCIhkSwZ84Z3CwGHPT4zvVD7hafrWkE6Peuv8mpuIkUM57JyJ97BUniIaAXWp6VAAAAAElFTkSuQmCC"); }
+.bottom.bottom2 li:nth-of-type(4):before {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAoCAMAAACLrFl+AAAAqFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8j1z1tAAAAN3RSTlMABQH8+e6HDQgD8TML9cS6kiEbF9qZUSUP0bOrV0g3KRPq6NylgnZyZlss18GLe2JgQjzj4Mxqb1ZncAAAAYtJREFUOMvFVNmSgjAQXEgCCHIphyAioIjgvR7z/3+2WLVuuTgJPu3OY1c6yXT3zMc/lnqcekwvLKUZvMmoCihi31lGBGJXfoMw3oJ9Gkr3GpW6mUi9jNGG1sPvq2XZtWDdx9Gu5udzA5INs56Glt0TWlSMhIxPUxl2IKOFhI8w9wWbsrGAIee++gLOSCBQwKCIppou+lkABoKelyqfcgAXQa/xhE+poUFQb6oKNCYB4pvuCHqZYJ0a9CDKzNZ79cAhrsjKhBy7N2Z524qoLDbvmg+GeGbCPPqdQgUqrSf9M7Z5fscBR+0bMTcCs3xYl1qw62UcGLvZxIz3dXJzPEIhHvcwHLDbBZH6CwIAur1WV/TSCLv3YXf/kzyQJmE40qQ2CqeciRTbwf7HfPlxbn5mc370qY9FNtWjjMOQvA2+GNak5Fiz564fm4Yori4snp4pVdBnEsrfi9YiwwXmC7OCJkNv4m/FlNQnbMK3/GiMzdURgS92xqUMdKXC/hsI5kIxMJkrEaVsKX9aXz6cHcriylVYAAAAAElFTkSuQmCC"); }
+
+.qa {
+  background: white;
+  padding-bottom: 50px; }
+  .qa section {
+    margin: 0 20px; }
+    .qa section h4 {
+      text-align: center;
+      margin-bottom: 35px;
+      padding-top: 50px; }
+    .qa section i {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      text-align: center;
+      border: 1px solid #000;
+      border-radius: 10px;
+      line-height: 14px;
+      margin: 0 2px; }
+    .qa section p {
+      padding: 5px 0; }
+    .qa section .img1 {
+      width: 200px;
+      margin: 20px 0 50px 0; }
+    .qa section .img2 {
+      width: 300px;
+      margin-top: 20px; }
+    .qa section .img3 {
+      width: 300px;
+      margin-top: 20px; }
+    .qa section .img4 {
+      width: 80px;
+      display: inline-block; }
+    .qa section .p {
+      padding-top: 20px; }
+
+/*# sourceMappingURL=qa.css.map */
