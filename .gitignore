@@ -37,3 +37,7 @@ nytprof.out
 
 .settings/org.eclipse.core.resources.prefs
 /data/avatar
+/data/afficheimg/*.jpg
+/data/afficheimg/*.png
+/data/afficheimg/*.db
+/data/afficheimg/*.swf
