@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  * ECSHOP 管理中心优惠活动管理
@@ -378,35 +378,6 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
 //
 //    make_json_result($arr);
 //}
-
-elseif ($_REQUEST['act'] == 'getactiveuseful')
-{
-    $now = gmtime();
-    $where .= " AND start_time <= '$now' AND end_time >= '$now' ";
-    /* 查询 */
-    $sql = "SELECT * ".
-            "FROM " . $GLOBALS['ecs']->table('countdown_goods') .
-            " WHERE 1 $where ".
-            " LIMIT 1";
-            
-    //echo $sql;
-    $result = array();
-    $res = $GLOBALS['db']->query($sql);
-    if (!empty($res))
-    {
-        $row = $GLOBALS['db']->fetchRow($res);
-        $result["act_id"]=iconv("gb2312","utf-8//IGNORE", $row['act_id']);
-        $result["act_name"]=$row['act_name'];
-        $result["end_time"]=local_date('Y-m-d H:i:s', $row['end_time']);
-        $result["act_img"]=iconv("gb2312","utf-8//IGNORE", $row['act_img']);
-        $result["act_url"]=iconv("gb2312","utf-8//IGNORE", $row['act_url']);
-    }
-    else
-    {
-        $result["act_name"]="暂时没有倒计时活动,敬请期待...";
-    }
-echo json_encode($result);
-}
 
 
 
