@@ -1495,6 +1495,13 @@ function m_register($username, $password, $email, $other = array())
             $GLOBALS['db']->query($sql);
         }
         
+        $birthday = isset($_POST['birthday_month']) ? compile_str(date('Y')."-".trim($_POST['birthday_month'])."-".trim($_POST['birthday_day'])) : '';
+        echo $birthday;
+        $sql = 'UPDATE ' . $GLOBALS['ecs']->table('users') . " SET `birthday`='".$birthday."' WHERE `user_id`='" . $_SESSION['user_id'] . "'";
+        echo $sql;
+        $GLOBALS['db']->query($sql);        
+        
+        
         $Loaction = 'user.php?act=user_center';
         ecs_header("Location: $Loaction\n");
 		return true;

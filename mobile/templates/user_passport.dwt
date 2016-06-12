@@ -115,7 +115,7 @@
 			<li><div class="leftinput"><font style="color:#FF0000"> *</font>常用邮箱</div>
 			<div class="rightinput"><input name="email" type="text" id="email" class="tipInput" placeholder='常用邮箱' /></div><div style="clear:both;"></div>
 			</li>
-			{foreach from=$extend_info_list item=field}
+			<!--{foreach from=$extend_info_list item=field}
 			{if $field.id eq 6}
             <li><div class="leftinput"><font style="color:#FF0000"> *</font>提示问题</div>
             <div class="rightinput"><select name='sel_question' id='sel_question'></div>
@@ -131,7 +131,37 @@
             <div class="rightinput"><input name="extend_field{$field.id}" id="extend_field{$field.id}" placeholder='{$field.reg_field_name}' type="text" class="tipInput" /></div><div style="clear:both;"></div>
             </li>
 			{/if}
-			{/foreach}
+			{/foreach}-->
+            
+            <li><div class="leftinput"><font style="color:#FF0000"> *</font>姓名</div>
+            <div class="rightinput"><input name="extend_field1" id="extend_field1" placeholder="姓名" type="text" class="tipInput"></div><div style="clear:both;"></div>
+            </li>
+            <li><div class="leftinput"><font style="color:#FF0000"> *</font>手机</div>
+            <div class="rightinput"><input name="extend_field5" id="extend_field5" placeholder="手机" type="text" class="tipInput"></div><div style="clear:both;"></div>
+            </li>
+            <li><div class="leftinput"><font style="color:#FF0000"> *</font>生日</div>
+            <div class="rightinput">
+            <select name="birthday_month" id="birthday_month" type="text" class="tipInput" style="width: 40%">
+            <option value ="1">1</option>
+            <option value ="2">2</option>
+            <option value ="3">3</option>
+            <option value ="4">4</option>
+            <option value ="5">5</option>
+            <option value ="6">6</option>
+            <option value ="7">7</option>
+            <option value ="8">8</option>
+            <option value ="9">9</option>
+            <option value ="10">10</option>
+            <option value ="11">11</option>
+            <option value ="12">12</option>
+            </select>
+            月
+            <select name="birthday_day" id="birthday_day" type="text" class="tipInput" style="width: 40%">
+            </select>
+            日
+            </div><div style="clear:both;"></div>
+            </li>
+            
             <li>
             <input name="act" type="hidden" value="act_register" />
             <input type="hidden" name="back_act" value="{$back_act}" />
@@ -145,6 +175,22 @@
 <script type="text/javascript">
 		var global_loading=document.getElementById("global_loading");
 		global_loading.parentNode.removeChild(global_loading);
+        
+        var monthday = [31,29,31,30,31,30,31,31,30,31,30,31];
+        function refereshBirthdayDay(){
+            var month = jQuery("#birthday_month").val();
+            var days = monthday[month-1];
+            //alert( days );
+            jQuery("#birthday_day").html("");
+            for( var i = 1; i <= days; i++ )
+            {
+            jQuery("#birthday_day").append("<option value ='"+i+"'>"+i+"</option>");
+            }
+        };
+        
+        jQuery("#birthday_month").change(function(){ refereshBirthdayDay(); });
+        
+        refereshBirthdayDay();
 </script>
 {include file='foot.dwt'}
 </body>
