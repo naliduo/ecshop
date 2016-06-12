@@ -85,7 +85,7 @@
         <script type="text/javascript">
             jQuery("li.categories").hover(function(e){
                 jQuery( "li.categories img" )[0].src="themes/xm2013/images/shop_home_category_2.png";
-                var left = jQuery("div.submenu").prev().css("margin-left");
+                var left = jQuery("div.submenu").prev().offset().left + "px";
                 jQuery("div.submenu").css("left",left);
                 jQuery("div.submenu").show();
             },function(e){
