@@ -346,6 +346,7 @@ elseif ($action == 'act_register')
     {
         include_once(ROOT_PATH . 'includes/lib_passport.php');
 
+        $birthday = trim($_POST['birthdayYear']) .'-'. trim($_POST['birthdayMonth']) .'-'. trim($_POST['birthdayDay']);
         $username = isset($_POST['username']) ? trim($_POST['username']) : '';
         $password = isset($_POST['password']) ? trim($_POST['password']) : '';
         $email    = isset($_POST['email']) ? trim($_POST['email']) : '';
@@ -398,7 +399,7 @@ elseif ($action == 'act_register')
             }
         }
 
-        if (register($username, $password, $email, $other) !== false)
+        if (register($username, $password, $email, $other,$birthday) !== false)
         {
         //echo '111';
         //die;
@@ -468,7 +469,9 @@ elseif ($action == 'act_register')
                 $sql = 'INSERT INTO '. $ecs->table('reg_extend_info') . ' (`user_id`, `reg_field_id`, `content`) VALUES' . $extend_field_str;
                 $db->query($sql);
             }
-
+            $sql = 'UPDATE ' . $ecs->table('users') . " SET `birthday`='$birthday'  WHERE `user_id`='" . $_SESSION['user_id'] . "'";              
+            $db->query($sql);
+            
             /* 写入密码提示问题和答案 */
             if (!empty($passwd_answer) && !empty($sel_question))
             {

@@ -787,6 +787,7 @@ elseif ($act == 'act_register')
 //die;
 		include_once(ROOT_PATH . 'includes/lib_passport.php');
 
+        $birthday = trim($_POST['birthdayYear']) .'-'. trim($_POST['birthdayMonth']) .'-'. trim($_POST['birthdayDay']);
 		$username = isset($_POST['username']) ? trim($_POST['username']) : '';
 		$password = isset($_POST['password']) ? trim($_POST['password']) : '';
 		$email	= isset($_POST['email']) ? trim($_POST['email']) : '';
@@ -803,7 +804,7 @@ elseif ($act == 'act_register')
         //echo '222';
         //die;
         
-		if (m_register($username, $password, $email, $other) !== false)
+		if (m_register($username, $password, $email, $other,$birthday) !== false)
 		{
         //echo '333';
         //die;
@@ -829,6 +830,9 @@ elseif ($act == 'act_register')
 				$db->query($sql);
 			}
 
+            $sql = 'UPDATE ' . $ecs->table('users') . " SET `birthday`='$birthday'  WHERE `user_id`='" . $_SESSION['user_id'] . "'";              
+            $db->query($sql);
+            
 			/* 写入密码提示问题和答案 */
 			if (!empty($passwd_answer) && !empty($sel_question))
 			{
@@ -1420,7 +1424,7 @@ function show_user_center()
 /**
  * 手机注册
  */
-function m_register($username, $password, $email, $other = array())
+function m_register($username, $password, $email, $other = array(), $birthday)
 {
 	/* 检查username */
 	if (empty($username))
@@ -1495,10 +1499,10 @@ function m_register($username, $password, $email, $other = array())
             $GLOBALS['db']->query($sql);
         }
         
-        $birthday = isset($_POST['birthday_month']) ? compile_str(date('Y')."-".trim($_POST['birthday_month'])."-".trim($_POST['birthday_day'])) : '';
-        echo $birthday;
+        //$birthday = isset($_POST['birthday_month']) ? compile_str(date('Y')."-".trim($_POST['birthday_month'])."-".trim($_POST['birthday_day'])) : '';
+        //echo $birthday;
         $sql = 'UPDATE ' . $GLOBALS['ecs']->table('users') . " SET `birthday`='".$birthday."' WHERE `user_id`='" . $_SESSION['user_id'] . "'";
-        echo $sql;
+        //echo $sql;
         $GLOBALS['db']->query($sql);        
         
         

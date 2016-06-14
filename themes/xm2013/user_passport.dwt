@@ -185,6 +185,10 @@ _mvq.push(['$logConversion']);
 			  <input name="extend_field{$field.id}" id="extend_field{$field.id}" type="text" size="25" class="inputBg" /><!-- {if $field.is_need} --><span style="color:#FF0000"> *</span><!-- {/if} -->
 			  </td>
 			</tr>
+         <tr>
+             <td width="28%" align="right" bgcolor="#FFFFFF">{$lang.birthday}</td>
+             <td width="72%" align="left" bgcolor="#FFFFFF"> {html_select_date field_order=YMD prefix=birthday start_year=-60 end_year=+1 display_days=true month_format=%m day_value_format=%02d time=this.birthday} </td>
+         </tr>
 		<!-- {/if} -->
 	<!-- {else} -->
         <tr>

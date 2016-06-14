@@ -139,7 +139,7 @@
             <li><div class="leftinput"><font style="color:#FF0000"> *</font>手机</div>
             <div class="rightinput"><input name="extend_field5" id="extend_field5" placeholder="手机" type="text" class="tipInput"></div><div style="clear:both;"></div>
             </li>
-            <li><div class="leftinput"><font style="color:#FF0000"> *</font>生日</div>
+            <!--<li><div class="leftinput"><font style="color:#FF0000"> *</font>生日</div>
             <div class="rightinput">
             <select name="birthday_month" id="birthday_month" type="text" class="tipInput" style="width: 40%">
             <option value ="1">1</option>
@@ -160,6 +160,13 @@
             </select>
             日
             </div><div style="clear:both;"></div>
+            </li>-->
+         
+            <li>
+            <div class="leftinput"><font style="color:#FF0000"> *</font>出生日期</div>
+             <div class="rightinput">
+             {html_select_date field_order=YMD prefix=birthday start_year=-60 end_year=+1 display_days=true month_format=%m day_value_format=%02d time=this.birthday}
+            </div>
             </li>
             
             <li>

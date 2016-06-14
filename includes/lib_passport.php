@@ -29,7 +29,7 @@ if (!defined('IN_ECS'))
  *
  * @return  bool         $bool
  */
-function register($username, $password, $email, $other = array())
+function register($username, $password, $email, $other = array(), $birthday)
 {
     /* 检查注册是否关闭 */
     if (!empty($GLOBALS['_CFG']['shop_reg_closed']))
